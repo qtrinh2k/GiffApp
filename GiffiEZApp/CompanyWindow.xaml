@@ -1,0 +1,42 @@
+﻿<Window x:Class="GiffiEZApp.CompanyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GiffiEZApp"
+        mc:Ignorable="d"
+        Title="Create New Company" d:DesignHeight="300" d:DesignWidth="300" FontSize="14" Foreground="#FFE0E0E0" Height="400" Width="400" Top="150" Left="150" >
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="50" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Name="lblName" Content="Company Name" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="0" Grid.Column="1" Name="tbxName" Margin="1" Width="200" HorizontalAlignment="Left" TabIndex="0"/>
+        <Label Grid.Row="1" Grid.Column="0" Name="lblAddress1" Content="Address" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="tbxAddress1" Margin="1" Width="250" HorizontalAlignment="Left" TabIndex="1"/>
+        <Label Grid.Row="2" Grid.Column="0" Name="lblAddress2" Content="Address2" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Name="tbxAddress2" Margin="1" Width="150" HorizontalAlignment="Left" TabIndex="2"/>
+        <Label Grid.Row="3" Grid.Column="0" Name="lblCity" Content="City" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="3" Grid.Column="1" Name="tbxCity" Width="100" HorizontalAlignment="Left" TabIndex="3"/>
+        <Label Grid.Row="4" Grid.Column="0" Name="lblState" Content="State" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="tbxState" Width="50" HorizontalAlignment="Left" TabIndex="4"/>
+        <Label Grid.Row="5" Grid.Column="0" Name="lblZip" Content="Zip" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="5" Grid.Column="1" Name="tbxZip" Width="50" HorizontalAlignment="Left" TabIndex="5"/>
+        <Label Grid.Row="6" Grid.Column="0" Name="lblCountry" Content="Country" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="6" Grid.Column="1" Name="tbxCountry" Width="100" HorizontalAlignment="Left" TabIndex="6"/>
+        <Button Grid.Row="7" Grid.Column="1" Name="btnCompanySubmit" Content="Create" Width="100" HorizontalAlignment="Left" Margin="0,20,0,0" TabIndex="7" Click="btnCompanySubmit_Click"/>
+    </Grid>
+    
+</Window>

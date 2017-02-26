@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="GiffiEZApp.UserControlCompany"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GiffiEZApp"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400" FontSize="14" Foreground="#FFE0E0E0">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+            <RowDefinition Height="1*" MaxHeight="30" />
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Grid.Column="0" Name="lblName" Content="Company Name" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="0" Grid.Column="1" Name="tbxName" Margin="1"/>
+        <Label Grid.Row="1" Grid.Column="0" Name="lblAddress1" Content="Address" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="tbxAddress1" Margin="1"/>
+        <Label Grid.Row="2" Grid.Column="0" Name="lblAddress2" Content="Address2" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Name="tbxAddress2" Margin="1"/>
+        <Label Grid.Row="3" Grid.Column="0" Name="lblCity" Content="City" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="3" Grid.Column="1" Name="tbxCity" Margin="1,1,165,1"/>
+        <Label Grid.Row="4" Grid.Column="0" Name="lblState" Content="State" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="tbxState" Margin="1,1,206,1"/>
+        <Label Grid.Row="5" Grid.Column="0" Name="lblZip" Content="Zip" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="5" Grid.Column="1" Name="tbxZip" Margin="1,1,206,1"/>
+        <Label Grid.Row="6" Grid.Column="0" Name="lblCountry" Content="Country" HorizontalAlignment="Right" Margin="1"></Label>
+        <TextBox Grid.Row="6" Grid.Column="1" Name="tbxCountry" Margin="1,1,165,1"/>
+    </Grid>
+</UserControl>

@@ -8,6 +8,7 @@
     [GRS]            NCHAR (10)   NOT NULL,
     [Truck]          NCHAR (10)   NOT NULL,
     [Invoice]        NCHAR (10)   NOT NULL,
+	[CreatedDate] DATETIME DEFAULT GETDATE(),
     PRIMARY KEY CLUSTERED ([CarrierCode] ASC, [Id] ASC)
 );
 

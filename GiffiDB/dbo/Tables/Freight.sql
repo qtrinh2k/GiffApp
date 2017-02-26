@@ -9,6 +9,7 @@
     [Amount COL] FLOAT (53) NOT NULL,
     [BrkRate]    FLOAT (53) NOT NULL,
     [BrkAmount]  FLOAT (53) NOT NULL,
+	[CreatedDate] DATETIME DEFAULT GETDATE(),
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

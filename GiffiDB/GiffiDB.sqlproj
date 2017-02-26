@@ -79,7 +79,7 @@
     <Build Include="dbo\InsertCarrier.sql" />
     <Build Include="dbo\InsertAccountingCode.sql" />
     <Build Include="dbo\InsertLocation.sql" />
-    <Build Include="dbo\InsertAddress.sql" />
+    <Build Include="dbo\InsertCompany.sql" />
     <Build Include="dbo\GetCompanyById.sql" />
     <Build Include="dbo\GetFreightById.sql" />
     <Build Include="dbo\GetAccountingCodeById.sql" />
