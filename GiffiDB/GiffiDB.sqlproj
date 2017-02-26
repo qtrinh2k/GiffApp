@@ -85,6 +85,7 @@
     <Build Include="dbo\GetAccountingCodeById.sql" />
     <Build Include="dbo\GetAllAccountingCode.sql" />
     <Build Include="dbo\GetAllCompanyName.sql" />
+    <Build Include="dbo\InsertBookingReference.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Snapshots\GiffiDB_20170219_15-15-06.dacpac" />

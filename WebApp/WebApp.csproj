@@ -140,6 +140,16 @@
       <LastGenOutput>CampanyEntityFramework.cs</LastGenOutput>
     </Content>
     <Content Include="Carrier.aspx" />
+    <Content Include="CarrierEntityFramework.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CarrierEntityFramework.edmx</DependentUpon>
+      <LastGenOutput>CarrierEntityFramework.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CarrierEntityFramework.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CarrierEntityFramework.edmx</DependentUpon>
+      <LastGenOutput>CarrierEntityFramework.cs</LastGenOutput>
+    </Content>
     <Content Include="Company.aspx" />
     <Content Include="GiffiEntityFramework.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -172,6 +182,13 @@
     </EntityDeploy>
     <Content Include="CampanyEntityFramework.edmx.diagram">
       <DependentUpon>CampanyEntityFramework.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="CarrierEntityFramework.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CarrierEntityFramework.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="CarrierEntityFramework.edmx.diagram">
+      <DependentUpon>CarrierEntityFramework.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -212,6 +229,7 @@
     </Compile>
     <Compile Include="Booking.cs">
       <DependentUpon>GiffiEntityFramework.tt</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CampanyEntityFramework.Context.cs">
       <AutoGen>True</AutoGen>
@@ -235,6 +253,25 @@
     <Compile Include="Carrier.aspx.designer.cs">
       <DependentUpon>Carrier.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Carrier.cs">
+      <DependentUpon>CarrierEntityFramework.tt</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CarrierEntityFramework.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarrierEntityFramework.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CarrierEntityFramework.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarrierEntityFramework.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CarrierEntityFramework.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarrierEntityFramework.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Company.aspx.cs">
       <DependentUpon>Company.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -244,6 +281,7 @@
     </Compile>
     <Compile Include="Company.cs">
       <DependentUpon>CampanyEntityFramework.tt</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="GiffiEntityFramework.Context.cs">
       <AutoGen>True</AutoGen>

@@ -7,10 +7,10 @@
 	@carrierId int,
 	@vessel nvarchar(50),
 	@vsl nchar(10),
-	@originId int,
-	@loadId int,
-	@dischargeId int,
-	@destinationId int,
+	@origin nvarchar(50),
+	@load nvarchar(50),
+	@discharge nvarchar(50),
+	@destination nvarchar(50),
 	@commodity nvarchar(200),
 	@equiment nvarchar(100),
 	@temp nchar(10),
@@ -20,6 +20,8 @@
 )
 AS
 BEGIN
+	Declare @bookingId as Int
+
 	BEGIN TRAN 
 		INSERT INTO Booking (          
 	[CreatedBy],     
@@ -30,10 +32,10 @@ BEGIN
 	[CarrierId],    
 	[Vessel],     
 	[VSL],       
-	[OriginId],
-	[LoadId],     
-	[DischargeId],
-	[DestinationId],
+	[Origin],
+	[Load],     
+	[Discharge],
+	[Destination],
 	[Commodity],
 	[Equiment],    
 	[Temp],     
@@ -49,10 +51,10 @@ BEGIN
 	@carrierId,
 	@vessel,
 	@vsl,
-	@originId,
-	@loadId,
-	@dischargeId,
-	@destinationId,
+	@origin,
+	@load,
+	@discharge,
+	@destination,
 	@commodity,
 	@equiment,
 	@temp,
@@ -60,6 +62,12 @@ BEGIN
 	@status,
 	@notes
 )
+
 	COMMIT TRAN
+	
+	 set @bookingId = SCOPE_IDENTITY()
+	 
+	return @bookingId
+
 END
 GO

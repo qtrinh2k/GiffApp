@@ -70,9 +70,9 @@
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                         <ul class="nav navbar-nav">
-                            <li><a href="#">Home</a></li>
+                            <li><a href="Index.aspx">Home</a></li>
                             <li class="active"><a href="Booking.aspx">Booking</a></li>
-                            <li><a href="Management.apsx">Management</a></li>
+                            <li><a href="Management.aspx">Management</a></li>
                             <li><a href="Accounting.aspx">Accounting</a></li>
                         </ul>
                     </div>
@@ -131,32 +131,44 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
+                                    <label>Vessel: </label>
+                                    <asp:TextBox ID="txtVessel" class="form-control" TabIndex="5" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtVessel" runat="server" />
+                                </div>
+                                <div class="col-sm-6 form-group">
+                                    <label>VSL: </label>
+                                    <asp:TextBox ID="txtVSL" class="form-control" TabIndex="6" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtVSL" runat="server" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
                                     <label>Discharge: </label>
-                                    <asp:TextBox ID="txtDischarge" class="form-control" TabIndex="5" runat="server" />
+                                    <asp:TextBox ID="txtDischarge" class="form-control" TabIndex="7" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDischarge" runat="server" />
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label>Destination: </label>
-                                    <asp:TextBox ID="txtDest" class="form-control" TabIndex="6" runat="server" />
+                                    <asp:TextBox ID="txtDest" class="form-control" TabIndex="8" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDest" runat="server" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Origin: </label>
-                                    <asp:TextBox ID="txtOrigin" class="form-control" TabIndex="7" runat="server" />
+                                    <asp:TextBox ID="txtOrigin" class="form-control" TabIndex="9" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtOrigin" runat="server" />
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label>Load: </label>
-                                    <asp:TextBox ID="txtLoad" class="form-control" TabIndex="8" runat="server" />
+                                    <asp:TextBox ID="txtLoad" class="form-control" TabIndex="10" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtLoad" runat="server" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Commodity: </label>
-                                    <asp:TextBox ID="txtCommod" class="form-control" TabIndex="9" runat="server" />
+                                    <asp:TextBox ID="txtCommod" class="form-control" TabIndex="11" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCommod" runat="server" />
                                 </div>
                             </div>
@@ -164,17 +176,17 @@
                                 <div class="form-inline">
                                     <div class="col-sm-6 form-group">
                                         <label>Equiq: </label>
-                                        <asp:TextBox ID="txtEquiq1" class="form-control" TabIndex="10" runat="server" />
-                                        <asp:TextBox ID="txtEquiq2" class="form-control" TabIndex="11" runat="server" />
+                                        <asp:TextBox ID="txtEquiq1" class="form-control" TabIndex="12" runat="server" />
+                                        <asp:TextBox ID="txtEquiq2" class="form-control" TabIndex="13" runat="server" />
                                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtEquiq1" runat="server" />
                                     </div>
                                     <div class="col-sm-3 form-group">
                                         <label>Temp: </label>
-                                        <asp:TextBox ID="txtTemp" class="form-control" TabIndex="12" runat="server" />
+                                        <asp:TextBox ID="txtTemp" class="form-control" TabIndex="14" runat="server" />
                                     </div>
                                     <div class="col-sm-3 form-group">
                                         <label>Vents: </label>
-                                        <asp:TextBox ID="txtVents" class="form-control" TabIndex="13" runat="server" />
+                                        <asp:TextBox ID="txtVents" class="form-control" TabIndex="15" runat="server" />
                                     </div>
                                 </div>
                             </div>

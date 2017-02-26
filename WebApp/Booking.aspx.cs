@@ -43,13 +43,24 @@ namespace WebApp
                                   where c.CompanyName.StartsWith(pre)
                                   select c.CompanyName).Distinct().ToList();
             }
-            //using (MyDatabaseEntities dc = new MyDatabaseEntities())
-            //{
-            //    allCompanyName = (from a in dc.TopCompanies
-            //                      where a.CompanyName.StartsWith(pre)
-            //                      select a.CompanyName).ToList();
-            //}
+
             return allCompanyName;
+        }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static List<string> GetCarrierName(string pre)
+        {
+            List<string> carrierNames = new List<string>(); //{ "AZ Carrier", "HM Freight", "MTV Carrier" };
+
+            using (var dc = new GiffiCarrierEntities())
+            {
+                carrierNames = (from c in dc.Carriers
+                                 where c.CarrierName.StartsWith(pre)
+                                 select c.CarrierName).Distinct().ToList();
+            }
+
+            return carrierNames;
         }
 
         protected void AddNewBooking_Click(object sender, EventArgs e)
@@ -58,25 +69,33 @@ namespace WebApp
 
             using (SqlConnection con = new SqlConnection(dbAccess.ConnectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("InsertCompany", con))
+                using (SqlCommand cmd = new SqlCommand("InsertBooking", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@createdBy", SqlDbType.NVarChar).Value = txtCreatedBy.Text.Trim();
                     cmd.Parameters.Add("@createdTime", SqlDbType.NVarChar).Value = txtDate.Text.Trim();
-                    cmd.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = txtBillTo.Text.Trim();
-                    cmd.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = txtBillTo.Text.Trim();
-                    cmd.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = txtBillTo.Text.Trim();
-                    cmd.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = txtBillTo.Text.Trim();
-                    cmd.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = txtBillTo.Text.Trim();
-                    cmd.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = txtBillTo.Text.Trim();
-                    cmd.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = txtBillTo.Text.Trim();
-                    cmd.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = txtBillTo.Text.Trim();
+                    cmd.Parameters.Add("@modifyTime", SqlDbType.NVarChar).Value = txtDate.Text.Trim();
+                    cmd.Parameters.Add("@billToId", SqlDbType.Int).Value = GetCompanyIdFromName(txtBillTo.Text.Trim());
+                    cmd.Parameters.Add("@shipperId", SqlDbType.Int).Value = GetCompanyIdFromName(txtShipper.Text.Trim());
+                    cmd.Parameters.Add("@carrierId", SqlDbType.Int).Value = GetCarrierIdFromName(txtCarrier.Text.Trim());
+                    cmd.Parameters.Add("@vessel", SqlDbType.NVarChar).Value = txtVessel.Text.Trim();
+                    cmd.Parameters.Add("@vsl", SqlDbType.NVarChar).Value = txtVSL.Text.Trim();
+                    cmd.Parameters.Add("@origin", SqlDbType.NVarChar).Value = txtOrigin.Text.Trim();
+                    cmd.Parameters.Add("@load", SqlDbType.NVarChar).Value = txtLoad.Text.Trim();
+                    cmd.Parameters.Add("@discharge", SqlDbType.NVarChar).Value = txtDischarge.Text.Trim();
+                    cmd.Parameters.Add("@commodity", SqlDbType.NVarChar).Value = txtCommod.Text.Trim();
+                    cmd.Parameters.Add("@equiqment", SqlDbType.NVarChar).Value = txtEquiq1.Text.Trim() + txtEquiq2.Text.Trim();
+                    cmd.Parameters.Add("@temp", SqlDbType.NChar).Value = txtTemp.Text.Trim();
+                    cmd.Parameters.Add("@vents", SqlDbType.NChar).Value = txtVents.Text.Trim();
+                    cmd.Parameters.Add("@status", SqlDbType.NChar).Value = 1;
+                    cmd.Parameters.Add("@nottes", SqlDbType.NText).Value = txtNotes.Text.Trim();
                     con.Open();
                     var result = cmd.ExecuteNonQuery();
                 }
             }
 
+            //TODO: create submition page and return reference no.
             ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Successfully Submit');", true);
         }
 
@@ -93,5 +112,17 @@ namespace WebApp
             
         }
 
+        private int GetCarrierIdFromName(string carrierName)
+        {
+            using (var dc = new GiffiCarrierEntities())
+            {
+                var carrierId = (from c in dc.Carriers
+                                    where c.CarrierName.Equals(carrierName, StringComparison.InvariantCultureIgnoreCase)
+                                    select c.Id).Distinct().ToList();
+
+                return carrierId.FirstOrDefault();
+            }
+
+        }
     }
 }
