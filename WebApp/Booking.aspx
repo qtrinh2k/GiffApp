@@ -123,13 +123,14 @@
                             <div class="row">
                                 <div class="col-sm-3 form-group">
                                     <label>Person In Charge: </label>
-                                    <asp:TextBox ID="txtCreatedBy" class="form-control" TabIndex="1" runat="server" />
+                                    <asp:TextBox ID="txtCreatedBy" CssClass="form-control" TabIndex="1" runat="server" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>Bill To: </label>
-                                    <asp:TextBox ID="txtBillTo" class="form-control" TabIndex="2" runat="server" />
+                                    <label>Bill To (* -show all): </label>
+                                    <asp:TextBox ID="txtBillTo"  CssClass="form-control" TabIndex="2" runat="server" />
+                                    <asp:RequiredFieldValidator ID="rfvBillTo" ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtBillTo" runat="server" />
                                     <%--                                    <asp:DropDownList ID="ddlBillTo" class="form-control" TabIndex="2" runat="server">
                                     </asp:DropDownList>--%>
                                 </div>
@@ -138,64 +139,61 @@
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Shipper: </label>
-                                    <asp:TextBox ID="txtShipper" class="form-control" TabIndex="3" runat="server" />                                     
-                                    <%--<asp:DropDownList ID="ddlshipper" class="form-control" TabIndex="3" runat="server">
-                                    </asp:DropDownList>--%>
+                                    <asp:TextBox ID="txtShipper" CssClass="form-control" TabIndex="3" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtShipper" runat="server" />                                     
                                 </div>
                                  <div class="col-sm-6 form-group">
                                     <label>Reference Number: </label>
-                                    <asp:TextBox ID="txtShipperRef" class="form-control" TabIndex="8" runat="server" />
+                                    <asp:TextBox ID="txtShipperRef" CssClass="form-control" TabIndex="8" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDest" runat="server" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Carrier: </label>
-                                    <asp:TextBox ID="txtCarrier" class="form-control" TabIndex="4" runat="server" />
-                                    <%--                                    <asp:DropDownList ID="ddlCarrier" class="form-control" TabIndex="4" runat="server">
-                                    </asp:DropDownList> --%>
+                                    <asp:TextBox ID="txtCarrier" CssClass="form-control" TabIndex="4" runat="server" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Vessel: </label>
-                                    <asp:TextBox ID="txtVessel" class="form-control" TabIndex="5" runat="server" />
+                                    <asp:TextBox ID="txtVessel" CssClass="form-control" TabIndex="5" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtVessel" runat="server" />
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label>VSL: </label>
-                                    <asp:TextBox ID="txtVSL" class="form-control" TabIndex="6" runat="server" />
+                                    <asp:TextBox ID="txtVSL" CssClass="form-control" TabIndex="6" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtVSL" runat="server" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Origin: </label>
-                                    <asp:TextBox ID="txtOrigin" class="form-control" TabIndex="9" runat="server" />
+                                    <asp:TextBox ID="txtOrigin" CssClass="form-control" TabIndex="9" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtOrigin" runat="server" />
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label>Load: </label>
-                                    <asp:TextBox ID="txtLoad" class="form-control" TabIndex="10" runat="server" />
+                                    <asp:TextBox ID="txtLoad" CssClass="form-control" TabIndex="10" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtLoad" runat="server" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Discharge: </label>
-                                    <asp:TextBox ID="txtDischarge" class="form-control" TabIndex="7" runat="server" />
+                                    <asp:TextBox ID="txtDischarge" CssClass="form-control" TabIndex="7" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDischarge" runat="server" />
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label>Destination: </label>
-                                    <asp:TextBox ID="txtDest" class="form-control" TabIndex="8" runat="server" />
+                                    <asp:TextBox ID="txtDest" CssClass="form-control" TabIndex="8" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDest" runat="server" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Commodity: </label>
-                                    <asp:TextBox ID="txtCommod" class="form-control" TabIndex="11" runat="server" />
+                                    <asp:TextBox ID="txtCommod" CssClass="form-control" TabIndex="11" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCommod" runat="server" />
                                 </div>
                             </div>
@@ -203,17 +201,17 @@
                                 <div class="form-inline">
                                     <div class="col-sm-6 form-group">
                                         <label>Equiq: </label>
-                                        <asp:TextBox ID="txtEquiq1" class="form-control" TabIndex="12" runat="server" />
-                                        <asp:TextBox ID="txtEquiq2" class="form-control" TabIndex="13" runat="server" />
+                                        <asp:TextBox ID="txtEquiq1" CssClass="form-control" TabIndex="12" runat="server" />
+                                        <asp:TextBox ID="txtEquiq2" CssClass="form-control" TabIndex="13" runat="server" />
                                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtEquiq1" runat="server" />
                                     </div>
                                     <div class="col-sm-3 form-group">
                                         <label>Temp: </label>
-                                        <asp:TextBox ID="txtTemp" class="form-control" TabIndex="14" runat="server" />
+                                        <asp:TextBox ID="txtTemp" CssClass="form-control" TabIndex="14" runat="server" />
                                     </div>
                                     <div class="col-sm-3 form-group">
                                         <label>Vents: </label>
-                                        <asp:TextBox ID="txtVents" class="form-control" TabIndex="15" runat="server" />
+                                        <asp:TextBox ID="txtVents" CssClass="form-control" TabIndex="15" runat="server" />
                                     </div>
                                 </div>
                             </div>
@@ -221,7 +219,7 @@
                                 <label>Notes:</label>
                                 <asp:TextBox ID="txtNotes" placeholder="Write note here.." Rows="3" TabIndex="14" class="form-control" runat="server"></asp:TextBox>
                             </div>
-                            <asp:Button Text="Submit" class="btn btn-lg btn-info" TabIndex="15" runat="server" OnClick="AddNewBooking_Click" />
+                            <asp:Button Text="Submit" CssClass="btn btn-lg btn-info" TabIndex="15" runat="server" OnClick="AddNewBooking_Click" />
                         </div>
                     </form>
                 </div>

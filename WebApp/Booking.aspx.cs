@@ -39,9 +39,17 @@ namespace WebApp
 
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
-                allCompanyName = (from c in dc.Companies
-                                  where c.CompanyName.StartsWith(pre)
-                                  select c.CompanyName).Distinct().ToList();
+                if (pre.Equals("*"))
+                {
+                    allCompanyName = (from c in dc.Companies
+                                      select c.CompanyName).Distinct().ToList();
+                }
+                else
+                {
+                    allCompanyName = (from c in dc.Companies
+                                      where c.CompanyName.StartsWith(pre)
+                                      select c.CompanyName).Distinct().ToList();
+                }
             }
 
             return allCompanyName;
@@ -55,9 +63,18 @@ namespace WebApp
 
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
-                carrierNames = (from c in dc.Companies
-                                  where c.Code.StartsWith(pre) && c.CompanyType.Equals("Carrier", StringComparison.InvariantCultureIgnoreCase) 
-                                  select c.Code).Distinct().ToList();
+                if (pre.Equals("*"))
+                {
+                    carrierNames = (from c in dc.Companies
+                                    where c.CompanyType.Equals("Carrier", StringComparison.InvariantCultureIgnoreCase)
+                                    select c.Code).Distinct().ToList();
+                }
+                else
+                {
+                    carrierNames = (from c in dc.Companies
+                                    where c.Code.StartsWith(pre) && c.CompanyType.Equals("Carrier", StringComparison.InvariantCultureIgnoreCase)
+                                    select c.Code).Distinct().ToList();
+                }
             }
 
             return carrierNames;
@@ -112,17 +129,5 @@ namespace WebApp
             
         }
 
-        private int GetCarrierIdFromName(string carrierName)
-        {
-            using (var dc = new GiffiCarrierEntities())
-            {
-                var carrierId = (from c in dc.Carriers
-                                    where c.CarrierName.Equals(carrierName, StringComparison.InvariantCultureIgnoreCase)
-                                    select c.Id).Distinct().ToList();
-
-                return carrierId.FirstOrDefault();
-            }
-
-        }
     }
 }

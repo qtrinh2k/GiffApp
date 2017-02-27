@@ -8,7 +8,7 @@
     [Address2]    NCHAR (50)     NULL,
     [City]        NVARCHAR (25)  NOT NULL,
     [State]       NCHAR (10)     NOT NULL,
-    [Country]     NVARCHAR (25)  DEFAULT ('USA') NOT NULL,
+    [Country]     NVARCHAR (25)  NOT NULL,
     [ZipCode]     NCHAR(10)   NULL,
     [ZipCode2]    NCHAR(5)   NULL,
     [Phone] NCHAR(15) NULL, 
