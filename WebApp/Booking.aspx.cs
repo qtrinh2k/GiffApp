@@ -9,7 +9,6 @@ using System.Web.Services;
 using System.Data;
 using System.Data.Sql;
 using System.Data.SqlClient;
-using GiffiEZApp.BusinessObjects;
 
 namespace WebApp
 {

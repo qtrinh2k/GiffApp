@@ -134,6 +134,7 @@
   <ItemGroup>
     <Content Include="Booking.aspx" />
     <Content Include="Carrier.aspx" />
+    <Content Include="CompanyOLD.aspx" />
     <Content Include="Company.aspx" />
     <Content Include="CompanyModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -162,7 +163,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <Content Include="Company.cshtml" />
     <EntityDeploy Include="GiffiEntityFramework.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>GiffiEntityFramework.Designer.cs</LastGenOutput>
@@ -199,7 +199,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
-    <Content Include="Home.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -224,6 +223,13 @@
     </Compile>
     <Compile Include="Carrier.aspx.designer.cs">
       <DependentUpon>Carrier.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyOLD.aspx.cs">
+      <DependentUpon>CompanyOLD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyOLD.aspx.designer.cs">
+      <DependentUpon>CompanyOLD.aspx</DependentUpon>
     </Compile>
     <Compile Include="Company.aspx.cs">
       <DependentUpon>Company.aspx</DependentUpon>
@@ -251,6 +257,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CompanyModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\CompanyRepository.cs" />
+    <Compile Include="DataAccess\DataAccessBase.cs" />
     <Compile Include="GiffiEntityFramework.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -265,13 +273,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GiffiEntityFramework.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Home.aspx.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Home.aspx.designer.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
@@ -288,12 +289,6 @@
       <DependentUpon>Management.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj">
-      <Project>{2c270392-4861-4520-a2d1-fc69ba25d760}</Project>
-      <Name>BusinessObjects</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

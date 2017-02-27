@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Booking] (
-    [Id]            INT            NOT NULL,
+    [Id]            INT            NOT NULL PRIMARY KEY IDENTITY(86000,1),
     [CreatedBy]     NCHAR (50)     NOT NULL,
     [CreatedTime]   DATETIME       NOT NULL DEFAULT GETDATE(),
     [ModifiedTime]  DATETIME       NOT NULL DEFAULT GETDATE(),
@@ -18,7 +18,6 @@
     [Vents]         NCHAR (10)     NOT NULL,
     [Notes]         ntext NULL,
     [Status]		NCHAR(10) NULL, 
-    PRIMARY KEY CLUSTERED ([Id] ASC), 
 	CONSTRAINT [FK_Booking_BillTo] FOREIGN KEY ([BillToId]) REFERENCES [Company]([Id]),
 	CONSTRAINT [FK_Booking_Shipper] FOREIGN KEY ([ShipperId]) REFERENCES [Company]([Id]),
 	CONSTRAINT [FK_Booking_Carrier] FOREIGN KEY ([CarrierId]) REFERENCES [Company]([Id])

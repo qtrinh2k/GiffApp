@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Company.aspx.cs" Inherits="WebApp.Company" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CompanyOLD.aspx.cs" Inherits="WebApp.Company" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,17 +11,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+    <!--
     <div class="jumbotron text-center">
         <h1>General International Freight Forwarders, Inc.</h1>
     </div>
-<!--
-            <div class="col-lg-12 well">
-                <h4>New Booking</h4>
-                <div class="row">
-                    <form runat="server">
-                        <div class="col-sm-12">
-    -->
 
     <div class="container">
         <div class="row">
@@ -38,46 +31,12 @@
                 </nav>
 
             </div>
-        </div>
-        <div class="col-lg-12">
-            <h4>New Company Info</h4>
-            <div class="row">
-                <form runat="server">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="form-inline">
-                                <div class="col-sm-6 form-group">
-                                    <label class="control-label col-sm-1" for="company">Name</label>
-                                    <div class="col-sm-5">
-                                        <asp:TextBox class="form-control" ID="txtCompanyName" runat="server" />
-                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCompanyName" runat="server" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 form-group">
-                                    <label class="control-label col-sm-1" for="company">Type</label>
-                                    <asp:DropDownList ID="ddlType" CssClass="form-group" runat="server">
-                                        <asp:ListItem Text="Vendor" Value="Vendor" />
-                                        <asp:ListItem Text="Carrier" Value="Carrier" />
-                                        <asp:ListItem Text="Both" Value="Both" />
-                                    </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="ddlType" runat="server" />
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-<!--            
-    <div class="col-sm-3">
+<%--            <div class="col-sm-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">New Company</div>
                     <div class="panel-heading"><a href="Carrier.aspx">Add Carrier</a></div>
                 </div>
             </div>
-
             <div class="col-sm-9">
                 <form class="form-horizontal">
                     <div class="form-group">
@@ -87,7 +46,7 @@
                         <button type="submit" class="btn btn-default">Search</button>
                     </div>
                 </form>
-            </div>
+            </div>--%>
 
             <div class="col-sm-12">
                 <div class="panel panel-primary">
