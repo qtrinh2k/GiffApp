@@ -37,7 +37,7 @@ namespace WebApp
         {
             List<string> allCompanyName = new List<string>(); //{ "Giffi", "HM Freight", "ABC" };
 
-            using (GiffiCompanyEntities dc = new GiffiCompanyEntities())
+            using (GiffiDBEntities dc = new GiffiDBEntities())
             {
                 allCompanyName = (from c in dc.Companies
                                   where c.CompanyName.StartsWith(pre)
@@ -49,15 +49,15 @@ namespace WebApp
 
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static List<string> GetCarrierName(string pre)
+        public static List<string> GetCarrierCode(string pre)
         {
             List<string> carrierNames = new List<string>(); //{ "AZ Carrier", "HM Freight", "MTV Carrier" };
 
-            using (var dc = new GiffiCarrierEntities())
+            using (GiffiDBEntities dc = new GiffiDBEntities())
             {
-                carrierNames = (from c in dc.Carriers
-                                 where c.CarrierName.StartsWith(pre)
-                                 select c.CarrierName).Distinct().ToList();
+                carrierNames = (from c in dc.Companies
+                                  where c.Code.StartsWith(pre) && c.CompanyType.Equals("Carrier", StringComparison.InvariantCultureIgnoreCase) 
+                                  select c.Code).Distinct().ToList();
             }
 
             return carrierNames;
@@ -78,7 +78,7 @@ namespace WebApp
                     cmd.Parameters.Add("@modifyTime", SqlDbType.NVarChar).Value = txtDate.Text.Trim();
                     cmd.Parameters.Add("@billToId", SqlDbType.Int).Value = GetCompanyIdFromName(txtBillTo.Text.Trim());
                     cmd.Parameters.Add("@shipperId", SqlDbType.Int).Value = GetCompanyIdFromName(txtShipper.Text.Trim());
-                    cmd.Parameters.Add("@carrierId", SqlDbType.Int).Value = GetCarrierIdFromName(txtCarrier.Text.Trim());
+                    cmd.Parameters.Add("@carrierId", SqlDbType.Int).Value = txtCarrier;
                     cmd.Parameters.Add("@vessel", SqlDbType.NVarChar).Value = txtVessel.Text.Trim();
                     cmd.Parameters.Add("@vsl", SqlDbType.NVarChar).Value = txtVSL.Text.Trim();
                     cmd.Parameters.Add("@origin", SqlDbType.NVarChar).Value = txtOrigin.Text.Trim();
@@ -101,7 +101,7 @@ namespace WebApp
 
         private int GetCompanyIdFromName(string companyName)
         {
-            using (GiffiCompanyEntities dc = new GiffiCompanyEntities())
+            using (GiffiDBEntities dc = new GiffiDBEntities())
             {
                 var allCompanyId = (from c in dc.Companies
                                   where c.CompanyName.Equals(companyName, StringComparison.InvariantCultureIgnoreCase)

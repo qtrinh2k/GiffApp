@@ -129,16 +129,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Booking.aspx" />
-    <Content Include="CampanyEntityFramework.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CampanyEntityFramework.edmx</DependentUpon>
-      <LastGenOutput>CampanyEntityFramework.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="CampanyEntityFramework.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CampanyEntityFramework.edmx</DependentUpon>
-      <LastGenOutput>CampanyEntityFramework.cs</LastGenOutput>
-    </Content>
     <Content Include="Carrier.aspx" />
     <Content Include="CarrierEntityFramework.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -151,6 +141,16 @@
       <LastGenOutput>CarrierEntityFramework.cs</LastGenOutput>
     </Content>
     <Content Include="Company.aspx" />
+    <Content Include="CompanyModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CompanyModel.edmx</DependentUpon>
+      <LastGenOutput>CompanyModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CompanyModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CompanyModel.edmx</DependentUpon>
+      <LastGenOutput>CompanyModel.cs</LastGenOutput>
+    </Content>
     <Content Include="GiffiEntityFramework.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GiffiEntityFramework.edmx</DependentUpon>
@@ -176,19 +176,19 @@
     <Content Include="GiffiEntityFramework.edmx.diagram">
       <DependentUpon>GiffiEntityFramework.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="CampanyEntityFramework.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CampanyEntityFramework.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="CampanyEntityFramework.edmx.diagram">
-      <DependentUpon>CampanyEntityFramework.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="CarrierEntityFramework.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CarrierEntityFramework.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="CarrierEntityFramework.edmx.diagram">
       <DependentUpon>CarrierEntityFramework.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="CompanyModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CompanyModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="CompanyModel.edmx.diagram">
+      <DependentUpon>CompanyModel.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -231,21 +231,6 @@
       <DependentUpon>GiffiEntityFramework.tt</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CampanyEntityFramework.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CampanyEntityFramework.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CampanyEntityFramework.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CampanyEntityFramework.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CampanyEntityFramework.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CampanyEntityFramework.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Carrier.aspx.cs">
       <DependentUpon>Carrier.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -280,8 +265,23 @@
       <DependentUpon>Company.aspx</DependentUpon>
     </Compile>
     <Compile Include="Company.cs">
-      <DependentUpon>CampanyEntityFramework.tt</DependentUpon>
+      <DependentUpon>CompanyModel.tt</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompanyModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompanyModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="GiffiEntityFramework.Context.cs">
       <AutoGen>True</AutoGen>

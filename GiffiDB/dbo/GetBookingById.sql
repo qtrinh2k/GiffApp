@@ -7,7 +7,6 @@ AS
 		b.ModifiedTime, 
 		(SELECT TOP 1 CompanyName FROM [dbo].[Company] WHERE b.BillToId = Id) AS [BILLTO],
 		(SELECT TOP 1 CompanyName FROM [dbo].[Company] WHERE b.ShipperId = Id) AS [SHIPPER],
-		(SELECT TOP 1 CarrierName FROM [dbo].[Carrier] WHERE b.CarrierId = Id) AS [CARRIER],
 		b.Vessel, 
 		b.VSL,
 		b.Origin,

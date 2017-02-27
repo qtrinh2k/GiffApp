@@ -22,13 +22,13 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtDate;
         
         /// <summary>
-        /// txtPIC control.
+        /// txtGiffRef control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPIC;
+        protected global::System.Web.UI.WebControls.TextBox txtGiffRef;
         
         /// <summary>
         /// txtCreatedBy control.
@@ -58,6 +58,15 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtShipper;
         
         /// <summary>
+        /// txtShipperRef control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtShipperRef;
+        
+        /// <summary>
         /// txtCarrier control.
         /// </summary>
         /// <remarks>
@@ -85,24 +94,6 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtVSL;
         
         /// <summary>
-        /// txtDischarge control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDischarge;
-        
-        /// <summary>
-        /// txtDest control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDest;
-        
-        /// <summary>
         /// txtOrigin control.
         /// </summary>
         /// <remarks>
@@ -119,6 +110,24 @@ namespace WebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLoad;
+        
+        /// <summary>
+        /// txtDischarge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDischarge;
+        
+        /// <summary>
+        /// txtDest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDest;
         
         /// <summary>
         /// txtCommod control.

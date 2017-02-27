@@ -56,6 +56,28 @@
                 }
             });
         });
+
+        $(function () {
+            $('#<%=txtCarrier.ClientID%>').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "Booking.aspx/GetCarrierCode",
+                        data: "{ 'pre':'" + request.term + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return { value: item }
+                            }))
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                }
+            });
+        });
     </script>
 </head>
 <body>
@@ -92,15 +114,15 @@
                                         <asp:TextBox ID="txtDate" class="form-control" runat="server" />
                                     </div>
                                     <div class="col-sm-6 form-group">
-                                        <label>PIC: </label>
-                                        <asp:TextBox ID="txtPIC" class="form-control" TabIndex="0" runat="server" />
+                                        <label>GIFFI REF:</label>
+                                        <asp:TextBox ID="txtGiffRef" class="form-control" TabIndex="0" runat="server" Enabled="false" />
                                     </div>
                                 </div>
 
                             </div>
                             <div class="row">
                                 <div class="col-sm-3 form-group">
-                                    <label>Created By: </label>
+                                    <label>Person In Charge: </label>
                                     <asp:TextBox ID="txtCreatedBy" class="form-control" TabIndex="1" runat="server" />
                                 </div>
                             </div>
@@ -116,9 +138,14 @@
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Shipper: </label>
-                                    <asp:TextBox ID="txtShipper" class="form-control" TabIndex="3" runat="server" />
+                                    <asp:TextBox ID="txtShipper" class="form-control" TabIndex="3" runat="server" />                                     
                                     <%--<asp:DropDownList ID="ddlshipper" class="form-control" TabIndex="3" runat="server">
                                     </asp:DropDownList>--%>
+                                </div>
+                                 <div class="col-sm-6 form-group">
+                                    <label>Reference Number: </label>
+                                    <asp:TextBox ID="txtShipperRef" class="form-control" TabIndex="8" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDest" runat="server" />
                                 </div>
                             </div>
                             <div class="row">
@@ -143,18 +170,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>Discharge: </label>
-                                    <asp:TextBox ID="txtDischarge" class="form-control" TabIndex="7" runat="server" />
-                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDischarge" runat="server" />
-                                </div>
-                                <div class="col-sm-6 form-group">
-                                    <label>Destination: </label>
-                                    <asp:TextBox ID="txtDest" class="form-control" TabIndex="8" runat="server" />
-                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDest" runat="server" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 form-group">
                                     <label>Origin: </label>
                                     <asp:TextBox ID="txtOrigin" class="form-control" TabIndex="9" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtOrigin" runat="server" />
@@ -163,6 +178,18 @@
                                     <label>Load: </label>
                                     <asp:TextBox ID="txtLoad" class="form-control" TabIndex="10" runat="server" />
                                     <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtLoad" runat="server" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <label>Discharge: </label>
+                                    <asp:TextBox ID="txtDischarge" class="form-control" TabIndex="7" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDischarge" runat="server" />
+                                </div>
+                                <div class="col-sm-6 form-group">
+                                    <label>Destination: </label>
+                                    <asp:TextBox ID="txtDest" class="form-control" TabIndex="8" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDest" runat="server" />
                                 </div>
                             </div>
                             <div class="row">

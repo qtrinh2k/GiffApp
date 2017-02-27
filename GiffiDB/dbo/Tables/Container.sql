@@ -3,6 +3,7 @@
     [CarrierCode]    NCHAR (4)    NOT NULL,
     [BookingId]      INT          NOT NULL,
     [SealNumber]     NUMERIC (18) NOT NULL,
+	[ContainerNumber] nvarchar(15) NOT NULL,
     [PackagesWeight] FLOAT (53)   NOT NULL,
     [NetWeight]      FLOAT (53)   NOT NULL,
     [GRS]            NCHAR (10)   NOT NULL,

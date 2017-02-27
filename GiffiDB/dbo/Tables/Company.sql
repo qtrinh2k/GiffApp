@@ -1,7 +1,9 @@
 ﻿CREATE TABLE [dbo].[Company] (
     [Id]          INT	IDENTITY(1,1),
     [CompanyName] NVARCHAR (200)  NOT NULL,
-    [Attention]   NVARCHAR (100)  NULL,
+	[Code] NVARCHAR(25) NOT NULL, 
+	[CompanyType] NVARCHAR(15) NOT NULL, 
+    [FederalNumber] NVARCHAR(25) NOT NULL, 
     [Address1]    NVARCHAR (200) NOT NULL,
     [Address2]    NCHAR (50)     NULL,
     [City]        NVARCHAR (25)  NOT NULL,
@@ -12,6 +14,6 @@
     [Phone] NCHAR(15) NULL, 
     [Email] NVARCHAR(50) NULL, 
 	[CreatedDate] DATETIME DEFAULT GETDATE(),
-    PRIMARY KEY CLUSTERED ([Id] ASC), 
+    PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

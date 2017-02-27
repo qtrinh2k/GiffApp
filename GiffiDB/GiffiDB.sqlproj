@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{3e0b20b1-101c-4ff1-9d57-845ee6151f6a}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -86,8 +86,10 @@
     <Build Include="dbo\GetAllAccountingCode.sql" />
     <Build Include="dbo\GetAllCompanyName.sql" />
     <Build Include="dbo\InsertBookingReference.sql" />
+    <Build Include="dbo\Tables\CompanyType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Snapshots\GiffiDB_20170219_15-15-06.dacpac" />
+    <None Include="InsertData.sql" />
   </ItemGroup>
 </Project>

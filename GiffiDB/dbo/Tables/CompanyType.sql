@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[CompanyType]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1000,100), 
+    [Type] NCHAR(15) NOT NULL
+)

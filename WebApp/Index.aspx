@@ -33,15 +33,19 @@
             </div>
             <div class="col-sm-3">
                 <div class="panel panel-default">
-                    <div class="panel-heading">New Booking</div>
-                    <div class="panel-heading">Add Carrier</div>
+                    <div class="panel-heading"><a href="Booking.aspx">New Booking</a></div>
                 </div>
             </div>
             <div class="col-sm-9">
-                <form class="form-inline">
+                <form class="form-inline" runat="server">
                     <div class="form-group">
                         <input type="text" class="form-control" id="search" />
-                        <button type="submit" class="btn btn-default">Search</button>
+                        <asp:DropDownList CssClass="form-control" id="ddlOption" runat="server">
+                            <asp:ListItem Selected="True">GIFFI REF</asp:ListItem> 
+                            <asp:ListItem Text="Shipper REF">Shipper REF</asp:ListItem> 
+                            <asp:ListItem Text="Container REF">Container REF</asp:ListItem> 
+                        </asp:DropDownList>
+                        <button type="submit" class="btn btn-default">Search</button> <!-- GiffiId, ContainerNumber, ShipperRef -->
                     </div>
                 </form>
             </div>

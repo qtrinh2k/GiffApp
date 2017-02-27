@@ -21,6 +21,6 @@
     PRIMARY KEY CLUSTERED ([Id] ASC), 
 	CONSTRAINT [FK_Booking_BillTo] FOREIGN KEY ([BillToId]) REFERENCES [Company]([Id]),
 	CONSTRAINT [FK_Booking_Shipper] FOREIGN KEY ([ShipperId]) REFERENCES [Company]([Id]),
-	CONSTRAINT [FK_Booking_Carrier] FOREIGN KEY ([CarrierId]) REFERENCES [Carrier]([Id])
+	CONSTRAINT [FK_Booking_Carrier] FOREIGN KEY ([CarrierId]) REFERENCES [Company]([Id])
 );
 
