@@ -15,14 +15,6 @@
     <div class="jumbotron text-center">
         <h1>General International Freight Forwarders, Inc.</h1>
     </div>
-<!--
-            <div class="col-lg-12 well">
-                <h4>New Booking</h4>
-                <div class="row">
-                    <form runat="server">
-                        <div class="col-sm-12">
-    -->
-
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -39,150 +31,90 @@
 
             </div>
         </div>
-        <div class="col-lg-12">
+        <div class="col-lg-12 well">
             <h4>New Company Info</h4>
             <div class="row">
                 <form runat="server">
                     <div class="col-sm-12">
                         <div class="row">
-                            <div class="form-inline">
-                                <div class="col-sm-6 form-group">
-                                    <label class="control-label col-sm-1" for="company">Name</label>
-                                    <div class="col-sm-5">
-                                        <asp:TextBox class="form-control" ID="txtCompanyName" runat="server" />
-                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCompanyName" runat="server" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 form-group">
-                                    <label class="control-label col-sm-1" for="company">Type</label>
-                                    <asp:DropDownList ID="ddlType" CssClass="form-group" runat="server">
-                                        <asp:ListItem Text="Vendor" Value="Vendor" />
-                                        <asp:ListItem Text="Carrier" Value="Carrier" />
-                                        <asp:ListItem Text="Both" Value="Both" />
-                                    </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="ddlType" runat="server" />
-                                </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Name:</label>
+                                <asp:TextBox CssClass="form-control" ID="txtCompanyName" runat="server" />
+                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCompanyName" runat="server" />
                             </div>
-
+                            <div class="col-sm-2 form-group">
+                                <label>Type:</label>
+                                <asp:DropDownList ID="ddlType" CssClass="form-control" runat="server">
+                                    <asp:ListItem Text="Vendor" Value="Vendor" />
+                                    <asp:ListItem Text="Carrier" Value="Carrier" />
+                                    <asp:ListItem Text="Both" Value="Both" />
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="ddlType" runat="server" />
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-3 form-group">
+                                <label>Company Code:</label>
+                                <asp:TextBox CssClass="form-control" ID="txtCode" runat="server" />
+                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCode" runat="server" />
+                            </div>
+                            <div class="col-sm-3 form-group">
+                                <label>Federal No.</label>
+                                <asp:TextBox CssClass="form-control" ID="txtFederalNum" runat="server" />
+                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtFederalNum" runat="server" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Address1:</label>
+                                <asp:TextBox CssClass="form-control" ID="txtAddress1" runat="server" />
+                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtAddress1" runat="server" />
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label>Address2:</label>
+                                <asp:TextBox CssClass="form-control" ID="txtAddress2" runat="server" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 form-group">
+                                <label>City:</label>
+                                <asp:TextBox CssClass="form-control" ID="txtCity" Width="50%" runat="server" />
+                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCity" runat="server" />
+                            </div>
+                            <div class="col-sm-3 form-group">
+                                <label>State:</label>
+                                <asp:TextBox CssClass="form-control" ID="txtState" Width="50%" runat="server" />
+                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtState" runat="server" />
+                            </div>
+                            <div class="col-sm-3 form-group">
+                                <label>Zip Code:</label>
+                                <asp:TextBox CssClass="form-control" ID="txtZip" Width="30%" runat="server" />
+                                <asp:RegularExpressionValidator runat="server" Display="Dynamic" ValidationExpression="[0-9-]*" ControlToValidate="txtZip" ForeColor="Red" ErrorMessage="Invalid Zip code." />
+
+                            </div>
+                            <div class="col-sm-3 form-group">
+                                <label>Country:</label>
+                                <asp:TextBox CssClass="form-control" ID="txtCountry" runat="server" />
+                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCountry" runat="server" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Phone:</label>
+                                <asp:TextBox CssClass="form-control" ID="txtPhone" Width="50%" runat="server" />
+                                <asp:RegularExpressionValidator runat="server" Display="Dynamic" ValidationExpression="([0-9]\-?)*" ControlToValidate="txtPhone" ForeColor="Red" ErrorMessage="Invalid Phone." />
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Email:</label>
+                                <asp:TextBox CssClass="form-control" ID="txtEmail" runat="server" />
+                                <asp:RegularExpressionValidator runat="server" Display="Dynamic" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="txtEmail" ForeColor="Red" ErrorMessage="Invalid email address." />
+                            </div>
+                        </div>
+                        <asp:Button Text="Submit" CssClass="btn btn-lg btn-info" TabIndex="15" runat="server" OnClick="AddNewCompany_Click" />
                     </div>
                 </form>
             </div>
         </div>
     </div>
-<!--            
-    <div class="col-sm-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">New Company</div>
-                    <div class="panel-heading"><a href="Carrier.aspx">Add Carrier</a></div>
-                </div>
-            </div>
-
-            <div class="col-sm-9">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                        <input type="text" class="form-control" id="search" />
-                        </div>
-                        <button type="submit" class="btn btn-default">Search</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="col-sm-12">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">Add New Entry</div>
-                    <div class="panel-body">
-                        <h4>Company Name and Address:</h4>
-                        <form class="form-horizontal" runat="server">
-
-                            <div class="row">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-1" for="company">Name</label>
-                                    <div class="col-sm-5">
-                                        <asp:TextBox class="form-control" ID="txtCompanyName" runat="server" />
-                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCompanyName" runat="server" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-1" for="company">Type</label>
-                                    <div class="col-sm-2">
-                                        <asp:DropDownList ID="ddlType" CssClass="form-group" runat="server">
-                                            <asp:ListItem Text="Vendor" Value="Vendor" />
-                                            <asp:ListItem Text="Carrier" Value="Carrier" />
-                                            <asp:ListItem Text="Both" Value="Both" />
-                                        </asp:DropDownList>
-                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="ddlType" runat="server" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="address">Address1</label>
-                                <div class="col-sm-6">
-                                    <asp:TextBox class="form-control" id="txtAddress1" runat="server"/>
-                                    <asp:RequiredFieldValidator ErrorMessage ="Required" Forecolor="Red" ControlToValidate="txtAddress1" runat="server" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="address2">Address2</label>
-                                <div class="col-sm-6">
-                                    <asp:TextBox class="form-control" id="txtAddress2" runat="server"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="city">City</label>
-                                <div class="col-sm-2">
-                                    <asp:TextBox class="form-control" id="txtCity" runat="server"/>
-                                    <asp:RequiredFieldValidator ErrorMessage ="Required" Forecolor="Red" ControlToValidate="txtCity" runat="server" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="state">State</label>
-                                <div class="col-sm-2">
-                                    <asp:TextBox class="form-control" id="txtState" runat="server"/>
-                                    <asp:RequiredFieldValidator ErrorMessage ="Required" Forecolor="Red" ControlToValidate="txtState" runat="server" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="zip">Zip Code</label>
-                                <div class="col-sm-2">
-                                    <asp:TextBox class="form-control" id="txtZip" runat="server"/>
-                                    <asp:RegularExpressionValidator runat="server" Display="Dynamic" ValidationExpression="[0-9-]*" ControlToValidate="txtZip" ForeColor="Red" ErrorMessage="Invalid Zip code." />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="country">Country</label>
-                                <div class="col-sm-2">
-                                    <asp:TextBox class="form-control" id="txtCountry" runat="server"/>
-                                    <asp:RequiredFieldValidator ErrorMessage ="Required" Forecolor="Red" ControlToValidate="txtCountry" runat="server" />
-                                </div>
-                            </div>     
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="phone">Phone</label>
-                                <div class="col-sm-3">
-                                    <asp:TextBox class="form-control" id="txtPhone" runat="server"/>
-                                    <asp:RegularExpressionValidator runat="server" Display="Dynamic" ValidationExpression="([0-9]\-?)*" ControlToValidate="txtPhone" ForeColor="Red" ErrorMessage="Invalid Phone." />
-                                </div>
-                            </div>                                                   
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="email">Email</label>
-                                <div class="col-sm-6">
-                                    <asp:TextBox class="form-control" id="txtEmail" runat="server"/>
-                                    <asp:RegularExpressionValidator runat="server" Display="Dynamic" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="txtEmail" ForeColor="Red" ErrorMessage="Invalid email address." />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <asp:Button Text="Submit" class="btn btn-default" runat="server" OnClick="AddNewCompany_Click" />
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    -->
 </body>
 </html>

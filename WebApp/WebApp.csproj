@@ -134,7 +134,6 @@
   <ItemGroup>
     <Content Include="Booking.aspx" />
     <Content Include="Carrier.aspx" />
-    <Content Include="CompanyOLD.aspx" />
     <Content Include="Company.aspx" />
     <Content Include="CompanyModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -223,13 +222,6 @@
     </Compile>
     <Compile Include="Carrier.aspx.designer.cs">
       <DependentUpon>Carrier.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CompanyOLD.aspx.cs">
-      <DependentUpon>CompanyOLD.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CompanyOLD.aspx.designer.cs">
-      <DependentUpon>CompanyOLD.aspx</DependentUpon>
     </Compile>
     <Compile Include="Company.aspx.cs">
       <DependentUpon>Company.aspx</DependentUpon>
