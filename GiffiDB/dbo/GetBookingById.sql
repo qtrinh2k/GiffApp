@@ -14,7 +14,7 @@ AS
 		b.Discharge,
 		b.Destination,
 		b.Commodity, 
-		b.Equiment, 
+		b.Equipment, 
 		b.Temp, 
 		b.Vents, 
 		b.Notes

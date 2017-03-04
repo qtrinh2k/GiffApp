@@ -14,6 +14,14 @@ namespace WebApp
     
     public partial class Company
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Company()
+        {
+            this.Bookings = new HashSet<Booking>();
+            this.Bookings1 = new HashSet<Booking>();
+            this.Bookings2 = new HashSet<Booking>();
+        }
+    
         public int Id { get; set; }
         public string CompanyName { get; set; }
         public string Code { get; set; }
@@ -29,5 +37,12 @@ namespace WebApp
         public string Phone { get; set; }
         public string Email { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Booking> Bookings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Booking> Bookings1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Booking> Bookings2 { get; set; }
     }
 }

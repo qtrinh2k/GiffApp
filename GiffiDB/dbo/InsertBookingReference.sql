@@ -10,4 +10,4 @@ AS
 
 	INSERT INTO BookingReference(BookingId, GiffiId, CloneGiffiId)
 	VALUES(@bookingId, @giffiId, 0)
-RETURN 0
+RETURN @giffiId

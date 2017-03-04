@@ -23,6 +23,7 @@
                         <ul class="nav navbar-nav">
                             <li><a href="Index.aspx">Home</a></li>
                             <li><a href="Booking.aspx">Booking</a></li>
+                            <li><a href="Container.aspx">Container</a></li>
                             <li class="active"><a href="Management.apsx">Management</a></li>
                             <li><a href="Accounting.aspx">Accounting</a></li>
                         </ul>

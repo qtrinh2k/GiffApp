@@ -24,6 +24,7 @@
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="#">Home</a></li>
                             <li><a href="Booking.aspx">Booking</a></li>
+                            <li><a href="Container.aspx">Container</a></li>
                             <li><a href="Management.apsx">Management</a></li>
                             <li><a href="Accounting.aspx">Accounting</a></li>
                         </ul>

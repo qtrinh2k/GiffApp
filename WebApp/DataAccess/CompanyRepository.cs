@@ -12,8 +12,6 @@ namespace WebApp.DataAccess
     {
         public void Insert(Company c)
         {
-            //DataAccessBase dbAccess = new DataAccessBase();
-
             using (SqlConnection con = new SqlConnection(base.ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("InsertCompany", con))

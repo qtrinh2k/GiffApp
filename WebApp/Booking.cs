@@ -14,6 +14,12 @@ namespace WebApp
     
     public partial class Booking
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Booking()
+        {
+            this.BookingReferences = new HashSet<BookingReference>();
+        }
+    
         public int Id { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedTime { get; set; }
@@ -23,15 +29,21 @@ namespace WebApp
         public int CarrierId { get; set; }
         public string Vessel { get; set; }
         public string VSL { get; set; }
-        public int OriginId { get; set; }
-        public int LoadId { get; set; }
-        public int DischargeId { get; set; }
-        public int DestinationId { get; set; }
+        public string Origin { get; set; }
+        public string Load { get; set; }
+        public string Discharge { get; set; }
+        public string Destination { get; set; }
         public string Commodity { get; set; }
-        public string Equiment { get; set; }
+        public string Equipment { get; set; }
         public string Temp { get; set; }
         public string Vents { get; set; }
         public string Notes { get; set; }
         public string Status { get; set; }
+    
+        public virtual Company Company { get; set; }
+        public virtual Company Company1 { get; set; }
+        public virtual Company Company2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookingReference> BookingReferences { get; set; }
     }
 }

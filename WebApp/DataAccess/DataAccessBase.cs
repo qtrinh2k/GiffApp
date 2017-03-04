@@ -14,9 +14,7 @@ namespace WebApp
     {
         public DataAccessBase()
         {
-            var configConn = ConfigurationManager.ConnectionStrings.CurrentConfiguration;
-            _connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=Giffi;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            //_connectionString = @"Data Source=(localdb)\ProjectsV13;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True";//ConfigurationManager.AppSettings.Get("ConnectionString");
+            _connectionString = ConfigurationManager.ConnectionStrings["GiffDBConnectionString"].ConnectionString;
         }
 
         string _connectionString;

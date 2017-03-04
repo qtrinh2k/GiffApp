@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Booking.aspx" />
+    <Content Include="BookingConfirm.aspx" />
     <Content Include="Carrier.aspx" />
     <Content Include="Company.aspx" />
     <Content Include="CompanyModel.Context.tt">
@@ -145,16 +146,7 @@
       <DependentUpon>CompanyModel.edmx</DependentUpon>
       <LastGenOutput>CompanyModel.cs</LastGenOutput>
     </Content>
-    <Content Include="GiffiEntityFramework.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GiffiEntityFramework.edmx</DependentUpon>
-      <LastGenOutput>GiffiEntityFramework.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="GiffiEntityFramework.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GiffiEntityFramework.edmx</DependentUpon>
-      <LastGenOutput>GiffiEntityFramework.cs</LastGenOutput>
-    </Content>
+    <Content Include="Container.aspx" />
     <Content Include="Index.aspx" />
     <Content Include="Management.aspx" />
     <Content Include="packages.config" />
@@ -162,13 +154,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <EntityDeploy Include="GiffiEntityFramework.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>GiffiEntityFramework.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="GiffiEntityFramework.edmx.diagram">
-      <DependentUpon>GiffiEntityFramework.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="CompanyModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CompanyModel.Designer.cs</LastGenOutput>
@@ -176,6 +161,7 @@
     <Content Include="CompanyModel.edmx.diagram">
       <DependentUpon>CompanyModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Main.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -213,8 +199,17 @@
       <DependentUpon>Booking.aspx</DependentUpon>
     </Compile>
     <Compile Include="Booking.cs">
-      <DependentUpon>GiffiEntityFramework.tt</DependentUpon>
+      <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookingConfirm.aspx.cs">
+      <DependentUpon>BookingConfirm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BookingConfirm.aspx.designer.cs">
+      <DependentUpon>BookingConfirm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BookingReference.cs">
+      <DependentUpon>CompanyModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Carrier.aspx.cs">
       <DependentUpon>Carrier.aspx</DependentUpon>
@@ -249,29 +244,34 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CompanyModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Container.aspx.cs">
+      <DependentUpon>Container.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Container.aspx.designer.cs">
+      <DependentUpon>Container.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Container.cs">
+      <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ControlExtension.cs" />
+    <Compile Include="DataAccess\BookingRepository.cs" />
     <Compile Include="DataAccess\CompanyRepository.cs" />
     <Compile Include="DataAccess\DataAccessBase.cs" />
-    <Compile Include="GiffiEntityFramework.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GiffiEntityFramework.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GiffiEntityFramework.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GiffiEntityFramework.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GiffiEntityFramework.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GiffiEntityFramework.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="DataType.cs" />
+    <Compile Include="DataUtil.cs" />
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main.Master.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Main.Master.designer.cs">
+      <DependentUpon>Main.Master</DependentUpon>
     </Compile>
     <Compile Include="Management.aspx.cs">
       <DependentUpon>Management.aspx</DependentUpon>
