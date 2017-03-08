@@ -257,7 +257,9 @@
     <Compile Include="ControlExtension.cs" />
     <Compile Include="DataAccess\BookingRepository.cs" />
     <Compile Include="DataAccess\CompanyRepository.cs" />
+    <Compile Include="DataAccess\ContainerRepository.cs" />
     <Compile Include="DataAccess\DataAccessBase.cs" />
+    <Compile Include="DataAccess\MyContainer.cs" />
     <Compile Include="DataType.cs" />
     <Compile Include="DataUtil.cs" />
     <Compile Include="Index.aspx.cs">

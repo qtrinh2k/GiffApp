@@ -62,5 +62,17 @@ namespace WebApp
             }
 
         }
+
+        public static int GetBookingFromGiffiRef(long giffiRef)
+        {
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                var results = from bf in dc.BookingReferences
+                where bf.GiffiId == giffiRef
+                select bf.BookingId;
+
+                return (int)results.First();
+            }
+        }
     }
 }

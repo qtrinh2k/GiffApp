@@ -26,8 +26,8 @@ namespace WebApp
         }
     
         public virtual DbSet<Company> Companies { get; set; }
-        public virtual DbSet<Container> Containers { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<BookingReference> BookingReferences { get; set; }
+        public virtual DbSet<Container> Containers { get; set; }
     }
 }

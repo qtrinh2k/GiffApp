@@ -35,19 +35,6 @@ namespace WebApp
         {
             long giffiRef = -1;
 
-            //TODO
-            //Booking b = new Booking()
-            //{
-            //    CreatedBy = txtCreatedBy.Text.Trim(),
-            //    CreatedTime = DateTime.Parse(txtDate.Text.Trim()),
-            //    ModifiedTime = DateTime.Parse(txtDate.Text.Trim()),
-            //    BillToId = GetCompanyIdFromName(txtBillTo.Text.Trim()),
-            //    ShipperId = GetCompanyIdFromName(txtShipper.Text.Trim()),
-            //    CarrierId = GetCompanyIdFromName(txtCarrier.Text.Trim()),
-            //    Vessel = txtVessel.Text.Trim(),
-            //    VSL = txtVSL.Text.Trim()
-            //};
-
             DataAccessBase dbAccess = new DataAccessBase();
 
             using (SqlConnection con = new SqlConnection(dbAccess.ConnectionString))
@@ -66,7 +53,7 @@ namespace WebApp
                     cmd.Parameters.Add("@vsl", SqlDbType.NVarChar).Value = txtVSL.Text.Trim();
                     cmd.Parameters.Add("@origin", SqlDbType.NVarChar).Value = txtOrigin.Text.Trim();
                     cmd.Parameters.Add("@load", SqlDbType.NVarChar).Value = txtLoad.Text.Trim();
-                    cmd.Parameters.Add("@destination", SqlDbType.NVarChar).Value = txtDest.Text.Trim();
+                    cmd.Parameters.Add("@destination", SqlDbType.NVarChar).Value = txtDest.Text.Trim();                    
                     cmd.Parameters.Add("@discharge", SqlDbType.NVarChar).Value = txtDischarge.Text.Trim();
                     cmd.Parameters.Add("@commodity", SqlDbType.NVarChar).Value = txtCommod.Text.Trim();
                     cmd.Parameters.Add("@equipment", SqlDbType.NVarChar).Value = txtEquiq1.Text.Trim() + txtEquiq2.Text.Trim();
@@ -74,6 +61,10 @@ namespace WebApp
                     cmd.Parameters.Add("@vents", SqlDbType.NChar).Value = txtVents.Text.Trim();
                     cmd.Parameters.Add("@status", SqlDbType.NChar).Value = "CREATED";
                     cmd.Parameters.Add("@notes", SqlDbType.NVarChar).Value = txtNotes.Text.Trim();
+                    cmd.Parameters.Add("@CutOffDate", SqlDbType.DateTime).Value = DateTime.Parse(txtCutOffDate.Text.Trim());
+                    cmd.Parameters.Add("@DOC", SqlDbType.DateTime).Value = DateTime.Parse(txtDOC.Text.Trim());
+                    cmd.Parameters.Add("@CargoCut", SqlDbType.DateTime).Value = DateTime.Parse(txtCargoCut.Text.Trim());
+                    cmd.Parameters.Add("@VGM", SqlDbType.Float).Value = float.Parse(txtVGM.Text.Trim());
                     cmd.Parameters.Add("@ReturnValue", SqlDbType.BigInt).Direction = ParameterDirection.ReturnValue;
                     con.Open();
                     var result = cmd.ExecuteNonQuery();
@@ -81,6 +72,7 @@ namespace WebApp
                     {
                         ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Error occured when Submit data to SQL Database!!!');", true);
                     }
+                    
                 }
             }
 

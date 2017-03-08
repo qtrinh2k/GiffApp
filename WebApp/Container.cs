@@ -15,15 +15,16 @@ namespace WebApp
     public partial class Container
     {
         public int Id { get; set; }
-        public string CarrierCode { get; set; }
         public int BookingId { get; set; }
-        public decimal SealNumber { get; set; }
-        public string ContainerNumber { get; set; }
-        public double PackagesWeight { get; set; }
+        public string ContainerNo { get; set; }
+        public long SealNo { get; set; }
+        public double PkgsWeight { get; set; }
         public double NetWeight { get; set; }
-        public string GRS { get; set; }
+        public float GRS { get; set; }
         public string Truck { get; set; }
-        public string Invoice { get; set; }
+        public long Invoice { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+    
+        public virtual Booking Booking { get; set; }
     }
 }

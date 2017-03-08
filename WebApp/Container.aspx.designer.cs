@@ -67,6 +67,24 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtGiffRef;
         
         /// <summary>
+        /// lblAlertSucess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlertSucess;
+        
+        /// <summary>
+        /// lblAlertFailure control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlertFailure;
+        
+        /// <summary>
         /// gvContainer control.
         /// </summary>
         /// <remarks>
@@ -76,76 +94,85 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.GridView gvContainer;
         
         /// <summary>
-        /// phContainer control.
+        /// tbNewContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phContainer;
+        protected global::System.Web.UI.WebControls.Table tbNewContainer;
         
         /// <summary>
-        /// panelNewContainer control.
+        /// txtNewContainerNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelNewContainer;
+        protected global::System.Web.UI.WebControls.TextBox txtNewContainerNo;
         
         /// <summary>
-        /// txtContainerNo control.
+        /// txtNewSealNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContainerNo;
+        protected global::System.Web.UI.WebControls.TextBox txtNewSealNo;
         
         /// <summary>
-        /// txtSealNo control.
+        /// txtNewPackage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSealNo;
+        protected global::System.Web.UI.WebControls.TextBox txtNewPackage;
         
         /// <summary>
-        /// txtPackages control.
+        /// txtNewNet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPackages;
+        protected global::System.Web.UI.WebControls.TextBox txtNewNet;
         
         /// <summary>
-        /// txtNet control.
+        /// txtNewGRS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNet;
+        protected global::System.Web.UI.WebControls.TextBox txtNewGRS;
         
         /// <summary>
-        /// txtTruck control.
+        /// txtNewTruck control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTruck;
+        protected global::System.Web.UI.WebControls.TextBox txtNewTruck;
         
         /// <summary>
-        /// txtInvoice control.
+        /// txtNewInvoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtInvoice;
+        protected global::System.Web.UI.WebControls.TextBox txtNewInvoice;
+        
+        /// <summary>
+        /// txtNewCreatedDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNewCreatedDate;
         
         /// <summary>
         /// btnSubmitContainer control.

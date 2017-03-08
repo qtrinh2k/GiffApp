@@ -9,6 +9,8 @@ using System.Web.UI.WebControls;
 
 namespace WebApp
 {
+    using DataAccess;
+
     public partial class Container : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -19,18 +21,24 @@ namespace WebApp
             {
                 if (Request.Params.HasKeys())
                 {
-                    if (!string.IsNullOrEmpty(Request.QueryString["ref"]) && long.TryParse(Request.QueryString["ref"].ToString(), out giffRef))
+                    if (!string.IsNullOrEmpty(Request.QueryString["ref"]) && 
+                        long.TryParse(Request.QueryString["ref"].ToString(), out giffRef))
                     {
                         txtGiffRef.Text = giffRef.ToString();
                         txtGiffRef.DataBind();
 
-                        panelNewContainer.Visible = true;
-                        panelNewContainer.DataBind();
+                        tbNewContainer.Visible = true;
+                        tbNewContainer.DataBind();
+
+                        txtNewCreatedDate.Text = DateTime.Now.ToString("d");
+
+                        gvContainer.DataSource = GetContainers(long.Parse(txtGiffRef.Text));
+                        gvContainer.DataBind();
                     }
                     else
                     {
-                        panelNewContainer.Visible = false;
-                        panelNewContainer.DataBind();
+                        tbNewContainer.Visible = false;
+                        tbNewContainer.DataBind();
                     }
 
                 }
@@ -44,20 +52,36 @@ namespace WebApp
         {
             Container cont = new Container()
             {
-                ContainerNumber = txtContainerNo.Text.Trim(),
-                SealNumber = long.Parse(txtSealNo.Text.Trim()),
-                PackagesWeight = double.Parse(txtPackages.Text.Trim()),
-                NetWeight = double.Parse(txtNet.Text.Trim()),
-                GRS = txtGiffRef.Text.Trim(),
-                Truck = txtTruck.Text.Trim(),
-                Invoice = txtInvoice.Text.Trim()                
+                BookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text)),
+                ContainerNo = txtNewContainerNo.Text.Trim(),
+                SealNo = long.Parse(txtNewSealNo.Text.Trim()),
+                PkgsWeight = double.Parse(txtNewPackage.Text.Trim()),
+                NetWeight = double.Parse(txtNewNet.Text.Trim()),
+                GRS = float.Parse(txtNewGRS.Text.Trim()),
+                Truck = txtNewTruck.Text.Trim(),
+                Invoice = long.Parse(txtNewInvoice.Text.Trim()),
+                CreatedDate = DateTime.Now                
             };
 
-            using (GiffiDBEntities dc = new GiffiDBEntities())
+            ContainerRepository cRepo = new ContainerRepository();
+            if(cRepo.InsertContainer(cont))
             {
-                dc.Containers.Add(cont);
-                dc.SaveChanges();
+                lblAlertSucess.Visible = true;
+                lblAlertSucess.Text = string.Format("<strong>Success!</strong> Container No. {0} added GIFFI Ref={1}", cont.ContainerNo, txtGiffRef.Text);
+
+                gvContainer.DataSource = GetContainers(long.Parse(txtGiffRef.Text));
+                gvContainer.Visible = true;
+                gvContainer.DataBind();
+
+                ClearContainerInput();
+
             }
+            else
+            {
+                lblAlertFailure.Visible = true;
+                lblAlertFailure.Text = string.Format("<strong>Error!</strong> Unable to add Container No. {0} added GIFFI Ref={1}", cont.ContainerNo, txtGiffRef.Text);
+            }
+
         }
         protected void SelectedSearch_Click(object sender, EventArgs e)
         {
@@ -73,36 +97,30 @@ namespace WebApp
                 gvContainer.DataSource = GetContainers(giffiRef);
                 gvContainer.DataBind();
 
-                panelNewContainer.Visible = true;
-                panelNewContainer.DataBind();
+                tbNewContainer.Visible = true;
+                tbNewContainer.DataBind();
 
+            }
+        }
+
+        private void ClearContainerInput()
+        {
+            var txtBoxes = tbNewContainer.Controls.FindAll().OfType<TextBox>();
+            foreach(var item in txtBoxes)
+            {
+                item.Text = "";
             }
         }
 
         private List<Container> GetContainers(long giffiRef)
         {
-            using (GiffiDBEntities dc = new GiffiDBEntities())
-            {
-               var results = (from c in dc.Containers
-                           join bf in dc.BookingReferences on c.BookingId equals bf.BookingId
-                           where bf.GiffiId == giffiRef
-                           select new Container
-                           {
-                               ContainerNumber = c.ContainerNumber,
-                               SealNumber = c.SealNumber,
-                               PackagesWeight = c.PackagesWeight,
-                               NetWeight = c.NetWeight,
-                               GRS = c.GRS,
-                               Truck = c.Truck,
-                               Invoice = c.Invoice
-                           });
+            ContainerRepository cr = new ContainerRepository();
 
-                if (results != null || results.Count() == 0)
-                    return null;
-                else
-                    return results.ToList();
-            }
+            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text));
+            return cr.GetContainerByBookingId(bookingId);
+
         }
+
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public static List<string> SearchFor(string pre, int option)
@@ -129,6 +147,26 @@ namespace WebApp
 
 
             return results;
+        }
+
+        protected void Insert(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void gvContainer_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+
+        }
+
+        protected void gvContainer_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+        {
+
+        }
+
+        protected void gvContainer_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
         }
     }
 }

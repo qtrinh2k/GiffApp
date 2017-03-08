@@ -193,6 +193,42 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtVents;
         
         /// <summary>
+        /// txtCutOffDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCutOffDate;
+        
+        /// <summary>
+        /// txtDOC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDOC;
+        
+        /// <summary>
+        /// txtCargoCut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCargoCut;
+        
+        /// <summary>
+        /// txtVGM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtVGM;
+        
+        /// <summary>
         /// txtNotes control.
         /// </summary>
         /// <remarks>

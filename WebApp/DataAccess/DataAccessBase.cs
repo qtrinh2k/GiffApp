@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using System.Data.Sql;
-using System.Data.SqlClient;
-using System.Configuration;
+﻿
 
 namespace WebApp
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Data;
+    using System.Data.Sql;
+    using System.Data.SqlClient;
+    using System.Configuration;
+
     public class DataAccessBase : IDisposable
     {
         public DataAccessBase()
@@ -51,6 +53,28 @@ namespace WebApp
             return table;
         }
 
+        public DataTable FillDataTable(SqlCommand sqlCmd)
+        {
+            DataTable table = null;
+
+            using (SqlConnection connection = GetConnection())
+            {
+                using (sqlCmd)
+                {
+                    sqlCmd.Connection = connection;
+                    connection.Open();
+
+                    var reader = sqlCmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                    table = new DataTable();
+                    table.Load(reader);
+                }
+            }
+
+            return table;
+        }
+
+
         public int ExecuteNonQuery(string sqlQuery)
         {
             using (SqlConnection connection = GetConnection())
@@ -64,6 +88,37 @@ namespace WebApp
                 }
             }
         }
+
+        public int ExecuteNonQuery(List<SqlParameter> @params, CommandType cmdType, string cmdText)
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                using (IDbCommand sqlCmd = new SqlCommand(cmdText, connection))
+                {
+                    connection.Open();
+                    sqlCmd.CommandType = cmdType;
+                    foreach(var p in @params)
+                    {
+                        sqlCmd.Parameters.Add(p);
+                    }
+                    return sqlCmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public int ExecuteNonQuery(SqlCommand sqlCmd)
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                using (sqlCmd)
+                {
+                    sqlCmd.Connection = connection;
+                    connection.Open();
+                    return sqlCmd.ExecuteNonQuery();
+                }
+            }
+        }
+
 
         public SqlConnection GetConnection()
         {

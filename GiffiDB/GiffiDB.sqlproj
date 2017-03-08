@@ -88,6 +88,9 @@
     <Build Include="dbo\InsertBookingReference.sql" />
     <Build Include="dbo\Tables\CompanyType.sql" />
     <Build Include="dbo\Tables\StatusType.sql" />
+    <Build Include="dbo\InsertContainer.sql" />
+    <Build Include="dbo\GetContainerByBookingId.sql" />
+    <Build Include="dbo\UpdateContainer.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Snapshots\GiffiDB_20170219_15-15-06.dacpac" />

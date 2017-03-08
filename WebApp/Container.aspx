@@ -59,31 +59,15 @@
                         </div>
                     </nav>
                 </div>
-<%--                <div class="col-sm-12 well">
-                    <div class="row"><h4>Search Container By:</h4></div>
-                    <div class="col-sm-4 form-group">
-                        <label>GIFFI Ref:</label>
-                        <asp:TextBox ID="txtByGiffiRef" CssClass="form-control" TabIndex="-1" runat="server" />
-                    </div>
-                    <div class="col-sm-4 form-group">
-                        <label>Container No:</label>
-                        <asp:TextBox ID="txtByContainer" CssClass="form-control" TabIndex="-1" runat="server" OnFocus="SelectedContainer_OnFocus" />
-                    </div>
-                    <div class="col-sm-4 form-group">
-                        <label>Shipper Ref:</label>
-                        <asp:TextBox ID="txtByShipperRef" CssClass="form-control" TabIndex="-1" runat="server" />
-                    </div>
-                    <asp:Button ID="btnSelectedSearch" Text="Select" CssClass="btn btn-lg btn-info" TabIndex="-1" runat="server" OnClick="SelectedSearch_Click" />
-                </div>--%>
 
             <div class="col-sm-9">
                 <div class="row">
                     <div class="col-sm-6 form-group">
-                        <asp:TextBox ID="txtSearchBox" CssClass="form-control" TabIndex="-1" runat="server"/>
+                        <asp:TextBox ID="txtSearchBox" CssClass="form-control" TabIndex="1" runat="server"/>
                         <%--<asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtSearchBox" runat="server" />--%>                                     
                     </div>
                     <div class="col-sm-3 form-group">                        
-                        <asp:DropDownList CssClass="form-control" id="ddlOption" ClientIDMode="Static" runat="server">
+                        <asp:DropDownList CssClass="form-control" id="ddlOption" ClientIDMode="Static" TabIndex="2" runat="server">
                             <asp:ListItem Value= "1" Selected="True">GIFFI REF</asp:ListItem> 
                             <asp:ListItem Value= "2" Text="Shipper REF">Shipper REF</asp:ListItem> 
                             <asp:ListItem Value= "3" Text="Container REF">Container REF</asp:ListItem> 
@@ -91,7 +75,7 @@
                     </div>
 
                     <div class="col-sm-3 form-group">
-                        <asp:Button ID="btnSelectedSearch" Text="Select" CssClass="btn btn-lg btn-info" TabIndex="-1" runat="server" OnClick="SelectedSearch_Click" />
+                        <asp:Button ID="btnSelectedSearch" Text="Select" CssClass="btn btn-lg btn-info" TabIndex="3" runat="server" OnClick="SelectedSearch_Click" />
                     </div>
                 </div>
             </div>
@@ -113,65 +97,137 @@
                         <div class="row">
                             <div class="container">
                                 <h2>Container Summary:</h2>
-                                
-                                <asp:GridView CssClass="panel-default" ID="gvContainer" runat="server" AutoGenerateColumns="true" AutoGenerateEditButton="true">
+                                <asp:Label ID="lblAlertSucess" Visible="false" CssClass="alert alert-success" runat="server">
+                                </asp:Label>
+                                <asp:Label ID="lblAlertFailure" Visible ="false" CssClass="alert alert-danger" runat="server">
+                                </asp:Label>
 
+                                <asp:GridView CssClass="table table-striped" ID="gvContainer" DataKeyNames="Id" runat="server" AutoGenerateColumns="false"
+                                    OnRowEditing="gvContainer_RowEditing" OnRowUpdated="gvContainer_RowUpdated" OnRowDeleting="gvContainer_RowDeleting"
+                                    EmptyDataText="No records has been added.">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="Container No." ItemStyle-Width="150">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblContainerNo" runat="server" Text='<%# Eval("ContainerNo") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="txtContainerNo" runat="server" Text='<%# Eval("ContainerNo") %>'></asp:TextBox>
+                                            </EditItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Seal No." ItemStyle-Width="150">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblSealNo" runat="server" Text='<%# Eval("SealNo") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="txtSealNo" runat="server" Text='<%# Eval("SealNo") %>'></asp:TextBox>
+                                            </EditItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="PkgsWeight" ItemStyle-Width="150">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblPkgsWeight" runat="server" Text='<%# Eval("PkgsWeight") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="txtPkgsWeight" runat="server" Text='<%# Eval("PkgsWeight") %>'></asp:TextBox>
+                                            </EditItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="NET (Kg)" ItemStyle-Width="150">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblNetWeight" runat="server" Text='<%# Eval("NetWeight") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="txtNetWeight" runat="server" Text='<%# Eval("NetWeight") %>'></asp:TextBox>
+                                            </EditItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="GRS" ItemStyle-Width="150">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblGRS" runat="server" Text='<%# Eval("GRS") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="txtGRS" runat="server" Text='<%# Eval("GRS") %>'></asp:TextBox>
+                                            </EditItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Truck" ItemStyle-Width="150">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblTruck" runat="server" Text='<%# Eval("Truck") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="txtTruck" runat="server" Text='<%# Eval("Truck") %>'></asp:TextBox>
+                                            </EditItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Invoice" ItemStyle-Width="150">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblInvoice" runat="server" Text='<%# Eval("Invoice") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="txtInvoice" runat="server" Text='<%# Eval("Invoice") %>'></asp:TextBox>
+                                            </EditItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="CreatedDate" ItemStyle-Width="150">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblCreatedDate" runat="server" Text='<%# Eval("CreatedDate") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="txtCreatedDate" runat="server" Text='<%# Eval("CreatedDate") %>'></asp:TextBox>
+                                            </EditItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true" ItemStyle-Width="150" />
+                                    </Columns>
                                 </asp:GridView>
-                                <asp:PlaceHolder ID="phContainer" runat="server"></asp:PlaceHolder>
+                                
+                                <asp:Table id="tbNewContainer" CSSClass="table table-striped" runat="server">
+                                    <asp:TableRow>
+
+                                    <asp:TableCell style="width: 130px">
+                                        Contaner No:<br />
+                                        <asp:TextBox ID="txtNewContainerNo" runat="server" Width="120" />
+                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewContainerNo" ValidationGroup="NewContainer" runat="server" />
+                                    </asp:TableCell>
+                                    <asp:TableCell style="width: 130px">
+                                        Seal No.<br />
+                                        <asp:TextBox ID="txtNewSealNo" runat="server" Width="120" />
+                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewSealNo" ValidationGroup="NewContainer" runat="server" />
+                                    </asp:TableCell>
+                                    <asp:TableCell style="width: 130px">
+                                        Packages:<br />
+                                        <asp:TextBox ID="txtNewPackage" runat="server" Width="120" />
+                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewPackage" ValidationGroup="NewContainer" runat="server" />
+                                    </asp:TableCell>
+                                    <asp:TableCell style="width: 130px">
+                                        Net (Kg):<br />
+                                        <asp:TextBox ID="txtNewNet" runat="server" Width="120" />
+                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewNet" ValidationGroup="NewContainer" runat="server" />
+                                    </asp:TableCell>
+                                    <asp:TableCell style="width: 130px">
+                                        GRS:<br />
+                                        <asp:TextBox ID="txtNewGRS" runat="server" Width="120" />
+                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewGRS" ValidationGroup="NewContainer" runat="server" />
+                                    </asp:TableCell>
+                                    <asp:TableCell style="width: 130px">
+                                        Truck:<br />
+                                        <asp:TextBox ID="txtNewTruck" runat="server" Width="120" />
+                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewTruck" ValidationGroup="NewContainer" runat="server" />
+                                    </asp:TableCell>
+                                    <asp:TableCell style="width: 130px">
+                                        Invoice:<br />
+                                        <asp:TextBox ID="txtNewInvoice" runat="server" Width="120" />
+                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewInvoice" ValidationGroup="NewContainer" runat="server" />
+                                    </asp:TableCell>
+                                    <asp:TableCell style="width: 150px">
+                                        Date:<br />
+                                        <asp:TextBox ID="txtNewCreatedDate" runat="server" Width="130" />
+                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewCreatedDate" ValidationGroup="NewContainer" runat="server" />
+                                    </asp:TableCell>
+                                    <asp:TableCell style="width: 130px">
+                                        <br />
+                                        <asp:Button ID="btnSubmitContainer" CssClass="btn btn-sm btn-info" runat="server" Text="Add" CausesValidation="true" ValidationGroup="NewContainer" OnClick="AddNewContainer_Click" />
+                                    </asp:TableCell>
+                                    </asp:TableRow>
+                                </asp:Table>
                             </div>
                         </div>
 
                     </div>
-
                 </div>
-
-                <asp:Panel ID="panelNewContainer" runat="server">
-                                    <div id="rowNewContainer" class="col-lg-12 well">
-                    <h4>New/Edit Container:</h4>
-                    <div class="row">
-                            <div class="col-sm-3 form-group">
-                                <label>Contaner No:</label>
-                                <asp:TextBox CssClass="form-control" ID="txtContainerNo" runat="server" />
-                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtContainerNo" ValidationGroup="NewContainer" runat="server" />
-                            </div>
-                            <div class="col-sm-3 form-group">
-                                <label>Seal No.</label>
-                                <asp:TextBox CssClass="form-control" ID="txtSealNo" runat="server" />
-                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtSealNo" ValidationGroup="NewContainer" runat="server" />
-                            </div>
-                    </div>
-                    <div class="row">
-                            <div class="col-sm-3 form-group">
-                                <label>Packages:</label>
-                                <asp:TextBox CssClass="form-control" ID="txtPackages" runat="server" />
-                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtPackages" ValidationGroup="NewContainer" runat="server" />
-                            </div>
-                            <div class="col-sm-3 form-group">
-                                <label>NET(Kg.)</label>
-                                <asp:TextBox CssClass="form-control" ID="txtNet" runat="server" />
-                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNet" ValidationGroup="NewContainer" runat="server" />
-                            </div>
-                    </div>
-                    <div class="row">
-                            <div class="col-sm-3 form-group">
-                                <label>Truck:</label>
-                                <asp:TextBox CssClass="form-control" ID="txtTruck" runat="server" />
-                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtTruck" ValidationGroup="NewContainer" runat="server" />
-                            </div>
-                            <div class="col-sm-3 form-group">
-                                <label>Invoice No.</label>
-                                <asp:TextBox CssClass="form-control" ID="txtInvoice" runat="server" />
-                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtInvoice" ValidationGroup="NewContainer" runat="server" />
-                            </div>
-                    </div>
-                    <div class="row">
-                                <div class="col-sm-6 form-group">
-                                    <asp:Button ID="btnSubmitContainer" Text="Submit" CssClass="btn btn-lg btn-info" TabIndex="-1" runat="server" CausesValidation="true" ValidationGroup="NewContainer"  OnClick="AddNewContainer_Click" />
-                             </div>  
-                    </div>
-                </div>
-                </asp:Panel>
-
             </div>
         </div>
     </form>

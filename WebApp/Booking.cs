@@ -18,6 +18,7 @@ namespace WebApp
         public Booking()
         {
             this.BookingReferences = new HashSet<BookingReference>();
+            this.Containers = new HashSet<Container>();
         }
     
         public int Id { get; set; }
@@ -39,11 +40,17 @@ namespace WebApp
         public string Vents { get; set; }
         public string Notes { get; set; }
         public string Status { get; set; }
+        public Nullable<System.DateTime> CutOffDate { get; set; }
+        public Nullable<System.DateTime> DOC { get; set; }
+        public Nullable<System.DateTime> CargoCut { get; set; }
+        public Nullable<double> VGM { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Company Company1 { get; set; }
         public virtual Company Company2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingReference> BookingReferences { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Container> Containers { get; set; }
     }
 }

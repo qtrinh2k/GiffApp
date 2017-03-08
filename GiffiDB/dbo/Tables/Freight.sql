@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Freight] (
-    [Id]         INT        NOT NULL,
+    [Id]         INT        NOT NULL IDENTITY(1,1),
     [Code]       NCHAR (10) NOT NULL,
     [BS]         NCHAR (10) NOT NULL,
     [PC]         NCHAR (1)  NOT NULL,
