@@ -91,6 +91,8 @@
     <Build Include="dbo\InsertContainer.sql" />
     <Build Include="dbo\GetContainerByBookingId.sql" />
     <Build Include="dbo\UpdateContainer.sql" />
+    <Build Include="DeleteContainer.sql" />
+    <Build Include="InsertFreight.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Snapshots\GiffiDB_20170219_15-15-06.dacpac" />

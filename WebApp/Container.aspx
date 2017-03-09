@@ -97,77 +97,77 @@
                         <div class="row">
                             <div class="container">
                                 <h2>Container Summary:</h2>
-                                <asp:Label ID="lblAlertSucess" Visible="false" CssClass="alert alert-success" runat="server">
+                                <asp:Label ID="lblAlertSucess" Visible="false" CssClass="alert alert-success alert-dismissable fade in" runat="server">
                                 </asp:Label>
-                                <asp:Label ID="lblAlertFailure" Visible ="false" CssClass="alert alert-danger" runat="server">
+                                <asp:Label ID="lblAlertFailure" Visible ="false" CssClass="alert alert-danger alert-dismissable fade in" runat="server">
                                 </asp:Label>
 
                                 <asp:GridView CssClass="table table-striped" ID="gvContainer" DataKeyNames="Id" runat="server" AutoGenerateColumns="false"
-                                    OnRowEditing="gvContainer_RowEditing" OnRowUpdated="gvContainer_RowUpdated" OnRowDeleting="gvContainer_RowDeleting"
+                                    OnRowEditing="gvContainer_RowEditing" OnRowDeleting="gvContainer_RowDeleting" OnRowUpdating="gvContainer_RowUpdating" OnRowCancelingEdit="gvContainer_RowCancelEditing"
                                     EmptyDataText="No records has been added.">
                                     <Columns>
-                                        <asp:TemplateField HeaderText="Container No." ItemStyle-Width="150">
+                                        <asp:TemplateField HeaderText="Container No." ItemStyle-Width="130px">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblContainerNo" runat="server" Text='<%# Eval("ContainerNo") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtContainerNo" runat="server" Text='<%# Eval("ContainerNo") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtContainerNo" Width="120" runat="server" Text='<%# Eval("ContainerNo") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Seal No." ItemStyle-Width="150">
+                                        <asp:TemplateField HeaderText="Seal No." ItemStyle-Width="130px">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblSealNo" runat="server" Text='<%# Eval("SealNo") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtSealNo" runat="server" Text='<%# Eval("SealNo") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtSealNo" Width="120" runat="server" Text='<%# Eval("SealNo") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="PkgsWeight" ItemStyle-Width="150">
+                                        <asp:TemplateField HeaderText="PkgsWeight" ItemStyle-Width="130px">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblPkgsWeight" runat="server" Text='<%# Eval("PkgsWeight") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtPkgsWeight" runat="server" Text='<%# Eval("PkgsWeight") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtPkgsWeight" Width="120" runat="server" Text='<%# Eval("PkgsWeight") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="NET (Kg)" ItemStyle-Width="150">
+                                        <asp:TemplateField HeaderText="NET (Kg)" ItemStyle-Width="130px">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblNetWeight" runat="server" Text='<%# Eval("NetWeight") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtNetWeight" runat="server" Text='<%# Eval("NetWeight") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtNetWeight" Width="120" runat="server" Text='<%# Eval("NetWeight") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="GRS" ItemStyle-Width="150">
+                                        <asp:TemplateField HeaderText="GRS" ItemStyle-Width="130px">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblGRS" runat="server" Text='<%# Eval("GRS") %>'></asp:Label>
+                                                <asp:Label ID="lblGRS" Width="120" runat="server" Text='<%# Eval("GRS") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtGRS" runat="server" Text='<%# Eval("GRS") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtGRS" Width="120" runat="server" Text='<%# Eval("GRS") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Truck" ItemStyle-Width="150">
+                                        <asp:TemplateField HeaderText="Truck" ItemStyle-Width="130px">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblTruck" runat="server" Text='<%# Eval("Truck") %>'></asp:Label>
+                                                <asp:Label ID="lblTruck" Width="120" runat="server" Text='<%# Eval("Truck") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtTruck" runat="server" Text='<%# Eval("Truck") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtTruck" Width="120" runat="server" Text='<%# Eval("Truck") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Invoice" ItemStyle-Width="150">
+                                        <asp:TemplateField HeaderText="Invoice" ItemStyle-Width="130px">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblInvoice" runat="server" Text='<%# Eval("Invoice") %>'></asp:Label>
+                                                <asp:Label ID="lblInvoice" Width="120" runat="server" Text='<%# Eval("Invoice") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtInvoice" runat="server" Text='<%# Eval("Invoice") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtInvoice" Width="120" runat="server" Text='<%# Eval("Invoice") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="CreatedDate" ItemStyle-Width="150">
+                                        <asp:TemplateField HeaderText="CreatedDate" ItemStyle-Width="130px">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblCreatedDate" runat="server" Text='<%# Eval("CreatedDate") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtCreatedDate" runat="server" Text='<%# Eval("CreatedDate") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtCreatedDate" Width="120" runat="server" Text='<%# Eval("CreatedDate") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
                                         <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true" ItemStyle-Width="150" />

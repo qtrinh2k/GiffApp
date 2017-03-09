@@ -1,4 +1,29 @@
 ﻿/****** Script for SelectTopNRows command from SSMS  ******/
+  USE [GiffiDB]
+GO
+
+INSERT INTO [dbo].[AccountingCode]
+           ([Id]
+           ,[Name]
+           ,[MapId])
+     VALUES
+           (4010, 'AIRFRT', 5010),
+		   (4030, 'OCEN FREIGHT', 5030),
+		   (4050, 'TRANSLOAD', 5050),
+           (4070, 'TRUCKING', 5070),
+		   (4090, 'GIFFI COMMISSION', 5090),
+		   (4110, 'BANKING - LC', 5110),
+           (4130, 'BROKERAGE', 5130),
+		   (4140, 'ASSOCIATION FEE', 5140),
+		   (4150, 'CERT OF ORIGIN', 5150),
+           (4170, 'CONSULAR FEE', 5170),
+		   (4200, 'PIER PASS', 5200),
+		   (4210, 'COMMISSION', 5210),
+           (4310, 'FORDWARDING', null),
+		   (4330, 'COURIER SERVICES', 5330),
+		   (4350, 'DOC. PREP', 5350)
+GO
+
 SELECT TOP 1000 *
   FROM [GiffiDB].[dbo].[Company]
 

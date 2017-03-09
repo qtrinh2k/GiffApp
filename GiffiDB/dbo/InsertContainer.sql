@@ -9,27 +9,37 @@
 @Invoice bigint,
 @CreatedDate datetime
 AS
-BEGIN TRAN
 	SET XACT_ABORT ON
-		INSERT INTO [dbo].[Container](
-           [BookingId]
-           ,[ContainerNo]
-           ,[SealNo]
-           ,[PkgsWeight]
-           ,[NetWeight]
-           ,[GRS]
-           ,[Truck]
-           ,[Invoice]
-           ,[CreatedDate])
-		VALUES
-           (@BookingId,
-			@ContainerNo,
-			@SealNo,
-			@PkgsWeight,
-			@NetWeight,
-			@GRS,
-			@Truck,
-			@Invoice,
-			@CreatedDate)
-COMMIT TRANSACTION
+	IF EXISTS(SELECT Count(*) FROM [dbo].[Container] WHERE ContainerNo = @ContainerNo)
+		BEGIN
+			raiserror ('InsertContainer: ContainerNo already exist!!!', 16, 1) ;
+			/*RETURN -100 RECORD ALREADY EXIST*/
+		END
+	ELSE
+		BEGIN
+			BEGIN TRAN
+			INSERT INTO [dbo].[Container](
+			   [BookingId]
+			   ,[ContainerNo]
+			   ,[SealNo]
+			   ,[PkgsWeight]
+			   ,[NetWeight]
+			   ,[GRS]
+			   ,[Truck]
+			   ,[Invoice]
+			   ,[CreatedDate])
+			VALUES
+			   (@BookingId,
+				@ContainerNo,
+				@SealNo,
+				@PkgsWeight,
+				@NetWeight,
+				@GRS,
+				@Truck,
+				@Invoice,
+				@CreatedDate)
+			COMMIT TRANSACTION
+		END
+
+
 

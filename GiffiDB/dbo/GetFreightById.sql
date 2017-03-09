@@ -1,6 +1,7 @@
-﻿CREATE PROCEDURE [dbo].[GetFreightById]
-	@param1 int = 0,
-	@param2 int
+﻿CREATE PROCEDURE [dbo].[GetFreightByBookingId]
+	@bookingId int
 AS
-	SELECT @param1, @param2
-RETURN 0
+	SELECT * 
+	FROM [dbo].[Freight] WITH (NOLOCK) 
+	WHERE BookingId = @bookingId
+

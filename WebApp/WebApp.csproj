@@ -147,6 +147,7 @@
       <LastGenOutput>CompanyModel.cs</LastGenOutput>
     </Content>
     <Content Include="Container.aspx" />
+    <Content Include="Freight.aspx" />
     <Content Include="Index.aspx" />
     <Content Include="Management.aspx" />
     <Content Include="packages.config" />
@@ -262,6 +263,13 @@
     <Compile Include="DataAccess\MyContainer.cs" />
     <Compile Include="DataType.cs" />
     <Compile Include="DataUtil.cs" />
+    <Compile Include="Freight.aspx.cs">
+      <DependentUpon>Freight.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Freight.aspx.designer.cs">
+      <DependentUpon>Freight.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
