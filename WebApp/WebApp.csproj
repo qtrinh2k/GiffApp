@@ -132,6 +132,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Accounting.aspx" />
     <Content Include="Booking.aspx" />
     <Content Include="BookingConfirm.aspx" />
     <Content Include="Carrier.aspx" />
@@ -193,6 +194,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting.aspx.cs">
+      <DependentUpon>Accounting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounting.aspx.designer.cs">
+      <DependentUpon>Accounting.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AccountingCode.cs">
       <DependentUpon>CompanyModel.tt</DependentUpon>
     </Compile>

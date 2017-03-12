@@ -166,6 +166,7 @@ namespace WebApp
 
         protected void AddNewFreight_Click(object sender, EventArgs e)
         {
+            string outMsg = string.Empty;
             Freight fr = null;
             int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text));
             if (bookingId < Constants.InitBookingId)
@@ -190,13 +191,17 @@ namespace WebApp
                     BrkAmt = decimal.Parse(txtNewBrkAmt.Text.Trim(), NumberStyles.Currency)
                 };
 
+                
+                if(!ValidateCalculation(fr, out outMsg))
+                {
+                    AlertMessage(outMsg);
+
+                    return;
+                }
+
                 FreightRepository repo = new FreightRepository();
                 if (repo.InsertFreight(fr))
                 {
-                    //lblAlertSucess.Text = string.Format("Record successfully added!!!");
-                    //lblAlertSucess.Visible = true;
-                    string script = string.Format("alert('<strong><font color='green'>Unable to insert freight to database. BookingId={0}'</font></strong>);", bookingId);
-                    ScriptManager.RegisterClientScriptBlock(Page, typeof(Page), "ClientScript", script, true);
                     lblAlertSucess.DataBind();
 
                     ClearFreightTextFields();
@@ -209,31 +214,56 @@ namespace WebApp
             }
             catch (SqlException se)
             {
-                //lblAlertFailure.Text = string.Format("Unable to insert freight to database. BookingId={0}, SQLException={1}", bookingId, se.Message);
-                //lblAlertFailure.Visible = true;
-                //lblAlertFailure.DataBind();
-                string script = string.Format("alert('<strong><font color='red'>Unable to insert freight to database. BookingId={0}, SQLException={1}'</font></strong>);", bookingId, se.Message);
-                ScriptManager.RegisterClientScriptBlock(Page, typeof(Page), "ClientScript", script, true);
+                outMsg = string.Format("Unable to insert freight to database. BookingId={0}, SQLException={1}'", bookingId, se.Message);
+                AlertMessage(outMsg);
             }
             catch (Exception ex)
             {
-                //lblAlertFailure.Text = string.Format("Unable to insert freight due to an invalid entry. Bookinging={0}, Exception={1}", bookingId, ex.Message);
-                //string msg = string.Format("Unable to insert freight due to an invalid entry. Bookinging={0}, Exception={1}", bookingId, ex.Message);
-                string msg = "Error on the transaction!!!";
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.Append("<script type = 'text/javascript'>");
-                sb.Append("window.onload=function(){");
-                sb.Append("alert('");
-                sb.Append(msg);
-                sb.Append("')};");
-                sb.Append("</script>");
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
-
-                //string script = string.Format("alert('<strong><font color='red'>Unable to insert freight to database. BookingId={0}, ErrorMessage={1}'</font></strong>);", bookingId, ex.Message);
-                //ScriptManager.RegisterClientScriptBlock(Page, typeof(Page), "ClientScript", script, true);
-                //lblAlertFailure.Visible = true;
-                //lblAlertFailure.DataBind();
+                outMsg = string.Format("Unable to insert freight due to an invalid entry. Bookinging={0}, Exception={1}", bookingId, ex.Message);
+                AlertMessage(outMsg);
             }
+        }
+
+        private void AlertMessage(string msg)
+        {
+            string script = string.Format("alert(\"{0}!\");", msg);
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                                  "ServerControlScript", script, true);
+        }
+
+        private bool ValidateCalculation(Freight f, out string outMsg)
+        {
+            outMsg = string.Empty;
+
+            if (f.PC == "P")
+            {
+                if (f.AmtPPD != (f.Units * f.Rate))
+                {
+                    outMsg = string.Format("ERROR!!! AmtPPD={0}, and Units * Rate= {1} * {2}= {3} are not equal)", f.AmtPPD, f.Units, f.Rate, f.Units * f.Rate);
+                    return false;
+                }
+
+                if (f.BrkAmt != (f.AmtPPD * f.BrkRate))
+                {
+                    outMsg = string.Format("ERROR!!! BrkAmt= {0} and AmtPPD * BrkRate= {1} * {2}= {3} are not equal!!!", f.BrkAmt, f.AmtPPD, f.BrkRate, f.AmtPPD * f.BrkRate);
+                    return false;
+                }
+
+            }
+            else if(f.PC == "C")
+            {
+                if(f.AmtPPD != 0 || f.BrkRate != 0 || f.BrkAmt != 0)
+                {
+                    outMsg = string.Format("ERROR!! if PC=C, then AmtPPD={0}, BrkRate={1} and BrkAmt= {2} should be zero", f.AmtPPD, f.BrkRate, f.BrkAmt);
+                    return false;
+                }
+            }
+            else
+            {
+                outMsg = string.Format("SYSTEM ERRROR!!! P/C field should be P or C value");
+                return false;
+            }
+            return true;
         }
 
         private void ClearFreightTextFields()
@@ -340,12 +370,12 @@ namespace WebApp
 
         }
 
-
         protected void txtNewRate_TextChanged(object sender, EventArgs e)
         {
             string pc = ddlNewPC.SelectedValue;
             int units = 0;
             decimal rate = 0;
+
             if (int.TryParse(txtNewUnits.Text, out units) &&
                 decimal.TryParse(txtNewRate.Text, out rate) && rate > 0 && units > 0)
             {
@@ -353,6 +383,8 @@ namespace WebApp
                 {
                     txtNewAmtCOL.Text = (units * rate).ToString("#.##");
                     txtNewAmtPPD.Text = "0";
+                    txtNewBrkRate.Text = "0";
+                    txtNewBrkAmt.Text = "0";
                 }
                 else
                 {
@@ -383,9 +415,20 @@ namespace WebApp
 
         protected void txtNewUnits_TextChanged(object sender, EventArgs e)
         {
+            UpdateAllFields();
+        }
+
+        protected void ddlNewPC_TextChanged(object sender, EventArgs e)
+        {
+            UpdateAllFields();
+        }
+
+        private void UpdateAllFields()
+        {
             string pc = ddlNewPC.SelectedValue;
             int units = 0;
             decimal rate = 0;
+
             if (int.TryParse(txtNewUnits.Text, out units) &&
                 decimal.TryParse(txtNewRate.Text, out rate) && rate > 0 && units > 0)
             {
@@ -393,15 +436,14 @@ namespace WebApp
                 {
                     txtNewAmtCOL.Text = (units * rate).ToString("#.##");
                     txtNewAmtPPD.Text = "0";
+                    txtNewBrkRate.Text = "0";
+                    txtNewBrkAmt.Text = "0";
                 }
                 else
                 {
                     txtNewAmtPPD.Text = (units * rate).ToString("#.##");
                     txtNewAmtCOL.Text = "0";
                 }
-
-                //txtNewAmtCOL.DataBind();
-                //txtNewAmtPPD.DataBind();
             }
 
             decimal amtPPD = 0;

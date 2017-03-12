@@ -27,6 +27,7 @@ BEGIN
 	Declare @bookingId as Int
 	Declare @giffiRefId as bigInt
 	BEGIN TRAN 
+	SET XACT_ABORT ON
 		INSERT INTO Booking (          
 	[CreatedBy],     
 	[CreatedTime],   

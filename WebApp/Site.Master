@@ -29,8 +29,9 @@
                         <div class="container-fluid">
                             <ul class="nav navbar-nav">
                                 <li><a href="Index.aspx">Home</a></li>
-                                <li class="active"><a href="Booking.aspx">Booking</a></li>
+                                <li><a href="Booking.aspx">Booking</a></li>
                                 <li><a href="Container.aspx">Container</a></li>
+                                <li><a href="Freight.aspx">Freight</a></li>
                                 <li><a href="Management.aspx">Management</a></li>
                                 <li><a href="Accounting.aspx">Accounting</a></li>
                             </ul>

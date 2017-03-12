@@ -8,6 +8,10 @@ AS
 		set @giffiId = CONCAT(YEAR(GETDATE()) - 2000, @bookingId)
 	end
 
-	INSERT INTO BookingReference(BookingId, GiffiId, CloneGiffiId)
-	VALUES(@bookingId, @giffiId, 0)
+	BEGIN TRAN
+	SET XACT_ABORT ON
+		INSERT INTO BookingReference(BookingId, GiffiId, CloneGiffiId)
+		VALUES(@bookingId, @giffiId, 0)
+	COMMIT TRAN
+
 RETURN @giffiId

@@ -167,7 +167,7 @@
                                     </asp:TableCell>
                                     <asp:TableCell style="width: 50px">
                                         P/C:<br />
-                                        <asp:DropDownList ID="ddlNewPC" runat="server" Width ="98">
+                                        <asp:DropDownList ID="ddlNewPC" OnTextChanged="ddlNewPC_TextChanged" runat="server" Width ="98">
                                             <asp:ListItem>P</asp:ListItem>                                                
                                             <asp:ListItem>C</asp:ListItem>
                                         </asp:DropDownList>                                        

@@ -1,17 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Booking.aspx.cs" Inherits="WebApp.Booking" %>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>New Booking Page</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Booking.aspx.cs" Inherits="WebApp.Booking" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script lang="javascript" type="text/javascript">
         $(function () {
             $('#<%=txtBillTo.ClientID%>').autocomplete({
@@ -82,33 +70,12 @@
         document.fmBooking.txtCreatedBy.focus();
         document.getSelection()
     </script>
-</head>
-<body>
 
-    <div class="jumbotron text-center">
-        <h1>General International Freight Forwarders, Inc.</h1>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <ul class="nav navbar-nav">
-                            <li><a href="Index.aspx">Home</a></li>
-                            <li class="active"><a href="Booking.aspx">Booking</a></li>
-                            <li><a href="Container.aspx">Container</a></li>
-                            <li><a href="Management.aspx">Management</a></li>
-                            <li><a href="Accounting.aspx">Accounting</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-
-            <div class="col-lg-12 well">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="col-lg-12 well">
                 <h4>New Booking</h4>
                 <div class="row">
-                    <form id="fmBooking" runat="server">
                         <div class="col-sm-12">
                             <div class="row">
                                 <div class="form-inline">
@@ -253,10 +220,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
-        </div>
-    </div>
-</body>
-</html>
+</asp:Content>
+
