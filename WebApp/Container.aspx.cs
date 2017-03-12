@@ -124,11 +124,6 @@ namespace WebApp
         }
 
 
-        protected void Insert(object sender, EventArgs e)
-        {
-
-        }
-
         protected void gvContainer_RowEditing(object sender, GridViewEditEventArgs e)
         {
             long giffiRef = -1;
@@ -154,10 +149,7 @@ namespace WebApp
         protected void gvContainer_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             GridViewRow row = gvContainer.Rows[e.RowIndex];
-
             int containerId = (int)gvContainer.DataKeys[e.RowIndex].Value;
-
-            string name = (row.FindControl("txtContainerNo") as TextBox).Text;
 
             Container cont = new Container()
             {

@@ -7,21 +7,21 @@ INSERT INTO [dbo].[AccountingCode]
            ,[Name]
            ,[MapId])
      VALUES
-           (4010, 'AIRFRT', 5010),
-		   (4030, 'OCEN FREIGHT', 5030),
-		   (4050, 'TRANSLOAD', 5050),
-           (4070, 'TRUCKING', 5070),
-		   (4090, 'GIFFI COMMISSION', 5090),
-		   (4110, 'BANKING - LC', 5110),
-           (4130, 'BROKERAGE', 5130),
-		   (4140, 'ASSOCIATION FEE', 5140),
-		   (4150, 'CERT OF ORIGIN', 5150),
-           (4170, 'CONSULAR FEE', 5170),
-		   (4200, 'PIER PASS', 5200),
-		   (4210, 'COMMISSION', 5210),
-           (4310, 'FORDWARDING', null),
-		   (4330, 'COURIER SERVICES', 5330),
-		   (4350, 'DOC. PREP', 5350)
+           (4010, 'AF', 'AIRFRT', 5010),
+		   (4030, 'OF', 'OCEN FREIGHT', 5030),
+		   (4050, 'TRN', 'TRANSLOAD', 5050),
+           (4070, 'TRK', 'TRUCKING', 5070),
+		   (4090, 'GIC', 'GIFFI COMMISSION', 5090),
+		   (4110, 'BLC', 'BANKING - LC', 5110),
+           (4130, 'BRK', 'BROKERAGE', 5130),
+		   (4140, 'ASF', 'ASSOCIATION FEE', 5140),
+		   (4150, 'COO', 'CERT OF ORIGIN', 5150),
+           (4170, 'CF', 'CONSULAR FEE', 5170),
+		   (4200, 'PP', 'PIER PASS', 5200),
+		   (4210, 'CSN', 'COMMISSION', 5210),
+           (4310, 'FOR', 'FORDWARDING', null),
+		   (4330, 'CS', 'COURIER SERVICES', 5330),
+		   (4350, 'DP', 'DOC. PREP', 5350)
 GO
 
 SELECT TOP 1000 *

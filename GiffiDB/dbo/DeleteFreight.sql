@@ -1,0 +1,8 @@
+﻿CREATE PROCEDURE [dbo].[DeleteFreight]
+	@Id int
+AS
+BEGIN TRAN
+	SET XACT_ABORT ON
+	DELETE FROM [dbo].[Freight] WHERE Id = @Id
+COMMIT TRANSACTION
+

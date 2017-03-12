@@ -147,6 +147,7 @@
       <LastGenOutput>CompanyModel.cs</LastGenOutput>
     </Content>
     <Content Include="Container.aspx" />
+    <Content Include="CSS\main.css" />
     <Content Include="Freight.aspx" />
     <Content Include="Index.aspx" />
     <Content Include="Management.aspx" />
@@ -162,7 +163,7 @@
     <Content Include="CompanyModel.edmx.diagram">
       <DependentUpon>CompanyModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Main.Master" />
+    <Content Include="Site.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -192,6 +193,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountingCode.cs">
+      <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Booking.aspx.cs">
       <DependentUpon>Booking.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -245,6 +249,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CompanyModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Constants.cs" />
     <Compile Include="Container.aspx.cs">
       <DependentUpon>Container.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -260,7 +265,7 @@
     <Compile Include="DataAccess\CompanyRepository.cs" />
     <Compile Include="DataAccess\ContainerRepository.cs" />
     <Compile Include="DataAccess\DataAccessBase.cs" />
-    <Compile Include="DataAccess\MyContainer.cs" />
+    <Compile Include="DataAccess\FreightRepository.cs" />
     <Compile Include="DataType.cs" />
     <Compile Include="DataUtil.cs" />
     <Compile Include="Freight.aspx.cs">
@@ -270,18 +275,21 @@
     <Compile Include="Freight.aspx.designer.cs">
       <DependentUpon>Freight.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Freight.cs">
+      <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetFreightByBookingId_Result.cs">
+      <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetFreightById_Result.cs">
+      <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Main.Master.cs">
-      <DependentUpon>Main.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Main.Master.designer.cs">
-      <DependentUpon>Main.Master</DependentUpon>
     </Compile>
     <Compile Include="Management.aspx.cs">
       <DependentUpon>Management.aspx</DependentUpon>
@@ -291,6 +299,12 @@
       <DependentUpon>Management.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -19,6 +19,7 @@ namespace WebApp
         {
             this.BookingReferences = new HashSet<BookingReference>();
             this.Containers = new HashSet<Container>();
+            this.Freights = new HashSet<Freight>();
         }
     
         public int Id { get; set; }
@@ -52,5 +53,7 @@ namespace WebApp
         public virtual ICollection<BookingReference> BookingReferences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Container> Containers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Freight> Freights { get; set; }
     }
 }

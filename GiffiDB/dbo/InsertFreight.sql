@@ -12,9 +12,36 @@
 @CreatedBy nchar(25)
 AS
 	SET XACT_ABORT ON
+	BEGIN TRAN
+		INSERT INTO [dbo].[Freight]
+					([BookingId]
+					,[Code]
+					,[BS]
+					,[PC]
+					,[Units]
+					,[Rate]
+					,[AmtPPD]
+					,[AmtCOL]
+					,[BrkRate]
+					,[BrkAmt]
+					,[CreatedBy])
+				VALUES
+					(@BookingId
+					,@Code
+					,@BS
+					,@PC
+					,@Units
+					,@Rate
+					,@AmtPPD
+					,@AmtCOL
+					,@BrkRate
+					,@BrkAmt
+					,@CreatedBy)
+	COMMIT TRANSACTION
+/*
 	IF EXISTS(SELECT Count(*) FROM [dbo].[Freight] WHERE [BookingId] = @BookingId)
 		BEGIN
-			raiserror ('InsertContainer: BookingId already exist!!!', 16, 1) ;
+			raiserror ('InsertFreight: BookingId already exist!!!', 16, 1) ;
 			/*RETURN -100 RECORD ALREADY EXIST*/
 		END
 	ELSE
@@ -46,5 +73,5 @@ AS
 						   ,@CreatedBy)
 			COMMIT TRANSACTION
 		END
-
+*/
 

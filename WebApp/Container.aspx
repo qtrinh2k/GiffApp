@@ -60,7 +60,7 @@
                     </nav>
                 </div>
 
-            <div class="col-sm-9">
+                <div class="col-sm-9">
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <asp:TextBox ID="txtSearchBox" CssClass="form-control" TabIndex="1" runat="server"/>

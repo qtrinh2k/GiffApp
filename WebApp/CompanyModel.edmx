@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="GiffiDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountingCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MapId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="Id" />
@@ -77,6 +87,25 @@
           <Property Name="Invoice" Type="bigint" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="Freight">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingId" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="BS" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="PC" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="Units" Type="int" Nullable="false" />
+          <Property Name="Rate" Type="money" Nullable="false" />
+          <Property Name="AmtPPD" Type="money" Nullable="false" />
+          <Property Name="AmtCOL" Type="money" Nullable="false" />
+          <Property Name="BrkRate" Type="money" Nullable="false" />
+          <Property Name="BrkAmt" Type="money" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nchar" MaxLength="25" />
+        </EntityType>
         <Association Name="FK_Booking_BillTo">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
@@ -137,11 +166,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Freight_ToBooking">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="Freight" Type="Self.Freight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Freight">
+              <PropertyRef Name="BookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetFreightByBookingId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="bookingId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetFreightById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="param1" Type="int" Mode="In" />
+          <Parameter Name="param2" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertFreight" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BookingId" Type="int" Mode="In" />
+          <Parameter Name="Code" Type="nchar" Mode="In" />
+          <Parameter Name="BS" Type="nchar" Mode="In" />
+          <Parameter Name="PC" Type="nchar" Mode="In" />
+          <Parameter Name="Units" Type="int" Mode="In" />
+          <Parameter Name="Rate" Type="money" Mode="In" />
+          <Parameter Name="AmtPPD" Type="money" Mode="In" />
+          <Parameter Name="AmtCOL" Type="money" Mode="In" />
+          <Parameter Name="BrkRate" Type="money" Mode="In" />
+          <Parameter Name="BrkAmt" Type="money" Mode="In" />
+          <Parameter Name="CreatedBy" Type="nchar" Mode="In" />
+        </Function>
         <EntityContainer Name="GiffiDBModelStoreContainer">
+          <EntitySet Name="AccountingCode" EntityType="Self.AccountingCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookingReference" EntityType="Self.BookingReference" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Container" EntityType="Self.Container" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Freight" EntityType="Self.Freight" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Booking_BillTo" Association="Self.FK_Booking_BillTo">
             <End Role="Company" EntitySet="Company" />
             <End Role="Booking" EntitySet="Booking" />
@@ -161,6 +224,10 @@
           <AssociationSet Name="FK_Container_ToBooking" Association="Self.FK_Container_ToBooking">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="Container" EntitySet="Container" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Freight_ToBooking" Association="Self.FK_Freight_ToBooking">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="Freight" EntitySet="Freight" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -215,6 +282,32 @@
             <End Role="Booking" EntitySet="Bookings" />
             <End Role="Container" EntitySet="Containers" />
           </AssociationSet>
+          <EntitySet Name="Freights" EntityType="GiffiDBModel.Freight" />
+          <AssociationSet Name="FK_Freight_ToBooking" Association="GiffiDBModel.FK_Freight_ToBooking">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="Freight" EntitySet="Freights" />
+          </AssociationSet>
+          <FunctionImport Name="GetFreightByBookingId" ReturnType="Collection(GiffiDBModel.GetFreightByBookingId_Result)">
+          <Parameter Name="bookingId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetFreightById" ReturnType="Collection(GiffiDBModel.GetFreightById_Result)">
+            <Parameter Name="param1" Mode="In" Type="Int32" />
+            <Parameter Name="param2" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertFreight">
+            <Parameter Name="BookingId" Mode="In" Type="Int32" />
+            <Parameter Name="Code" Mode="In" Type="String" />
+            <Parameter Name="BS" Mode="In" Type="String" />
+            <Parameter Name="PC" Mode="In" Type="String" />
+            <Parameter Name="Units" Mode="In" Type="Int32" />
+            <Parameter Name="Rate" Mode="In" Type="Decimal" />
+            <Parameter Name="AmtPPD" Mode="In" Type="Decimal" />
+            <Parameter Name="AmtCOL" Mode="In" Type="Decimal" />
+            <Parameter Name="BrkRate" Mode="In" Type="Decimal" />
+            <Parameter Name="BrkAmt" Mode="In" Type="Decimal" />
+            <Parameter Name="CreatedBy" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="AccountingCodes" EntityType="GiffiDBModel.AccountingCode" />
         </EntityContainer>
         <EntityType Name="Booking">
           <Key>
@@ -248,6 +341,7 @@
           <Property Name="CargoCut" Type="DateTime" Precision="3" />
           <Property Name="VGM" Type="Double" />
           <NavigationProperty Name="Containers" Relationship="GiffiDBModel.FK_Container_ToBooking" FromRole="Booking" ToRole="Container" />
+          <NavigationProperty Name="Freights" Relationship="GiffiDBModel.FK_Freight_ToBooking" FromRole="Booking" ToRole="Freight" />
         </EntityType>
         <Association Name="FK_Booking_BillTo">
           <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
@@ -335,6 +429,68 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Freight">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingId" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="BS" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PC" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Units" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="AmtPPD" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="AmtCOL" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="BrkRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="BrkAmt" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_Freight_ToBooking" FromRole="Freight" ToRole="Booking" />
+        </EntityType>
+        <Association Name="FK_Freight_ToBooking">
+          <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="1" />
+          <End Type="GiffiDBModel.Freight" Role="Freight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Freight">
+              <PropertyRef Name="BookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetFreightByBookingId_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="BookingId" Nullable="false" />
+          <Property Type="String" Name="Code" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="BS" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="PC" Nullable="false" MaxLength="1" />
+          <Property Type="Int32" Name="Units" Nullable="false" />
+          <Property Type="Decimal" Name="Rate" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="AmtPPD" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="AmtCOL" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="BrkRate" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="BrkAmt" Nullable="false" Precision="19" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="GetFreightById_Result">
+          <Property Type="Int32" Name="Column1" Nullable="true" />
+          <Property Type="Int32" Name="Column2" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="AccountingCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MapId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -413,6 +569,66 @@
                 <ScalarProperty Name="SealNo" ColumnName="SealNo" />
                 <ScalarProperty Name="ContainerNo" ColumnName="ContainerNo" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Freights">
+            <EntityTypeMapping TypeName="GiffiDBModel.Freight">
+              <MappingFragment StoreEntitySet="Freight">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="BrkAmt" ColumnName="BrkAmt" />
+                <ScalarProperty Name="BrkRate" ColumnName="BrkRate" />
+                <ScalarProperty Name="AmtCOL" ColumnName="AmtCOL" />
+                <ScalarProperty Name="AmtPPD" ColumnName="AmtPPD" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="PC" ColumnName="PC" />
+                <ScalarProperty Name="BS" ColumnName="BS" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetFreightByBookingId" FunctionName="GiffiDBModel.Store.GetFreightByBookingId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiffiDBModel.GetFreightByBookingId_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="BS" ColumnName="BS" />
+                <ScalarProperty Name="PC" ColumnName="PC" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="AmtPPD" ColumnName="AmtPPD" />
+                <ScalarProperty Name="AmtCOL" ColumnName="AmtCOL" />
+                <ScalarProperty Name="BrkRate" ColumnName="BrkRate" />
+                <ScalarProperty Name="BrkAmt" ColumnName="BrkAmt" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetFreightById" FunctionName="GiffiDBModel.Store.GetFreightById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiffiDBModel.GetFreightById_Result">
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="Column2" ColumnName="Column2" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertFreight" FunctionName="GiffiDBModel.Store.InsertFreight" />
+          <EntitySetMapping Name="AccountingCodes">
+            <EntityTypeMapping TypeName="GiffiDBModel.AccountingCode">
+              <MappingFragment StoreEntitySet="AccountingCode">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="MapId" ColumnName="MapId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
