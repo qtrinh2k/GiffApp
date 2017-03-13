@@ -10,7 +10,7 @@
 @CreatedDate datetime
 AS
 	SET XACT_ABORT ON
-	IF EXISTS(SELECT Count(*) FROM [dbo].[Container] WHERE ContainerNo = @ContainerNo)
+	IF EXISTS(SELECT ContainerNo FROM [dbo].[Container] WHERE ContainerNo = @ContainerNo AND BookingId = @BookingId)
 		BEGIN
 			raiserror ('InsertContainer: ContainerNo already exist!!!', 16, 1) ;
 			/*RETURN -100 RECORD ALREADY EXIST*/

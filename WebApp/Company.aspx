@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-12 well">
             <h4>New Company Info</h4>
-            <div class="row">
+            <div class="row" style="font-size:large">
                 <form runat="server">
                     <div class="col-sm-12">
                         <div class="row">
@@ -46,8 +46,8 @@
                             <div class="col-sm-2 form-group">
                                 <label>Type:</label>
                                 <asp:DropDownList ID="ddlType" CssClass="form-control" runat="server">
+                                    <asp:ListItem Text="Customer" Value="Customer" />
                                     <asp:ListItem Text="Vendor" Value="Vendor" />
-                                    <asp:ListItem Text="Carrier" Value="Carrier" />
                                     <asp:ListItem Text="Both" Value="Both" />
                                 </asp:DropDownList>
                                 <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="ddlType" runat="server" />
@@ -91,7 +91,6 @@
                                 <label>Zip Code:</label>
                                 <asp:TextBox CssClass="form-control" ID="txtZip" Width="30%" runat="server" />
                                 <asp:RegularExpressionValidator runat="server" Display="Dynamic" ValidationExpression="[0-9-]*" ControlToValidate="txtZip" ForeColor="Red" ErrorMessage="Invalid Zip code." />
-
                             </div>
                             <div class="col-sm-3 form-group">
                                 <label>Country:</label>

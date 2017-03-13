@@ -21,49 +21,45 @@ namespace WebApp
 
         protected void AddNewCompany_Click(object sender, EventArgs e)
         {
-
-            //DataAccessBase dbAccess = new DataAccessBase();
-
-            //using (SqlConnection con = new SqlConnection(dbAccess.ConnectionString))
-            //{
-            //    using (SqlCommand cmd = new SqlCommand("InsertCompany", con))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-
-            //        cmd.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = txtCompanyName.Text.Trim();
-            //        cmd.Parameters.Add("@attention", SqlDbType.NVarChar).Value = "";
-            //        cmd.Parameters.Add("@address1", SqlDbType.NVarChar).Value = txtAddress1.Text.Trim();
-            //        cmd.Parameters.Add("@address2", SqlDbType.NVarChar).Value = txtAddress2.Text.Trim();
-            //        cmd.Parameters.Add("@city", SqlDbType.NVarChar).Value = txtCity.Text.Trim();
-            //        cmd.Parameters.Add("@state", SqlDbType.NChar).Value = txtState.Text.Trim();
-            //        cmd.Parameters.Add("@zipCode", SqlDbType.Int).Value = txtZip.Text.Trim();
-            //        cmd.Parameters.Add("@zipCode2", SqlDbType.Int).Value = "0000";
-            //        cmd.Parameters.Add("@country", SqlDbType.NVarChar).Value = txtCountry.Text.Trim();
-            //        cmd.Parameters.Add("@phone", SqlDbType.NVarChar).Value = txtCountry.Text.Trim();
-            //        cmd.Parameters.Add("@email", SqlDbType.NVarChar).Value = txtCountry.Text.Trim();
-            //        con.Open();
-            //        var result = cmd.ExecuteNonQuery();
-            //    }
-            //}
-
-            Company c = new Company()
+            string errMsg = string.Empty;
+            Company c = null;
+            try
             {
-                CompanyName = txtCompanyName.Text.Trim(),
-                //Code = txtCode.Text.Trim(),
-                //CompanyType = txtComanyType.Text.Trim(),
-                //FederalNumber = txtFederalNo.Text.Trim()
-                Address1 = txtAddress1.Text.Trim(),
-                City = txtCity.Text.Trim(),
-                ZipCode = txtZip.Text.Trim(),
-                ZipCode2 = "0000",
-                Country = txtCountry.Text.Trim(),
-                Phone = txtPhone.Text.Trim(),
-                Email = txtEmail.Text.Trim()
-            };
+                c = new Company()
+                {
+                    Code = txtCode.Text.Trim(),
+                    CompanyName = txtCompanyName.Text.Trim(),
+                    CompanyType = ddlType.SelectedValue,
+                    FederalNumber = txtFederalNum.Text.Trim(),
+                    Address = txtAddress1.Text.Trim(),
+                    City = txtCity.Text.Trim(),
+                    ZipCode = txtZip.Text.Trim(),
+                    Country = txtCountry.Text.Trim(),
+                    Phone = txtPhone.Text.Trim(),
+                    Email = txtEmail.Text.Trim()
+                };
 
-            CompanyRepository cr = new CompanyRepository();
-            cr.Insert(c);
-            ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Successfully Submit');", true);
+                CompanyRepository cr = new CompanyRepository();
+                cr.Insert(c);
+                ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Successfully Submit');", true);
+            }
+            catch (SqlException se)
+            {
+                errMsg = string.Format("Unable to insert Company to database. Name={0}, SQLException={1}'", c.CompanyName, se.Message);
+                AlertMessage(errMsg);
+            }
+            catch (Exception ex)
+            {
+                errMsg = string.Format("Unable to insert Company due to an invalid entry. Name={0}, Exception={1}", c.CompanyName, ex.Message);
+                AlertMessage(errMsg);
+            }
+        }
+
+        private void AlertMessage(string msg)
+        {
+            string script = string.Format("alert(\"{0}!\");", msg);
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                                  "ServerControlScript", script, true);
         }
     }
 }

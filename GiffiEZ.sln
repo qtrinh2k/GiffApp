@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GiffiDB", "GiffiDB\GiffiDB.sqlproj", "{3E0B20B1-101C-4FF1-9D57-845EE6151F6A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2970BA46-1CB5-47CE-9B1B-F21F9090387E} = {2970BA46-1CB5-47CE-9B1B-F21F9090387E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{2970BA46-1CB5-47CE-9B1B-F21F9090387E}"
 EndProject
@@ -21,6 +24,7 @@ Global
 		{3E0B20B1-101C-4FF1-9D57-845EE6151F6A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{2970BA46-1CB5-47CE-9B1B-F21F9090387E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2970BA46-1CB5-47CE-9B1B-F21F9090387E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2970BA46-1CB5-47CE-9B1B-F21F9090387E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{2970BA46-1CB5-47CE-9B1B-F21F9090387E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2970BA46-1CB5-47CE-9B1B-F21F9090387E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

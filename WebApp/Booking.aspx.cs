@@ -64,7 +64,7 @@ namespace WebApp
                     cmd.Parameters.Add("@CutOffDate", SqlDbType.DateTime).Value = DateTime.Parse(txtCutOffDate.Text.Trim());
                     cmd.Parameters.Add("@DOC", SqlDbType.DateTime).Value = DateTime.Parse(txtDOC.Text.Trim());
                     cmd.Parameters.Add("@CargoCut", SqlDbType.DateTime).Value = DateTime.Parse(txtCargoCut.Text.Trim());
-                    cmd.Parameters.Add("@VGM", SqlDbType.Float).Value = float.Parse(txtVGM.Text.Trim());
+                    cmd.Parameters.Add("@VGM", SqlDbType.DateTime).Value = DateTime.Parse(txtVGM.Text.Trim());
                     cmd.Parameters.Add("@ReturnValue", SqlDbType.BigInt).Direction = ParameterDirection.ReturnValue;
                     con.Open();
                     var result = cmd.ExecuteNonQuery();
@@ -138,13 +138,13 @@ namespace WebApp
                 if (pre.Equals("*") || pre.Equals("."))
                 {
                     carrierNames = (from c in dc.Companies
-                                    where c.CompanyType.Equals("Carrier", StringComparison.InvariantCultureIgnoreCase)
+                                    where c.CompanyType.Equals("Vendor", StringComparison.InvariantCultureIgnoreCase)
                                     select c.Code).Distinct().ToList();
                 }
                 else
                 {
                     carrierNames = (from c in dc.Companies
-                                    where c.Code.StartsWith(pre) && c.CompanyType.Equals("Carrier", StringComparison.InvariantCultureIgnoreCase)
+                                    where c.Code.StartsWith(pre) && c.CompanyType.Equals("Vendor", StringComparison.InvariantCultureIgnoreCase)
                                     select c.Code).Distinct().ToList();
                 }
             }

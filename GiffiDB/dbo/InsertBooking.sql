@@ -14,7 +14,7 @@
 	@cutOffDate Datetime,
 	@DOC Datetime,
 	@cargoCut Datetime,
-	@VGM Float,
+	@VGM Datetime,
 	@commodity nvarchar(200),
 	@equipment nvarchar(100),
 	@temp nchar(10),

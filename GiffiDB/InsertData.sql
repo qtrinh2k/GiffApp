@@ -24,20 +24,18 @@ INSERT INTO [dbo].[AccountingCode]
 		   (4350, 'DP', 'DOC. PREP', 5350)
 GO
 
-SELECT TOP 1000 *
-  FROM [GiffiDB].[dbo].[Company]
-
-  INSERT INTO [dbo].[Company]
-           ([CompanyName],[Code],CompanyType,[FederalNumber],[Address1],[Address2],[City],[State],[ZipCode],[ZipCode2],[Country],[Phone],[Email])
-     VALUES ('Asia Company','ABC USA','Vendor','123AKD','123 1st Ave','Suite 2','Seattle','WA','98101','0000','USA','206-421-2345','steve@giffi.com'),
-			('Euro Company','XYZ USA','Carrier','123AKD','123 1st Ave','Suite 2','Seattle','WA','98101','0000','USA','206-421-2345','steve@giffi.com'),
-			('Seattle Company','123 USA','Carrier','123AKD','123 1st Ave','Suite 2','Seattle','WA','98101','0000','USA','206-421-2345','steve@giffi.com'),
-			('China Company','XYZ USA','Carrier','123AKD','123 1st Ave','Suite 2','Seattle','WA','98101','0000','USA','206-421-2345','steve@giffi.com'),
-			('GIFFI Company','Giffi USA','Vendor','123AKD','123 1st Ave','Suite 2','Seattle','WA','98101','0000','USA','206-421-2345','steve@giffi.com'),
-			('JOHN Company','XYZ USA','Vendor','123AKD','123 1st Ave','Suite 2','Seattle','WA','98101','0000','USA','206-421-2345','steve@giffi.com'),
-			('JOHN Company','XYZ USA','Vendor','123AKD','123 1st Ave','Suite 2','Seattle','WA','98101','0000','USA','206-421-2345','steve@giffi.com'),
-			('JOHN Company','XYZ USA','Vendor','123AKD','123 1st Ave','Suite 2','Seattle','WA','98101','0000','USA','206-421-2345','steve@giffi.com')
-GO
+INSERT INTO [dbo].[Company]
+([Code],[CompanyName],CompanyType,[FederalNumber],[Address],[City],[State],[ZipCode],[Country],[Phone],[Email])
+VALUES
+('BLOGLO','BLOOM GLOBAL CORP','Customer',NULL,'7293 GOLDEN MEADOW COURT','MISSISSAUGA','ONT','LW50B9','CANADA','604-111-1222',NULL),
+('ROCASS','ROCKY & ASSCOCIATES','Customer',NULL,'700 23 ST','REDMOND','WA','98101','USA','206-421-2345','ROCKY@GMAIL.COM'),
+('ROMFI','ROMANZOFF FISH CO','Customer',NULL,'4502 14TH AVE NW','SEATTLE','WA','981107','USA',NULL,NULL),
+('SALFRU','SALIX FRUITS','Customer',NULL,'1070 BRIDGE MILL AVE','CANTON','GA','30114','USA','917-555-1212',NULL),
+('APLUSA','AMERICAN PRES LINES','Vendor',NULL,'100 X ST','SEATTLE','WA','98111','USA',NULL,NULL),
+('COSUSA','COSCO SHIPPING CO','Vendor',NULL,'100 Y ST','SEATTLE','WA','98111','USA',NULL,NULL),
+('MOLUSA','MOL SHIPPING CO','Vendor',NULL,'25 Z ST','HOUSTON','TX','75451','USA',NULL,NULL),
+('HAPUSA','HAPAG LLOYD','Vendor',NULL,'GREEN BOWLING DR','HOUSTON','TX','74541','USA',NULL,NULL),
+('NICUSA','NICHRIE USA','Vendor',NULL,'1400 4 TH AVE, SUITE 2010','SEATTLE','WA','98125','USA',NULL,NULL)
 
 --CONCAT(YEAR(GETDATE()) - 2000, CAST(RIGHT('10000' + CAST(@bookingId AS VARCHAR(6)), 6) AS bigint))
 declare @startNumber as bigint = 10000

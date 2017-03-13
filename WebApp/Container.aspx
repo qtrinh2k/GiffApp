@@ -72,7 +72,7 @@
 
                                 <asp:GridView CssClass="table table-striped" ID="gvContainer" DataKeyNames="Id" runat="server" AutoGenerateColumns="false"
                                     OnRowEditing="gvContainer_RowEditing" OnRowDeleting="gvContainer_RowDeleting" OnRowUpdating="gvContainer_RowUpdating" OnRowCancelingEdit="gvContainer_RowCancelEditing"
-                                    EmptyDataText="No records has been added.">
+                                    EmptyDataText="No records has been added." Font-Bold="true">
                                     <Columns>
                                         <asp:TemplateField HeaderText="Container No." ItemStyle-Width="130px">
                                             <ItemTemplate>
@@ -90,7 +90,7 @@
                                                 <asp:TextBox ID="txtSealNo" Width="120" runat="server" Text='<%# Eval("SealNo") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="PkgsWeight" ItemStyle-Width="130px">
+                                        <asp:TemplateField HeaderText="Packages" ItemStyle-Width="130px">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblPkgsWeight" runat="server" Text='<%# Eval("PkgsWeight") %>'></asp:Label>
                                             </ItemTemplate>
@@ -106,7 +106,7 @@
                                                 <asp:TextBox ID="txtNetWeight" Width="120" runat="server" Text='<%# Eval("NetWeight") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="GRS" ItemStyle-Width="130px">
+                                        <asp:TemplateField HeaderText="GRS (Kg)" ItemStyle-Width="130px">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblGRS" Width="120" runat="server" Text='<%# Eval("GRS") %>'></asp:Label>
                                             </ItemTemplate>
@@ -143,7 +143,7 @@
                                 </asp:GridView>
                                 
                                 <asp:Table id="tbNewContainer" CSSClass="table table-striped" runat="server">
-                                    <asp:TableRow>
+                                    <asp:TableRow Font-Bold="true">
 
                                     <asp:TableCell style="width: 130px">
                                         Contaner No:<br />

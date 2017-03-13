@@ -101,7 +101,4 @@
     <None Include="Snapshots\GiffiDB_20170219_15-15-06.dacpac" />
     <None Include="InsertData.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="GiffiDB.refactorlog" />
-  </ItemGroup>
 </Project>

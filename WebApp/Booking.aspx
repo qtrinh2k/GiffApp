@@ -168,7 +168,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>Equiq: </label>
+                                    <label>Equip: </label>
                                     <div class="form-inline">
                                         <asp:TextBox ID="txtEquiq1" CssClass="form-control" TabIndex="13" runat="server" />
                                         <asp:TextBox ID="txtEquiq2" CssClass="form-control" Width="50%" TabIndex="14" runat="server" />
@@ -178,28 +178,34 @@
                                 <div class="col-sm-3 form-group">
                                     <label>Temp: </label>
                                     <asp:TextBox ID="txtTemp" CssClass="form-control" TabIndex="15" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtTemp" runat="server" />
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label>Vents: </label>
                                     <asp:TextBox ID="txtVents" CssClass="form-control" TabIndex="16" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtVents" runat="server" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3 form-group">
                                     <label>Cut Off Date: </label>
                                     <asp:TextBox ID="txtCutOffDate" CssClass="form-control" TabIndex="17" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCutOffDate" runat="server" />
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label>DOC: </label>
+                                    <label>DOC Date: </label>
                                     <asp:TextBox ID="txtDOC" CssClass="form-control" TabIndex="18" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDOC" runat="server" />
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label>Cargo Cut: </label>
+                                    <label>Cargo Cut Date: </label>
                                     <asp:TextBox ID="txtCargoCut" CssClass="form-control" TabIndex="19" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCargoCut" runat="server" />
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label>VGM: </label>
+                                    <label>VGM Cut Of Date: </label>
                                     <asp:TextBox ID="txtVGM" CssClass="form-control" TabIndex="20" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtVGM" runat="server" />
                                 </div>
                             </div>
 

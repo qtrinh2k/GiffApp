@@ -71,7 +71,7 @@
 
                         <asp:GridView CssClass="table table-striped" ID="gvFreight" DataKeyNames="Id" ShowFooter="true" runat="server" AutoGenerateColumns="false" 
                             OnRowEditing="gvFreight_RowEditing" OnRowUpdating="gvFreight_RowUpdating" OnRowCancelingEdit="gvFreight_RowCancelingEdit" OnRowDeleting="gvFreight_RowDeleting"
-                            EmptyDataText="No records has been added.">
+                            EmptyDataText="No records has been added." Font-Bold="true">
                             <Columns>
                                 <asp:TemplateField HeaderText="Code" ItemStyle-Width="100px">
                                    <ItemTemplate>
