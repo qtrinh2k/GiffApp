@@ -5,6 +5,7 @@
     [ModifiedTime]  DATETIME       NOT NULL DEFAULT GETDATE(),
     [BillToId]     INT            NOT NULL,
     [ShipperId]     INT            NOT NULL,
+	[ShipperRefNo]	NCHAR(25) NULL,
     [CarrierId]     INT            NOT NULL,
     [Vessel]        NVARCHAR (50)  NOT NULL,
     [VSL]           NCHAR (10)     NOT NULL,

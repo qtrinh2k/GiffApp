@@ -16,7 +16,7 @@ namespace WebApp
     {
         public int Id { get; set; }
         public int BookingId { get; set; }
-        public string Code { get; set; }
+        public int Code { get; set; }
         public string BS { get; set; }
         public string PC { get; set; }
         public int Units { get; set; }
@@ -29,6 +29,7 @@ namespace WebApp
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string CreatedBy { get; set; }
     
+        public virtual AccountingCode AccountingCode { get; set; }
         public virtual Booking Booking { get; set; }
     }
 }

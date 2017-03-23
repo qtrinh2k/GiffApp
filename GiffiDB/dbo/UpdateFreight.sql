@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[UpdateFreight]
 @Id int,
 @BookingId int,
-@Code nchar(10),
+@Code int,
 @BS nchar(10),
 @PC nchar(1),
 @Units int,

@@ -100,8 +100,6 @@
                                     <label>Bill To ([.] - to show all): </label>
                                     <asp:TextBox ID="txtBillTo" CssClass="form-control" TabIndex="2" runat="server" />
                                     <asp:RequiredFieldValidator ID="rfvBillTo" ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtBillTo" runat="server" />
-                                    <%--                                    <asp:DropDownList ID="ddlBillTo" Cssclass="form-control" TabIndex="2" runat="server">
-                                    </asp:DropDownList>--%>
                                 </div>
                             </div>
 
@@ -114,7 +112,7 @@
                                 <div class="col-sm-6 form-group">
                                     <label>Reference Number: </label>
                                     <asp:TextBox ID="txtShipperRef" CssClass="form-control" TabIndex="4" runat="server" />
-                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDest" runat="server" />
+                                    <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtShipperRef" runat="server" />
                                 </div>
                             </div>
                             <div class="row">

@@ -2,29 +2,29 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script lang="javascript" type="text/javascript">
         $(function () {
-        $('#<%=txtSearchBox.ClientID%>').autocomplete({
-            source: function (request, response) {
-                op = $("#ddlOption option:selected").val();
-                $.ajax({
-                    url: "Container.aspx/SearchFor",
-                    data: "{ 'pre':'" + request.term + "', 'option': " + op + "}",
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (data) {
-                        response($.map(data.d, function (item) {
-                            return { value: item }
-                        }))
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(textStatus);
-                    }
-                });
-            }
+            $('#<%=txtSearchBox.ClientID%>').autocomplete({
+                source: function (request, response) {
+                    op = $("#ddlOption option:selected").val();
+                    $.ajax({
+                        url: "Container.aspx/SearchFor",
+                        data: "{ 'pre':'" + request.term + "', 'option': " + op + "}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return { value: item }
+                            }))
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                }
+            });
         });
-    });
 
-</script>
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -78,7 +78,7 @@
                                         <asp:Label ID="lblCode" runat="server" Text='<%# Eval("Code") %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtCode" Width="98" runat="server" Text='<%# Eval("Code") %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtCode" Width="98" Enabled="false" runat="server" Text='<%# Eval("Code") %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="BS" ItemStyle-Width="40px">
@@ -94,7 +94,7 @@
                                         <asp:Label ID="lblPC" runat="server" Text='<%# Eval("PC") %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtPC" Width="98" runat="server" Text='<%# Eval("PC") %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtPC" Width="98" Enabled="false" runat="server" Text='<%# Eval("PC") %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Units" ItemStyle-Width="40px">
@@ -107,42 +107,42 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Rate" ItemStyle-Width="100px">
                                    <ItemTemplate>
-                                        <asp:Label ID="lblRate" runat="server" Text='<%# Eval("Rate") %>'></asp:Label>
+                                        <asp:Label ID="lblRate" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Rate")) %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtRate" Width="98" runat="server" Text='<%# Eval("Rate") %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtRate" Width="98" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Rate")) %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="AMT. PPD" ItemStyle-Width="100px">
                                    <ItemTemplate>
-                                        <asp:Label ID="lblAmtPPD" runat="server" Text='<%# Eval("AmtPPD") %>'></asp:Label>
+                                        <asp:Label ID="lblAmtPPD" runat="server" Text='<%# String.Format("{0:0.00}", Eval("AmtPPD")) %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtAmtPPD" Width="98" runat="server" Text='<%# Eval("AmtPPD") %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtAmtPPD" Width="98" runat="server" Text='<%# String.Format("{0:0.00}", Eval("AmtPPD")) %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="AMT COL" ItemStyle-Width="100px">
                                    <ItemTemplate>
-                                        <asp:Label ID="lblAmtCOL" runat="server" Text='<%# Eval("AmtCOL") %>'></asp:Label>
+                                        <asp:Label ID="lblAmtCOL" runat="server" Text='<%# String.Format("{0:0.00}", Eval("AmtCOL")) %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtAmtCOL" Width="98" runat="server" Text='<%# Eval("AmtCOL") %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtAmtCOL" Width="98" runat="server" Text='<%# String.Format("{0:0.00}", Eval("AmtCOL")) %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="BRK Rate" ItemStyle-Width="100px">
                                    <ItemTemplate>
-                                        <asp:Label ID="lblBrkRate" runat="server" Text='<%# Eval("BrkRate") %>'></asp:Label>
+                                        <asp:Label ID="lblBrkRate" runat="server" Text='<%# String.Format("{0:0.00}", Eval("BrkRate")) %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtBrkRate" Width="98" runat="server" Text='<%# Eval("BrkRate") %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtBrkRate" Width="98" runat="server" Text='<%# String.Format("{0:0.00}", Eval("BrkRate")) %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="BRK AMT" ItemStyle-Width="100px">
                                    <ItemTemplate>
-                                        <asp:Label ID="lblBrkAmt" runat="server" Text='<%# Eval("BrkAmt") %>'></asp:Label>
+                                        <asp:Label ID="lblBrkAmt" runat="server" Text='<%# String.Format("{0:0.00}", Eval("BrkAmt")) %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtBrkAmt" Width="98" runat="server" Text='<%# Eval("BrkAmt") %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtBrkAmt" Width="98" runat="server" Text='<%# String.Format("{0:0.00}", Eval("BrkAmt")) %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true" ItemStyle-Width="100" />
@@ -155,8 +155,6 @@
                                         Code:<br />
                                         <%--<asp:TextBox ID="txtNewCode" runat="server" Width="90" />--%>
                                         <asp:DropDownList ID="ddlNewCode" runat="server" Width ="98">
-                                            <asp:ListItem>OF</asp:ListItem>                                                
-                                            <asp:ListItem>BUC</asp:ListItem>
                                         </asp:DropDownList>
                                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="ddlNewCode" ValidationGroup="AddFreight" runat="server" />
                                     </asp:TableCell>

@@ -48,6 +48,7 @@ namespace WebApp
                     cmd.Parameters.Add("@modifiedTime", SqlDbType.DateTime).Value = txtDate.Text.Trim();
                     cmd.Parameters.Add("@billToId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtBillTo.Text.Trim());
                     cmd.Parameters.Add("@shipperId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtShipper.Text.Trim());
+                    cmd.Parameters.Add("@shipperRefNo", SqlDbType.NVarChar).Value = txtShipperRef.Text.Trim();
                     cmd.Parameters.Add("@carrierId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromCode(txtCarrier.Text.Trim());
                     cmd.Parameters.Add("@vessel", SqlDbType.NVarChar).Value = txtVessel.Text.Trim();
                     cmd.Parameters.Add("@vsl", SqlDbType.NVarChar).Value = txtVSL.Text.Trim();

@@ -32,6 +32,7 @@ namespace WebApp
             }
         }
 
+
         public DataTable FillDataTable(string sqlQuery)
         {
             DataTable table = null;
@@ -119,6 +120,18 @@ namespace WebApp
             }
         }
 
+        internal object ExecuteScalar(SqlCommand sqlCmd)
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                using (sqlCmd)
+                {
+                    sqlCmd.Connection = connection;
+                    connection.Open();
+                    return sqlCmd.ExecuteScalar();
+                }
+            }
+        }
 
         public SqlConnection GetConnection()
         {

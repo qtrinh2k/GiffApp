@@ -27,12 +27,14 @@ namespace WebApp
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<BookingReference> BookingReferences { get; set; }
         public virtual DbSet<Container> Containers { get; set; }
-        public virtual DbSet<Freight> Freights { get; set; }
         public virtual DbSet<AccountingCode> AccountingCodes { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Freight> Freights { get; set; }
+        public virtual DbSet<Booking> Bookings { get; set; }
+        public virtual DbSet<BillingItem> BillingItems { get; set; }
     
         public virtual ObjectResult<GetFreightByBookingId_Result> GetFreightByBookingId(Nullable<int> bookingId)
         {
@@ -56,15 +58,15 @@ namespace WebApp
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFreightById_Result>("GetFreightById", param1Parameter, param2Parameter);
         }
     
-        public virtual int InsertFreight(Nullable<int> bookingId, string code, string bS, string pC, Nullable<int> units, Nullable<decimal> rate, Nullable<decimal> amtPPD, Nullable<decimal> amtCOL, Nullable<decimal> brkRate, Nullable<decimal> brkAmt, string createdBy)
+        public virtual int InsertFreight(Nullable<int> bookingId, Nullable<int> code, string bS, string pC, Nullable<int> units, Nullable<decimal> rate, Nullable<decimal> amtPPD, Nullable<decimal> amtCOL, Nullable<decimal> brkRate, Nullable<decimal> brkAmt, string createdBy)
         {
             var bookingIdParameter = bookingId.HasValue ?
                 new ObjectParameter("BookingId", bookingId) :
                 new ObjectParameter("BookingId", typeof(int));
     
-            var codeParameter = code != null ?
+            var codeParameter = code.HasValue ?
                 new ObjectParameter("Code", code) :
-                new ObjectParameter("Code", typeof(string));
+                new ObjectParameter("Code", typeof(int));
     
             var bSParameter = bS != null ?
                 new ObjectParameter("BS", bS) :

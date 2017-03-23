@@ -14,10 +14,22 @@ namespace WebApp
     
     public partial class AccountingCode
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AccountingCode()
+        {
+            this.Freights = new HashSet<Freight>();
+            this.BillingItems = new HashSet<BillingItem>();
+        }
+    
         public int Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public Nullable<int> MapId { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Freight> Freights { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BillingItem> BillingItems { get; set; }
     }
 }

@@ -29,6 +29,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="row"><asp:Label ID="lbUser" Text="" runat="server"></asp:Label></div>
     <div class="col-sm-9">
         <div class="row">
             <div class="col-sm-6 form-group">

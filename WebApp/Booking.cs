@@ -20,6 +20,7 @@ namespace WebApp
             this.BookingReferences = new HashSet<BookingReference>();
             this.Containers = new HashSet<Container>();
             this.Freights = new HashSet<Freight>();
+            this.BillingItems = new HashSet<BillingItem>();
         }
     
         public int Id { get; set; }
@@ -28,6 +29,7 @@ namespace WebApp
         public System.DateTime ModifiedTime { get; set; }
         public int BillToId { get; set; }
         public int ShipperId { get; set; }
+        public string ShipperRefNo { get; set; }
         public int CarrierId { get; set; }
         public string Vessel { get; set; }
         public string VSL { get; set; }
@@ -35,25 +37,27 @@ namespace WebApp
         public string Load { get; set; }
         public string Discharge { get; set; }
         public string Destination { get; set; }
+        public Nullable<System.DateTime> CutOffDate { get; set; }
+        public Nullable<System.DateTime> DOC { get; set; }
+        public Nullable<System.DateTime> CargoCut { get; set; }
+        public Nullable<System.DateTime> VGM { get; set; }
         public string Commodity { get; set; }
         public string Equipment { get; set; }
         public string Temp { get; set; }
         public string Vents { get; set; }
         public string Notes { get; set; }
         public string Status { get; set; }
-        public Nullable<System.DateTime> CutOffDate { get; set; }
-        public Nullable<System.DateTime> DOC { get; set; }
-        public Nullable<System.DateTime> CargoCut { get; set; }
-        public Nullable<double> VGM { get; set; }
     
+        public virtual Company Company { get; set; }
+        public virtual Company Company1 { get; set; }
+        public virtual Company Company2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingReference> BookingReferences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Container> Containers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Freight> Freights { get; set; }
-        public virtual Company Company { get; set; }
-        public virtual Company Company1 { get; set; }
-        public virtual Company Company2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BillingItem> BillingItems { get; set; }
     }
 }

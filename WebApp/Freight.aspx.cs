@@ -15,6 +15,7 @@ namespace WebApp
 
     public partial class Freight : System.Web.UI.Page
     {
+        string zeroStr = "0.00";
         protected void Page_Load(object sender, EventArgs e)
         {
             long giffRef = -1;
@@ -44,6 +45,8 @@ namespace WebApp
                 }
 
                 ddlNewCode.DataSource = GetAcctCode();
+                ddlNewCode.DataTextField = "Value";
+                ddlNewCode.DataValueField = "Key";
                 ddlNewCode.DataBind();
             }
 
@@ -84,14 +87,25 @@ namespace WebApp
 
         #region PrivateMethods
 
-        private List<string> GetAcctCode()
+        private Dictionary<int,string> GetAcctCode()
         {
+            //using (GiffiDBEntities dc = new GiffiDBEntities())
+            //{
+            //    var results = (from a in dc.AccountingCodes
+            //                   select a.Code);
+
+            //    return (results.Any()) ? results.ToList<string>() : null;
+            //}
+
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
                 var results = (from a in dc.AccountingCodes
-                               select a.Code);
+                               select new { a.Id, a.Name});
 
-                return (results.Any()) ? results.ToList<string>() : null;
+                if (results == null || !results.Any())
+                    return null;
+
+                return results.ToDictionary(a => a.Id, a => string.Format("{0}, {1}", a.Id, a.Name));
             }
 
         }
@@ -180,7 +194,7 @@ namespace WebApp
                 fr = new Freight
                 {
                     BookingId = bookingId,
-                    Code = ddlNewCode.SelectedValue,
+                    Code = int.Parse(ddlNewCode.SelectedValue),
                     BS = txtNewBS.Text.Trim(),
                     PC = ddlNewPC.SelectedValue,
                     Units = int.Parse(txtNewUnits.Text.Trim()),
@@ -237,15 +251,15 @@ namespace WebApp
 
             if (f.PC == "P")
             {
-                if (f.AmtPPD != (f.Units * f.Rate))
+                if (Math.Round(f.AmtPPD, 2) != Math.Round(f.Units * f.Rate, 2))
                 {
-                    outMsg = string.Format("ERROR!!! AmtPPD={0}, and Units * Rate= {1} * {2}= {3} are not equal)", f.AmtPPD, f.Units, f.Rate, f.Units * f.Rate);
+                    outMsg = string.Format("ERROR!!! AmtPPD={0:0.00}, and Units * Rate= {1:0.00} * {2:0.00}= {3:0.00} are not equal)", f.AmtPPD, f.Units, f.Rate, f.Units * f.Rate);
                     return false;
                 }
 
-                if (f.BrkAmt != (f.AmtPPD * f.BrkRate))
+                if (Math.Round(f.BrkAmt, 2) != Math.Round(f.AmtPPD * f.BrkRate, 2))
                 {
-                    outMsg = string.Format("ERROR!!! BrkAmt= {0} and AmtPPD * BrkRate= {1} * {2}= {3} are not equal!!!", f.BrkAmt, f.AmtPPD, f.BrkRate, f.AmtPPD * f.BrkRate);
+                    outMsg = string.Format("ERROR!!! BrkAmt= {0:0.00} and AmtPPD * BrkRate= {1:0.00} * {2:0.00}= {3:0.00} are not equal!!!", f.BrkAmt, f.AmtPPD, f.BrkRate, f.AmtPPD * f.BrkRate);
                     return false;
                 }
 
@@ -254,7 +268,7 @@ namespace WebApp
             {
                 if(f.AmtPPD != 0 || f.BrkRate != 0 || f.BrkAmt != 0)
                 {
-                    outMsg = string.Format("ERROR!! if PC=C, then AmtPPD={0}, BrkRate={1} and BrkAmt= {2} should be zero", f.AmtPPD, f.BrkRate, f.BrkAmt);
+                    outMsg = string.Format("ERROR!! if PC=C, then AmtPPD={0:0.00}, BrkRate={1:0.00} and BrkAmt= {2:0.00} should be zero", f.AmtPPD, f.BrkRate, f.BrkAmt);
                     return false;
                 }
             }
@@ -319,7 +333,7 @@ namespace WebApp
                 {
                     Id = freightId,
                     BookingId = bookingId,
-                    Code = (row.FindControl("txtCode") as TextBox).Text.Trim(),
+                    Code = int.Parse((row.FindControl("txtCode") as TextBox).Text.Trim()),
                     BS = (row.FindControl("txtBS") as TextBox).Text.Trim(),
                     PC = (row.FindControl("txtPC") as TextBox).Text.Trim(),
                     Units = int.Parse((row.FindControl("txtUnits") as TextBox).Text.Trim()),
@@ -381,15 +395,15 @@ namespace WebApp
             {
                 if (pc.Equals("C", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    txtNewAmtCOL.Text = (units * rate).ToString("#.##");
-                    txtNewAmtPPD.Text = "0";
-                    txtNewBrkRate.Text = "0";
-                    txtNewBrkAmt.Text = "0";
+                    txtNewAmtCOL.Text = String.Format("{0:0.00}", units * rate);
+                    txtNewAmtPPD.Text = zeroStr;
+                    txtNewBrkRate.Text = zeroStr;
+                    txtNewBrkAmt.Text = zeroStr;
                 }
                 else
                 {
-                    txtNewAmtPPD.Text = (units * rate).ToString("#.##");
-                    txtNewAmtCOL.Text = "0";
+                    txtNewAmtPPD.Text = String.Format("{0:0.00}", units * rate);
+                    txtNewAmtCOL.Text = zeroStr;
                 }
 
                 txtNewAmtCOL.DataBind();
@@ -407,7 +421,7 @@ namespace WebApp
             if (pc == "P" && decimal.TryParse(txtNewAmtPPD.Text, out amtPPD) &&
                 decimal.TryParse(txtNewBrkRate.Text, out brkRate) && amtPPD > 0 && brkRate > 0)
             {
-                txtNewBrkAmt.Text = (amtPPD * brkRate).ToString("#.##");
+                txtNewBrkAmt.Text = String.Format("{0:0.00}", amtPPD * brkRate);
                 txtNewBrkAmt.DataBind();
             }
         }
@@ -434,15 +448,15 @@ namespace WebApp
             {
                 if (pc.Equals("C", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    txtNewAmtCOL.Text = (units * rate).ToString("#.##");
-                    txtNewAmtPPD.Text = "0";
-                    txtNewBrkRate.Text = "0";
-                    txtNewBrkAmt.Text = "0";
+                    txtNewAmtCOL.Text = String.Format("{0:0.00}", units * rate);
+                    txtNewAmtPPD.Text = zeroStr;
+                    txtNewBrkRate.Text = zeroStr;
+                    txtNewBrkAmt.Text = zeroStr;
                 }
                 else
                 {
-                    txtNewAmtPPD.Text = (units * rate).ToString("#.##");
-                    txtNewAmtCOL.Text = "0";
+                    txtNewAmtPPD.Text = String.Format("{0:0.00}", units * rate);
+                    txtNewAmtCOL.Text = zeroStr;
                 }
             }
 
@@ -452,7 +466,7 @@ namespace WebApp
             if (pc == "P" && decimal.TryParse(txtNewAmtPPD.Text, out amtPPD) &&
                 decimal.TryParse(txtNewBrkRate.Text, out brkRate) && amtPPD > 0 && brkRate > 0)
             {
-                txtNewBrkAmt.Text = (amtPPD * brkRate).ToString("#.##");
+                txtNewBrkAmt.Text = String.Format("{0:0.00}", amtPPD * brkRate);
                 txtNewBrkAmt.DataBind();
             }
         }
