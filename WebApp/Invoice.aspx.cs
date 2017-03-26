@@ -78,7 +78,7 @@ namespace WebApp
                 lblOrigin.Text = b.Origin;
                 lblDestination.Text = b.Destination;
 
-                gvInvoice.DataSource = GetBillingItems(giffiRef); //repo.GetBillingItem(DataUtil.GetBookingFromGiffiRef(giffiRef)); //
+                gvInvoice.DataSource = DataUtil.GetBillingItems(giffiRef);
                 gvInvoice.DataBind();
 
                 ddlAddCode.DataSource = GetAcctCodeMapIdWithName();
@@ -98,7 +98,7 @@ namespace WebApp
         protected void gvInvoice_RowEditing(object sender, GridViewEditEventArgs e)
         {
             int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(lblGiffiRef.Text));
-            gvInvoice.DataSource = GetBillingItems(bookingId);
+            gvInvoice.DataSource = DataUtil.GetBillingItems(bookingId);
             gvInvoice.EditIndex = e.NewEditIndex;
             gvInvoice.DataBind();
         }
@@ -129,7 +129,7 @@ namespace WebApp
                 if(repo.UpdateBillingItem(bi))
                 {
                     gvInvoice.EditIndex = -1;
-                    gvInvoice.DataSource = GetBillingItems(bookingId);
+                    gvInvoice.DataSource = DataUtil.GetBillingItems(bookingId);
                     gvInvoice.DataBind();                    
                 }
 
@@ -150,7 +150,7 @@ namespace WebApp
         protected void gvInvoice_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(lblGiffiRef.Text));
-            gvInvoice.DataSource = GetBillingItems(bookingId);
+            gvInvoice.DataSource = DataUtil.GetBillingItems(bookingId);
             gvInvoice.EditIndex = -1;
             gvInvoice.DataBind();
         }
@@ -164,7 +164,7 @@ namespace WebApp
             BillingRepository repo = new BillingRepository();
             repo.DeleteItem(billingItemId, bookingId);
 
-            gvInvoice.DataSource = GetBillingItems(bookingId);
+            gvInvoice.DataSource = DataUtil.GetBillingItems(bookingId);
             gvInvoice.EditIndex = -1;
             gvInvoice.DataBind();
 
@@ -213,41 +213,6 @@ namespace WebApp
                 return results.ToDictionary(a => string.Join(",", a.Id, a.MapId), a => a.Name);
             }
 
-        }
-
-        private List<BillingItem> GetBillingItems(int bookingId)
-        {
-            using (GiffiDBEntities dc = new GiffiDBEntities())
-            {
-                var results = (from a in dc.BillingItems
-                               where a.BookingId == bookingId
-                               select a);
-
-
-                if (results == null || !results.Any())
-                    return null;
-
-                return results.ToList();
-            }
-        }
-
-        private List<BillingItem> GetBillingItems(long giffiRef)
-        {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
-
-            using (GiffiDBEntities dc = new GiffiDBEntities())
-            {
-                var results = (from b in dc.BillingItems
-                               where b.BookingId == bookingId
-                               select b);
-
-                if (results == null || results.Count() == 0)
-                {
-                    return null;
-                }
-
-                return results.ToList();
-            }
         }
 
         private Tuple<decimal, decimal> GetTotal(int bookingId)
@@ -362,11 +327,13 @@ namespace WebApp
         {
             int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(lblGiffiRef.Text));
             Tuple<decimal, decimal> totals = GetTotal(bookingId);
-
-            TextBox txbControlBillingAmount = gvInvoice.FooterRow.FindControl("txtBillingAmount") as TextBox;
-            TextBox txbControlPayoutAmount = gvInvoice.FooterRow.FindControl("txtPayOutAmount") as TextBox;
-            txbControlBillingAmount.Text = string.Format("{0:0.00}", totals.Item1);
-            txbControlPayoutAmount.Text = string.Format("{0:0.00}", totals.Item2);
+            if (totals != null)
+            {
+                TextBox txbControlBillingAmount = gvInvoice.FooterRow.FindControl("txtBillingAmount") as TextBox;
+                TextBox txbControlPayoutAmount = gvInvoice.FooterRow.FindControl("txtPayOutAmount") as TextBox;
+                txbControlBillingAmount.Text = string.Format("{0:0.00}", totals.Item1);
+                txbControlPayoutAmount.Text = string.Format("{0:0.00}", totals.Item2);
+            }
         }
 
         protected void ddlCode_SelectedIndexChanged(object sender, EventArgs e)
@@ -427,7 +394,7 @@ namespace WebApp
             {
                 if(repo.InsertBillingItem(bookingId, int.Parse(arrCodeMap[0]), 1, txtAddDescription.Text, billingAmount, payoutAmount))
                 {
-                    gvInvoice.DataSource = GetBillingItems(bookingId);
+                    gvInvoice.DataSource = DataUtil.GetBillingItems(bookingId);
                     gvInvoice.DataBind();
 
                     ddlAddCode.SelectedIndex = -1;
@@ -467,6 +434,16 @@ namespace WebApp
             string script = string.Format("alert(\"{0}!\");", msg);
             ScriptManager.RegisterStartupScript(this, GetType(),
                                   "ServerControlScript", script, true);
+        }
+
+        protected void btnPreviewInvoice_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(string.Format("PreviewInvoice.aspx?ref={0}", lblGiffiRef.Text));
+        }
+
+        protected void btnPreviewPayout_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(string.Format("PayoutPreview.aspx?ref={0}", lblGiffiRef.Text));
         }
     }
 }

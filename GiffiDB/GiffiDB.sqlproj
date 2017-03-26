@@ -116,6 +116,7 @@
     <Build Include="dbo\UpdateBillingItem.sql" />
     <Build Include="dbo\GetBillingItemsByBookingId.sql" />
     <Build Include="dbo\DeleteBillingItem.sql" />
+    <Build Include="dbo\GetPayoutItemsByBookingId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Snapshots\GiffiDB_20170219_15-15-06.dacpac" />

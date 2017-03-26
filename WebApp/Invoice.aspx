@@ -131,7 +131,7 @@
                                 <div class="panel-heading col-md-4">
                                     <h3 class="panel-title"><strong>Payment Due By</strong><br />
                                     </h3>
-                                    <asp:TextBox ID="txtPaymentDueBy" runat="server"></asp:TextBox>
+                                    <asp:TextBox CssClass="form-control" ID="txtPaymentDueBy" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                                 <div class="panel-heading col-xs-4">
                                     <h3 class="panel-title"><strong>Bill Of Landing Number</strong><br />
                                     </h3>
-                                    <asp:TextBox ID="txtBillLandingNo" runat="server"></asp:TextBox>
+                                    <asp:TextBox CssClass="form-control" ID="txtBillLandingNo" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -208,11 +208,11 @@
                                                     <asp:TextBox ID="txtPayOutAmount" CssClass="form-control" Enabled="false" Width="100px" runat="server"></asp:TextBox>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField ControlStyle-CssClass="form-control col-xs-2">
+<%--                                            <asp:TemplateField ControlStyle-CssClass="form-control col-xs-2">
                                                 <FooterTemplate>
                                                     <asp:Button ID="btnAddNew" Text="Update" runat="server" OnClick="btnUpdateTotal_Click" />
                                                 </FooterTemplate>
-                                            </asp:TemplateField>
+                                            </asp:TemplateField>--%>
                                             <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Left" />
                                         </Columns>
                                     </asp:GridView>
@@ -239,11 +239,20 @@
                                             </asp:TableCell>
                                             <asp:TableCell CssClass="group-group col-md-2">
                                                 <br />
-                                                <asp:Button ID="btnAddBillingItem" CssClass="btn btn-sm btn-info" Visible="true" runat="server" Text="Add" CausesValidation="true" OnClick="btnAddBillingItem_Click" />
+                                                <asp:Button ID="btnAddBillingItem" CssClass="btn btn-md btn-info" Visible="true" runat="server" Text="Add" CausesValidation="true" OnClick="btnAddBillingItem_Click" />
                                             </asp:TableCell>
                                         </asp:TableRow>
                                     </asp:Table>
                             </div>
+                        </div>
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="panel-footer form-horizontal right">
+                                        <asp:Button ID="btnPreviewInvoice" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Preview Invoice" OnClick="btnPreviewInvoice_Click"></asp:Button>
+                                    <asp:Button ID="btnPayoutPreview" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="PayOut Invoice" OnClick="btnPreviewPayout_Click"></asp:Button>
+                                </div>
+                            </div>
+                                    
                         </div>
                     </div>
                 </div>

@@ -10,34 +10,16 @@
 namespace WebApp {
     
     
-    public partial class Invoice1 {
+    public partial class PreviewInvoice {
         
         /// <summary>
-        /// txtSearchBox control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearchBox;
-        
-        /// <summary>
-        /// ddlOption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlOption;
-        
-        /// <summary>
-        /// btnSelectedSearch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSelectedSearch;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
         /// lblBillTo control.
@@ -49,13 +31,13 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.Label lblBillTo;
         
         /// <summary>
-        /// lblGiffiRef control.
+        /// lblInvoiceNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGiffiRef;
+        protected global::System.Web.UI.WebControls.Label lblInvoiceNo;
         
         /// <summary>
         /// lblDescription control.
@@ -65,15 +47,6 @@ namespace WebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDescription;
-        
-        /// <summary>
-        /// lblInvoiceNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInvoiceNo;
         
         /// <summary>
         /// lblYourRef control.
@@ -94,13 +67,13 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.Label lblInvoiceDate;
         
         /// <summary>
-        /// txtPaymentDueBy control.
+        /// lblPaymentDueBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPaymentDueBy;
+        protected global::System.Web.UI.WebControls.Label lblPaymentDueBy;
         
         /// <summary>
         /// lblCarrier control.
@@ -130,93 +103,120 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.Label lblDestination;
         
         /// <summary>
-        /// txtBillLandingNo control.
+        /// lblBillOfLanding control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBillLandingNo;
+        protected global::System.Web.UI.WebControls.Label lblBillOfLanding;
         
         /// <summary>
-        /// gvInvoice control.
+        /// rptInvoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvInvoice;
+        protected global::System.Web.UI.WebControls.Repeater rptInvoice;
         
         /// <summary>
-        /// tbAddBilling control.
+        /// lblBillTo2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tbAddBilling;
+        protected global::System.Web.UI.WebControls.Label lblBillTo2;
         
         /// <summary>
-        /// ddlAddCode control.
+        /// lblDescription2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAddCode;
+        protected global::System.Web.UI.WebControls.Label lblDescription2;
         
         /// <summary>
-        /// txtAddDescription control.
+        /// lblYourRef2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddDescription;
+        protected global::System.Web.UI.WebControls.Label lblYourRef2;
         
         /// <summary>
-        /// txtAddBillingAmount control.
+        /// lblInvoiceDate2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddBillingAmount;
+        protected global::System.Web.UI.WebControls.Label lblInvoiceDate2;
         
         /// <summary>
-        /// txtAddPayoutAmount control.
+        /// lblPaymentDueBy2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddPayoutAmount;
+        protected global::System.Web.UI.WebControls.Label lblPaymentDueBy2;
         
         /// <summary>
-        /// btnAddBillingItem control.
+        /// lblCarrier2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddBillingItem;
+        protected global::System.Web.UI.WebControls.Label lblCarrier2;
         
         /// <summary>
-        /// btnPreviewInvoice control.
+        /// lblOrigin2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPreviewInvoice;
+        protected global::System.Web.UI.WebControls.Label lblOrigin2;
         
         /// <summary>
-        /// btnPayoutPreview control.
+        /// lblDestination2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPayoutPreview;
+        protected global::System.Web.UI.WebControls.Label lblDestination2;
+        
+        /// <summary>
+        /// lblBillOfLanding2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBillOfLanding2;
+        
+        /// <summary>
+        /// rptPayout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptPayout;
+        
+        /// <summary>
+        /// btnPrintInvoice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPrintInvoice;
     }
 }

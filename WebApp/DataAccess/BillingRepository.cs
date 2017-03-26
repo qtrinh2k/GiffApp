@@ -38,6 +38,14 @@ namespace WebApp.DataAccess
             return this.FillDataTable(cmd);
         }
 
+        public DataTable GetPayoutItems(int bookingId)
+        {
+            SqlCommand cmd = new SqlCommand("GetPayoutItemsByBookingId");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@bookingId", bookingId);
+            return this.FillDataTable(cmd);
+        }
+
         internal bool InsertBillingItem(int bookingId, int codeId, int quantity, string description, decimal billingAmount, decimal payoutAmount)
         {
             SqlCommand cmd = new SqlCommand("InsertBillingItem");
