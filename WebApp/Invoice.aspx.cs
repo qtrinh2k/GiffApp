@@ -45,6 +45,9 @@ namespace WebApp
                     ddlAddCode.DataValueField = "Key";
                     ddlAddCode.DataBind();
                     ddlAddCode.Items.Insert(0, new ListItem("--Select--", "0"));
+
+                    ddlAddVendor.DataSource = GetVendorInfo();
+                    ddlAddVendor.DataBind();
                 }
             }
         }
@@ -74,7 +77,7 @@ namespace WebApp
                 lblYourRef.Text = b.ShipperRefNo;
                 lblInvoiceDate.Text = b.CreatedTime.ToString("d");
 
-                lblCarrier.Text = GetCarrierNameByCarrierId(b.CarrierId);
+                lblVoyage.Text = b.Voyage;
                 lblOrigin.Text = b.Origin;
                 lblDestination.Text = b.Destination;
 
@@ -86,6 +89,11 @@ namespace WebApp
                 ddlAddCode.DataValueField = "Key";                                
                 ddlAddCode.DataBind();
                 ddlAddCode.Items.Insert(0, new ListItem("--Select--", "0"));
+
+                ddlAddVendor.DataSource = GetVendorInfo();
+                ddlAddVendor.DataTextField = "Value";
+                ddlAddVendor.DataValueField = "Key";
+                ddlAddVendor.DataBind();
 
                 tbAddBilling.Visible = true;
                 tbAddBilling.DataBind();
@@ -253,6 +261,21 @@ namespace WebApp
             }
         }
 
+        private Dictionary<int, string> GetVendorInfo()
+        {
+            List<string> carrierNames = new List<string>();
+
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                var results = (from c in dc.Companies
+                                where c.CompanyType.Equals("Vendor", StringComparison.InvariantCultureIgnoreCase)
+                                select new { c.Id, c.Code });
+
+                return results.ToDictionary(a => a.Id, a => a.Code);
+            }
+
+        }
+
         private string GetCarrierNameByCarrierId(int carrierId)
         {
             using (GiffiDBEntities dc = new GiffiDBEntities())
@@ -390,9 +413,14 @@ namespace WebApp
                 errorMsg = string.Format("ERROR!!! Billing={0} or Payout={1} invalid amount.", txtAddBillingAmount.Text, txtAddPayoutAmount.Text);
                 AlertMessage(errorMsg);
             }
+            else if(ddlAddVendor.SelectedValue == "0")
+            {
+                errorMsg = string.Format("ERROR!!! Need to choose a vendor.");
+                AlertMessage(errorMsg);
+            }
             else
             {
-                if(repo.InsertBillingItem(bookingId, int.Parse(arrCodeMap[0]), 1, txtAddDescription.Text, billingAmount, payoutAmount))
+                if(repo.InsertBillingItem(bookingId, int.Parse(arrCodeMap[0]), 1, txtAddDescription.Text, billingAmount, payoutAmount, int.Parse(ddlAddVendor.SelectedValue.ToString())))
                 {
                     gvInvoice.DataSource = DataUtil.GetBillingItems(bookingId);
                     gvInvoice.DataBind();
@@ -444,6 +472,31 @@ namespace WebApp
         protected void btnPreviewPayout_Click(object sender, EventArgs e)
         {
             Response.Redirect(string.Format("PayoutPreview.aspx?ref={0}", lblGiffiRef.Text));
+        }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static List<string> GetVendor(string pre)
+        {
+            List<string> carrierNames = new List<string>();
+
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                if (pre.Equals("*") || pre.Equals("."))
+                {
+                    carrierNames = (from c in dc.Companies
+                                    where c.CompanyType.Equals("Vendor", StringComparison.InvariantCultureIgnoreCase)
+                                    select c.Code).Distinct().ToList();
+                }
+                else
+                {
+                    carrierNames = (from c in dc.Companies
+                                    where c.Code.StartsWith(pre) && c.CompanyType.Equals("Vendor", StringComparison.InvariantCultureIgnoreCase)
+                                    select c.Code).Distinct().ToList();
+                }
+            }
+
+            return carrierNames;
         }
     }
 }

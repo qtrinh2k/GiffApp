@@ -5,7 +5,8 @@ CREATE PROCEDURE [dbo].[InsertBillingItem]
 	@Quantity int = 1,
 	@Description NVARCHAR(50),
 	@BillingAmount money,
-	@PayoutAmount money
+	@PayoutAmount money,
+	@VendorId int
 AS
 	SET XACT_ABORT ON
 	BEGIN TRAN
@@ -15,14 +16,16 @@ AS
            ,[Quantity]
            ,[Description]
            ,[BillingAmount]
-           ,[PayoutAmount])
+           ,[PayoutAmount]
+		   ,[VendorId])
 		VALUES(		
 			@BookingId,
 			@CodeId,
 			@Quantity,
 			@Description,
 			@BillingAmount,
-			@PayoutAmount)
+			@PayoutAmount,
+			@VendorId)
 	COMMIT TRAN
 
 

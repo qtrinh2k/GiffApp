@@ -152,7 +152,7 @@
                         <asp:Table ID="tbAddFreight" CSSClass="table table-striped" runat="server">
                             <asp:TableRow Font-Bold="true">
                                     <asp:TableCell style="width: 100px">
-                                        Code:<br />
+                                        Freight&amp;Charges:<br />
                                         <%--<asp:TextBox ID="txtNewCode" runat="server" Width="90" />--%>
                                         <asp:DropDownList ID="ddlNewCode" runat="server" Width ="98">
                                         </asp:DropDownList>

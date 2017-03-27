@@ -32,6 +32,7 @@ namespace WebApp
         public virtual DbSet<AccountingCode> AccountingCodes { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<FreightCharge> FreightCharges { get; set; }
         public virtual DbSet<Freight> Freights { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<BillingItem> BillingItems { get; set; }
@@ -58,15 +59,15 @@ namespace WebApp
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFreightById_Result>("GetFreightById", param1Parameter, param2Parameter);
         }
     
-        public virtual int InsertFreight(Nullable<int> bookingId, Nullable<int> code, string bS, string pC, Nullable<int> units, Nullable<decimal> rate, Nullable<decimal> amtPPD, Nullable<decimal> amtCOL, Nullable<decimal> brkRate, Nullable<decimal> brkAmt, string createdBy)
+        public virtual int InsertFreight(Nullable<int> bookingId, string code, string bS, string pC, Nullable<int> units, Nullable<decimal> rate, Nullable<decimal> amtPPD, Nullable<decimal> amtCOL, Nullable<decimal> brkRate, Nullable<decimal> brkAmt, string createdBy)
         {
             var bookingIdParameter = bookingId.HasValue ?
                 new ObjectParameter("BookingId", bookingId) :
                 new ObjectParameter("BookingId", typeof(int));
     
-            var codeParameter = code.HasValue ?
+            var codeParameter = code != null ?
                 new ObjectParameter("Code", code) :
-                new ObjectParameter("Code", typeof(int));
+                new ObjectParameter("Code", typeof(string));
     
             var bSParameter = bS != null ?
                 new ObjectParameter("BS", bS) :

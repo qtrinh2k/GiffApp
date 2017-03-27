@@ -17,7 +17,6 @@ namespace WebApp
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AccountingCode()
         {
-            this.Freights = new HashSet<Freight>();
             this.BillingItems = new HashSet<BillingItem>();
         }
     
@@ -27,8 +26,6 @@ namespace WebApp
         public Nullable<int> MapId { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Freight> Freights { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BillingItem> BillingItems { get; set; }
     }

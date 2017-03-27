@@ -117,9 +117,11 @@ namespace WebApp
                 gvContainer.DataSource = GetContainers(giffiRef);
                 gvContainer.DataBind();
 
+                txtNewCreatedDate.Text = DateTime.Now.ToString("d");
+                txtNewCreatedDate.DataBind();
+
                 tbNewContainer.Visible = true;
                 tbNewContainer.DataBind();
-
             }
         }
 

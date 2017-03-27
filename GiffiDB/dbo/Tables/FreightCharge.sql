@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[FreightCharge]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[ABV] NCHAR(25)
+)

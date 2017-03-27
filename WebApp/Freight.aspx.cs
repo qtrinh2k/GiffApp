@@ -44,9 +44,9 @@ namespace WebApp
 
                 }
 
-                ddlNewCode.DataSource = GetAcctCode();
-                ddlNewCode.DataTextField = "Value";
-                ddlNewCode.DataValueField = "Key";
+                ddlNewCode.DataSource = GetFreightCharge();
+                ddlNewCode.DataTextField = "ABV";
+                ddlNewCode.DataValueField = "ABV";
                 ddlNewCode.DataBind();
             }
 
@@ -89,14 +89,6 @@ namespace WebApp
 
         private Dictionary<int,string> GetAcctCode()
         {
-            //using (GiffiDBEntities dc = new GiffiDBEntities())
-            //{
-            //    var results = (from a in dc.AccountingCodes
-            //                   select a.Code);
-
-            //    return (results.Any()) ? results.ToList<string>() : null;
-            //}
-
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
                 var results = (from a in dc.AccountingCodes
@@ -110,6 +102,11 @@ namespace WebApp
 
         }
 
+        private DataTable GetFreightCharge()
+        {
+            FreightChargeRepository repo = new FreightChargeRepository();
+            return repo.GetFreightCharge();
+        }
         private List<Freight> GetFreights(long giffiRef)
         {
             int bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
@@ -194,7 +191,7 @@ namespace WebApp
                 fr = new Freight
                 {
                     BookingId = bookingId,
-                    Code = int.Parse(ddlNewCode.SelectedValue),
+                    Code = ddlNewCode.SelectedValue,
                     BS = txtNewBS.Text.Trim(),
                     PC = ddlNewPC.SelectedValue,
                     Units = int.Parse(txtNewUnits.Text.Trim()),
@@ -251,13 +248,13 @@ namespace WebApp
 
             if (f.PC == "P")
             {
-                if (Math.Round(f.AmtPPD, 2) != Math.Round(f.Units * f.Rate, 2))
+                if (Math.Round(f.AmtPPD, 2, MidpointRounding.ToEven) != Math.Round(f.Units * f.Rate, 2, MidpointRounding.ToEven))
                 {
                     outMsg = string.Format("ERROR!!! AmtPPD={0:0.00}, and Units * Rate= {1:0.00} * {2:0.00}= {3:0.00} are not equal)", f.AmtPPD, f.Units, f.Rate, f.Units * f.Rate);
                     return false;
                 }
 
-                if (Math.Round(f.BrkAmt, 2) != Math.Round(f.AmtPPD * f.BrkRate, 2))
+                if (Math.Round(f.BrkAmt, 2, MidpointRounding.ToEven) != Math.Round(f.AmtPPD * f.BrkRate, 2, MidpointRounding.ToEven))
                 {
                     outMsg = string.Format("ERROR!!! BrkAmt= {0:0.00} and AmtPPD * BrkRate= {1:0.00} * {2:0.00}= {3:0.00} are not equal!!!", f.BrkAmt, f.AmtPPD, f.BrkRate, f.AmtPPD * f.BrkRate);
                     return false;
@@ -333,7 +330,7 @@ namespace WebApp
                 {
                     Id = freightId,
                     BookingId = bookingId,
-                    Code = int.Parse((row.FindControl("txtCode") as TextBox).Text.Trim()),
+                    Code = (row.FindControl("txtCode") as TextBox).Text.Trim(),
                     BS = (row.FindControl("txtBS") as TextBox).Text.Trim(),
                     PC = (row.FindControl("txtPC") as TextBox).Text.Trim(),
                     Units = int.Parse((row.FindControl("txtUnits") as TextBox).Text.Trim()),

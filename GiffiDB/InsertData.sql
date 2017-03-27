@@ -14,8 +14,8 @@ INSERT INTO [dbo].[AccountingCode]
            ,[Name]
            ,[MapId])
      VALUES
-           (4010, 'AF', 'AIRFRT', 5010),
-		   (4030, 'OF', 'OCEN FREIGHT', 5030),
+           (4010, 'AF', 'AIR FREIGHT', 5010),
+		   (4030, 'OF', 'OCEAN FREIGHT', 5030),
 		   (4050, 'TRN', 'TRANSLOAD', 5050),
            (4070, 'TRK', 'TRUCKING', 5070),
 		   (4090, 'GIC', 'GIFFI COMMISSION', 5090),
@@ -28,8 +28,28 @@ INSERT INTO [dbo].[AccountingCode]
 		   (4210, 'CSN', 'COMMISSION', 5210),
            (4310, 'FOR', 'FORDWARDING', null),
 		   (4330, 'CS', 'COURIER SERVICES', 5330),
-		   (4350, 'DP', 'DOC. PREP', 5350)
+		   (4350, 'DP', 'DOC. PREP', 5350),
+		   (4430, 'INS', 'INSURANCE PREM', 5430),
+		   (4470, 'NOAA', 'NOAA', 5470),
+		   (4490, 'CUST', 'CUSTOMS CLEARANCE', 5490),
+		   (4690, 'CHARGS', 'OTHER CHARGES', 5690),
+		   (4700, 'OTHERS1', 'OTHER REVENUE (PO)', 5700),
+		   (4750, 'OTHERS2', 'OTHER REVENUE (NPO)', NULL)
+
 GO
+INSERT INTO [dbo].FreightCharge (ABV)
+VALUES
+('OFRT'),                   
+('BSC'),                  
+('LSS'),                    
+('SEC'),                    
+('DOC'),                    
+('THC'),                    
+('INLTRK'),                   
+('CH A'),                 
+('CH B'),                   
+('CH C')                   
+
 
 INSERT INTO [dbo].[Company]
 ([Code],[CompanyName],CompanyType,[FederalNumber],[Address],[City],[State],[ZipCode],[Country],[Phone],[Email])

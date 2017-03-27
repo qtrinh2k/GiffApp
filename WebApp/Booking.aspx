@@ -47,6 +47,26 @@
             displayArea: ".siblings('.dtcDisplayArea')",
             button: ".next()"
         });
+        $("#<%=txtETD.ClientID %>").dynDateTime({
+            showsTime: true,
+            ifFormat: "%Y/%m/%d",
+            daFormat: "%l;%M %p, %e %m,  %Y",
+            align: "BR",
+            electric: false,
+            singleClick: false,
+            displayArea: ".siblings('.dtcDisplayArea')",
+            button: ".next()"
+        });
+        $("#<%=txtETA.ClientID %>").dynDateTime({
+            showsTime: true,
+            ifFormat: "%Y/%m/%d",
+            daFormat: "%l;%M %p, %e %m,  %Y",
+            align: "BR",
+            electric: false,
+            singleClick: false,
+            displayArea: ".siblings('.dtcDisplayArea')",
+            button: ".next()"
+        });
     });
     </script>
     <script lang="javascript" type="text/javascript">
@@ -177,9 +197,9 @@
                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtVessel" runat="server" />
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>VSL: </label>
-                        <asp:TextBox ID="txtVSL" CssClass="form-control" TabIndex="7" runat="server" />
-                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtVSL" runat="server" />
+                        <label>Voyage: </label>
+                        <asp:TextBox ID="txtVoyage" CssClass="form-control" TabIndex="7" runat="server" />
+                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtVoyage" runat="server" />
                     </div>
                 </div>
                 <div class="row">
@@ -188,10 +208,18 @@
                         <asp:TextBox ID="txtOrigin" CssClass="form-control" TabIndex="8" runat="server" />
                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtOrigin" runat="server" />
                     </div>
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-3 form-group">
                         <label>Load: </label>
                         <asp:TextBox ID="txtLoad" CssClass="form-control" TabIndex="9" runat="server" />
                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtLoad" runat="server" />
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label>ETD: </label>
+                        <div class="form-group form-inline">
+                            <asp:TextBox ID="txtETD" CssClass="form-control" TabIndex="-1" runat="server" />
+                            <img src="Image/calender.png" />
+                        </div>
+                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtETD" runat="server" />
                     </div>
                 </div>
                 <div class="row">
@@ -200,10 +228,18 @@
                         <asp:TextBox ID="txtDischarge" CssClass="form-control" TabIndex="10" runat="server" />
                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDischarge" runat="server" />
                     </div>
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-3 form-group">
                         <label>Destination: </label>
                         <asp:TextBox ID="txtDest" CssClass="form-control" TabIndex="11" runat="server" />
                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtDest" runat="server" />
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label>ETA: </label>
+                        <div class="form-group form-inline">
+                            <asp:TextBox ID="txtETA" CssClass="form-control" TabIndex="-1" runat="server" />
+                            <img src="Image/calender.png" />
+                        </div>
+                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtETA" runat="server" />
                     </div>
                 </div>
                 <div class="row">

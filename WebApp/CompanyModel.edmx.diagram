@@ -10,18 +10,19 @@
         <EntityTypeShape EntityType="GiffiDBModel.AccountingCode" Width="1.5" PointX="1.125" PointY="6.125" />
         <EntityTypeShape EntityType="GiffiDBModel.Company" Width="1.5" PointX="1.125" PointY="1.875" />
         <EntityTypeShape EntityType="GiffiDBModel.User" Width="1.5" PointX="10" PointY="3.875" />
-        <EntityTypeShape EntityType="GiffiDBModel.Freight" Width="1.5" PointX="7.75" PointY="3" />
-        <AssociationConnector Association="GiffiDBModel.FK_Freight_ToAccountingCode" />
-        <EntityTypeShape EntityType="GiffiDBModel.Booking" Width="1.5" PointX="3.375" PointY="1.625" />
+        <EntityTypeShape EntityType="GiffiDBModel.FreightCharge" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GiffiDBModel.Freight" Width="1.5" PointX="5.625" PointY="13.75" />
+        <EntityTypeShape EntityType="GiffiDBModel.Booking" Width="1.5" PointX="3.375" PointY="12" />
         <AssociationConnector Association="GiffiDBModel.FK_Booking_BillTo" />
         <AssociationConnector Association="GiffiDBModel.FK_Booking_Carrier" />
         <AssociationConnector Association="GiffiDBModel.FK_Booking_Shipper" />
         <AssociationConnector Association="GiffiDBModel.FK_BookingReference_ToTable" />
         <AssociationConnector Association="GiffiDBModel.FK_Container_ToBooking" />
         <AssociationConnector Association="GiffiDBModel.FK_Freight_ToBooking" />
-        <EntityTypeShape EntityType="GiffiDBModel.BillingItem" Width="1.5" PointX="5.625" PointY="8.5" />
+        <EntityTypeShape EntityType="GiffiDBModel.BillingItem" Width="1.5" PointX="5.625" PointY="8.875" />
         <AssociationConnector Association="GiffiDBModel.FK_BillingItems_ToAccountingCode" />
         <AssociationConnector Association="GiffiDBModel.FK_BillingItems_ToBooking" />
+        <AssociationConnector Association="GiffiDBModel.FK_BillingItems_ToCompany" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

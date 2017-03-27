@@ -310,6 +310,7 @@
     <Compile Include="DataAccess\CompanyRepository.cs" />
     <Compile Include="DataAccess\ContainerRepository.cs" />
     <Compile Include="DataAccess\DataAccessBase.cs" />
+    <Compile Include="DataAccess\FreightChargeRepository.cs" />
     <Compile Include="DataAccess\FreightRepository.cs" />
     <Compile Include="DataAccess\UserRepository.cs" />
     <Compile Include="DataType.cs" />
@@ -324,6 +325,9 @@
     <Compile Include="Freight.cs">
       <DependentUpon>CompanyModel.tt</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FreightCharge.cs">
+      <DependentUpon>CompanyModel.tt</DependentUpon>
     </Compile>
     <Compile Include="GetFreightByBookingId_Result.cs">
       <DependentUpon>CompanyModel.tt</DependentUpon>

@@ -117,9 +117,15 @@
     <Build Include="dbo\GetBillingItemsByBookingId.sql" />
     <Build Include="dbo\DeleteBillingItem.sql" />
     <Build Include="dbo\GetPayoutItemsByBookingId.sql" />
+    <Build Include="dbo\Tables\FreightCharge.sql" />
+    <Build Include="dbo\InsertFreightCharge.sql" />
+    <Build Include="dbo\GetFreightCharge.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Snapshots\GiffiDB_20170219_15-15-06.dacpac" />
     <None Include="InsertData.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="GiffiDB.refactorlog" />
   </ItemGroup>
 </Project>

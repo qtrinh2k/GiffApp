@@ -10,14 +10,8 @@ namespace WebApp.DataAccess
 {
     public class BillingRepository : DataAccessBase
     {
-        /*
-	@BookingId int,
-	@CodeId int,
-	@Quantity int = 1,
-	@Description NVARCHAR(50),
-	@Amount money
-    */         
-        public bool InsertBillingItem(int bookingId, int codeId, int quantity, string description, decimal amount)
+         
+        public bool InsertBillingItem(int bookingId, int codeId, int quantity, string description, decimal amount, int vendorId)
         {
             SqlCommand cmd = new SqlCommand("InsertBillingItem");
             cmd.Parameters.AddWithValue("@BookingId", bookingId);
@@ -25,7 +19,7 @@ namespace WebApp.DataAccess
             cmd.Parameters.AddWithValue("@quantity", quantity);
             cmd.Parameters.AddWithValue("@Description", description);
             cmd.Parameters.AddWithValue("@Amount", amount);
-
+            cmd.Parameters.AddWithValue("@VendorId", vendorId);
             return base.ExecuteNonQuery(cmd) > 0;
 
         }
@@ -46,7 +40,7 @@ namespace WebApp.DataAccess
             return this.FillDataTable(cmd);
         }
 
-        internal bool InsertBillingItem(int bookingId, int codeId, int quantity, string description, decimal billingAmount, decimal payoutAmount)
+        internal bool InsertBillingItem(int bookingId, int codeId, int quantity, string description, decimal billingAmount, decimal payoutAmount, int vendorId)
         {
             SqlCommand cmd = new SqlCommand("InsertBillingItem");
             cmd.CommandType = CommandType.StoredProcedure;
@@ -57,6 +51,7 @@ namespace WebApp.DataAccess
             cmd.Parameters.Add("@Description", SqlDbType.NVarChar).Value= description;
             cmd.Parameters.Add("@BillingAmount", SqlDbType.Money).Value= billingAmount;
             cmd.Parameters.Add("@PayoutAmount", SqlDbType.Money).Value= payoutAmount;
+            cmd.Parameters.Add("@VendorId", SqlDbType.Int).Value = vendorId;
             return base.ExecuteNonQuery(cmd) > 0;
 
         }
@@ -83,6 +78,7 @@ namespace WebApp.DataAccess
             cmd.Parameters.Add("@Description", SqlDbType.NVarChar).Value = bi.Description;
             cmd.Parameters.Add("@BillingAmount", SqlDbType.Money).Value = bi.BillingAmount;
             cmd.Parameters.Add("@PayoutAmount", SqlDbType.Money).Value = bi.PayoutAmount;
+            cmd.Parameters.Add("@VendorId", SqlDbType.Int).Value = bi.VendorId;
             return base.ExecuteNonQuery(cmd) > 0;
         }
     }

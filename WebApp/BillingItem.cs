@@ -21,10 +21,12 @@ namespace WebApp
         public string Description { get; set; }
         public decimal BillingAmount { get; set; }
         public decimal PayoutAmount { get; set; }
+        public int VendorId { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         public virtual AccountingCode AccountingCode { get; set; }
         public virtual Booking Booking { get; set; }
+        public virtual Company Company { get; set; }
     }
 }

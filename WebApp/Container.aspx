@@ -177,8 +177,7 @@
                                     </asp:TableCell>
                                     <asp:TableCell style="width: 130px">
                                         Invoice:<br />
-                                        <asp:TextBox ID="txtNewInvoice" runat="server" Width="120" />
-                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewInvoice" ValidationGroup="NewContainer" runat="server" />
+                                        <asp:TextBox ID="txtNewInvoice" runat="server" Width="120" />                                        
                                     </asp:TableCell>
                                     <asp:TableCell style="width: 150px">
                                         Date:<br />

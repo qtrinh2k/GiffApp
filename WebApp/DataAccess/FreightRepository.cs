@@ -17,7 +17,7 @@ namespace WebApp.DataAccess
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@Id", SqlDbType.Int).Value = fr.Id;
             cmd.Parameters.Add("@BookingId", SqlDbType.Int).Value = fr.BookingId;
-            cmd.Parameters.Add("@Code", SqlDbType.Int).Value = fr.Code;
+            cmd.Parameters.Add("@Code", SqlDbType.NChar).Value = fr.Code;
             cmd.Parameters.Add("@BS", SqlDbType.NChar).Value = fr.BS;
             cmd.Parameters.Add("@PC", SqlDbType.NChar).Value = fr.PC;
             cmd.Parameters.Add("@Units", SqlDbType.Int).Value = fr.Units;
@@ -35,7 +35,7 @@ namespace WebApp.DataAccess
             SqlCommand cmd = new SqlCommand("InsertFreight");
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@BookingId", SqlDbType.Int).Value = fr.BookingId;
-            cmd.Parameters.Add("@Code", SqlDbType.Int).Value = fr.Code;
+            cmd.Parameters.Add("@Code", SqlDbType.NChar).Value = fr.Code;
             cmd.Parameters.Add("@BS", SqlDbType.NChar).Value = fr.BS;
             cmd.Parameters.Add("@PC", SqlDbType.NChar).Value = fr.PC;
             cmd.Parameters.Add("@Units", SqlDbType.Int).Value = fr.Units;
@@ -73,7 +73,7 @@ namespace WebApp.DataAccess
                 {
                     Id = int.Parse(r["Id"].ToString()),
                     BookingId = int.Parse(r["BookingId"].ToString()),
-                    Code = int.Parse(r["Code"].ToString()),
+                    Code = r["Code"].ToString(),
                     BS = r["BS"].ToString(),
                     PC = r["PC"].ToString(),
                     Units = int.Parse(r["Units"].ToString()),

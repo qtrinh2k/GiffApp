@@ -9,7 +9,7 @@ AS
 		(SELECT TOP 1 CompanyName FROM [dbo].[Company] WHERE b.ShipperId = Id) AS [SHIPPER],
 		(SELECT TOP 1 CarrierCode FROM [dbo].[Carrier] WHERE b.CarrierId = Id) AS [CARRIER],
 		b.Vessel, 
-		b.VSL,
+		b.Voyage,
 		b.Origin,
 		b.[Load],
 		b.Discharge,

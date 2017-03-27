@@ -32,11 +32,13 @@ namespace WebApp
         public string ShipperRefNo { get; set; }
         public int CarrierId { get; set; }
         public string Vessel { get; set; }
-        public string VSL { get; set; }
+        public string Voyage { get; set; }
         public string Origin { get; set; }
         public string Load { get; set; }
+        public Nullable<System.DateTime> ETD { get; set; }
         public string Discharge { get; set; }
         public string Destination { get; set; }
+        public Nullable<System.DateTime> ETA { get; set; }
         public Nullable<System.DateTime> CutOffDate { get; set; }
         public Nullable<System.DateTime> DOC { get; set; }
         public Nullable<System.DateTime> CargoCut { get; set; }

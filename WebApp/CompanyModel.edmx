@@ -26,6 +26,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BillingAmount" Type="money" Nullable="false" />
           <Property Name="PayoutAmount" Type="money" Nullable="false" />
+          <Property Name="VendorId" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
@@ -42,11 +43,13 @@
           <Property Name="ShipperRefNo" Type="nchar" MaxLength="25" />
           <Property Name="CarrierId" Type="int" Nullable="false" />
           <Property Name="Vessel" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="VSL" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Voyage" Type="nchar" MaxLength="15" Nullable="false" />
           <Property Name="Origin" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Load" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ETD" Type="datetime" />
           <Property Name="Discharge" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Destination" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ETA" Type="datetime" />
           <Property Name="CutOffDate" Type="datetime" />
           <Property Name="DOC" Type="datetime" />
           <Property Name="CargoCut" Type="datetime" />
@@ -106,7 +109,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BookingId" Type="int" Nullable="false" />
-          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nchar" MaxLength="25" />
           <Property Name="BS" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="PC" Type="nchar" MaxLength="1" Nullable="false" />
           <Property Name="Units" Type="int" Nullable="false" />
@@ -118,6 +121,13 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="nchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="FreightCharge">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ABV" Type="nchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -151,6 +161,18 @@
             </Principal>
             <Dependent Role="BillingItems">
               <PropertyRef Name="BookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillingItems_ToCompany">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="BillingItems" Type="Self.BillingItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillingItems">
+              <PropertyRef Name="VendorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -214,18 +236,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Freight_ToAccountingCode">
-          <End Role="AccountingCode" Type="Self.AccountingCode" Multiplicity="1" />
-          <End Role="Freight" Type="Self.Freight" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AccountingCode">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Freight">
-              <PropertyRef Name="Code" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Freight_ToBooking">
           <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
           <End Role="Freight" Type="Self.Freight" Multiplicity="*" />
@@ -247,7 +257,7 @@
         </Function>
         <Function Name="InsertFreight" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BookingId" Type="int" Mode="In" />
-          <Parameter Name="Code" Type="int" Mode="In" />
+          <Parameter Name="Code" Type="nchar" Mode="In" />
           <Parameter Name="BS" Type="nchar" Mode="In" />
           <Parameter Name="PC" Type="nchar" Mode="In" />
           <Parameter Name="Units" Type="int" Mode="In" />
@@ -266,6 +276,7 @@
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Container" EntityType="Self.Container" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Freight" EntityType="Self.Freight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FreightCharge" EntityType="Self.FreightCharge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BillingItems_ToAccountingCode" Association="Self.FK_BillingItems_ToAccountingCode">
             <End Role="AccountingCode" EntitySet="AccountingCode" />
@@ -273,6 +284,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_BillingItems_ToBooking" Association="Self.FK_BillingItems_ToBooking">
             <End Role="Booking" EntitySet="Booking" />
+            <End Role="BillingItems" EntitySet="BillingItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillingItems_ToCompany" Association="Self.FK_BillingItems_ToCompany">
+            <End Role="Company" EntitySet="Company" />
             <End Role="BillingItems" EntitySet="BillingItems" />
           </AssociationSet>
           <AssociationSet Name="FK_Booking_BillTo" Association="Self.FK_Booking_BillTo">
@@ -295,10 +310,6 @@
             <End Role="Booking" EntitySet="Booking" />
             <End Role="Container" EntitySet="Container" />
           </AssociationSet>
-          <AssociationSet Name="FK_Freight_ToAccountingCode" Association="Self.FK_Freight_ToAccountingCode">
-            <End Role="AccountingCode" EntitySet="AccountingCode" />
-            <End Role="Freight" EntitySet="Freight" />
-          </AssociationSet>
           <AssociationSet Name="FK_Freight_ToBooking" Association="Self.FK_Freight_ToBooking">
             <End Role="Booking" EntitySet="Booking" />
             <End Role="Freight" EntitySet="Freight" />
@@ -320,7 +331,7 @@
           </FunctionImport>
           <FunctionImport Name="InsertFreight">
             <Parameter Name="BookingId" Mode="In" Type="Int32" />
-            <Parameter Name="Code" Mode="In" Type="Int32" />
+            <Parameter Name="Code" Mode="In" Type="String" />
             <Parameter Name="BS" Mode="In" Type="String" />
             <Parameter Name="PC" Mode="In" Type="String" />
             <Parameter Name="Units" Mode="In" Type="Int32" />
@@ -334,11 +345,8 @@
           <EntitySet Name="AccountingCodes" EntityType="GiffiDBModel.AccountingCode" />
           <EntitySet Name="Companies" EntityType="GiffiDBModel.Company" />
           <EntitySet Name="Users" EntityType="GiffiDBModel.User" />
+          <EntitySet Name="FreightCharges" EntityType="GiffiDBModel.FreightCharge" />
           <EntitySet Name="Freights" EntityType="GiffiDBModel.Freight" />
-          <AssociationSet Name="FK_Freight_ToAccountingCode" Association="GiffiDBModel.FK_Freight_ToAccountingCode">
-            <End Role="AccountingCode" EntitySet="AccountingCodes" />
-            <End Role="Freight" EntitySet="Freights" />
-          </AssociationSet>
           <EntitySet Name="Bookings" EntityType="GiffiDBModel.Booking" />
           <AssociationSet Name="FK_Booking_BillTo" Association="GiffiDBModel.FK_Booking_BillTo">
             <End Role="Company" EntitySet="Companies" />
@@ -371,6 +379,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_BillingItems_ToBooking" Association="GiffiDBModel.FK_BillingItems_ToBooking">
             <End Role="Booking" EntitySet="Bookings" />
+            <End Role="BillingItem" EntitySet="BillingItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillingItems_ToCompany" Association="GiffiDBModel.FK_BillingItems_ToCompany">
+            <End Role="Company" EntitySet="Companies" />
             <End Role="BillingItem" EntitySet="BillingItems" />
           </AssociationSet>
           </EntityContainer>
@@ -429,7 +441,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MapId" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Freights" Relationship="GiffiDBModel.FK_Freight_ToAccountingCode" FromRole="AccountingCode" ToRole="Freight" />
           <NavigationProperty Name="BillingItems" Relationship="GiffiDBModel.FK_BillingItems_ToAccountingCode" FromRole="AccountingCode" ToRole="BillingItem" />
         </EntityType>
         <EntityType Name="Company">
@@ -452,6 +463,7 @@
           <NavigationProperty Name="Bookings" Relationship="GiffiDBModel.FK_Booking_BillTo" FromRole="Company" ToRole="Booking" />
           <NavigationProperty Name="Bookings1" Relationship="GiffiDBModel.FK_Booking_Carrier" FromRole="Company" ToRole="Booking" />
           <NavigationProperty Name="Bookings2" Relationship="GiffiDBModel.FK_Booking_Shipper" FromRole="Company" ToRole="Booking" />
+          <NavigationProperty Name="BillingItems" Relationship="GiffiDBModel.FK_BillingItems_ToCompany" FromRole="Company" ToRole="BillingItem" />
           </EntityType>
         <EntityType Name="User">
           <Key>
@@ -464,13 +476,20 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="FreightCharge">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ABV" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+        </EntityType>
         <EntityType Name="Freight">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BookingId" Type="Int32" Nullable="false" />
-          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
           <Property Name="BS" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PC" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="Units" Type="Int32" Nullable="false" />
@@ -482,21 +501,8 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="AccountingCode" Relationship="GiffiDBModel.FK_Freight_ToAccountingCode" FromRole="Freight" ToRole="AccountingCode" />
           <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_Freight_ToBooking" FromRole="Freight" ToRole="Booking" />
         </EntityType>
-        <Association Name="FK_Freight_ToAccountingCode">
-          <End Type="GiffiDBModel.AccountingCode" Role="AccountingCode" Multiplicity="1" />
-          <End Type="GiffiDBModel.Freight" Role="Freight" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AccountingCode">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Freight">
-              <PropertyRef Name="Code" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="Id" />
@@ -510,11 +516,13 @@
           <Property Name="ShipperRefNo" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
           <Property Name="CarrierId" Type="Int32" Nullable="false" />
           <Property Name="Vessel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="VSL" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Voyage" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
           <Property Name="Origin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Load" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ETD" Type="DateTime" Precision="3" />
           <Property Name="Discharge" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Destination" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ETA" Type="DateTime" Precision="3" />
           <Property Name="CutOffDate" Type="DateTime" Precision="3" />
           <Property Name="DOC" Type="DateTime" Precision="3" />
           <Property Name="CargoCut" Type="DateTime" Precision="3" />
@@ -616,10 +624,12 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BillingAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="PayoutAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="VendorId" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AccountingCode" Relationship="GiffiDBModel.FK_BillingItems_ToAccountingCode" FromRole="BillingItem" ToRole="AccountingCode" />
           <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_BillingItems_ToBooking" FromRole="BillingItem" ToRole="Booking" />
+          <NavigationProperty Name="Company" Relationship="GiffiDBModel.FK_BillingItems_ToCompany" FromRole="BillingItem" ToRole="Company" />
         </EntityType>
         <Association Name="FK_BillingItems_ToAccountingCode">
           <End Type="GiffiDBModel.AccountingCode" Role="AccountingCode" Multiplicity="1" />
@@ -642,6 +652,18 @@
             </Principal>
             <Dependent Role="BillingItem">
               <PropertyRef Name="BookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillingItems_ToCompany">
+          <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="GiffiDBModel.BillingItem" Role="BillingItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillingItem">
+              <PropertyRef Name="VendorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -748,6 +770,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FreightCharges">
+            <EntityTypeMapping TypeName="GiffiDBModel.FreightCharge">
+              <MappingFragment StoreEntitySet="FreightCharge">
+                <ScalarProperty Name="ABV" ColumnName="ABV" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Freights">
             <EntityTypeMapping TypeName="GiffiDBModel.Freight">
               <MappingFragment StoreEntitySet="Freight">
@@ -781,11 +811,13 @@
                 <ScalarProperty Name="CargoCut" ColumnName="CargoCut" />
                 <ScalarProperty Name="DOC" ColumnName="DOC" />
                 <ScalarProperty Name="CutOffDate" ColumnName="CutOffDate" />
+                <ScalarProperty Name="ETA" ColumnName="ETA" />
                 <ScalarProperty Name="Destination" ColumnName="Destination" />
                 <ScalarProperty Name="Discharge" ColumnName="Discharge" />
+                <ScalarProperty Name="ETD" ColumnName="ETD" />
                 <ScalarProperty Name="Load" ColumnName="Load" />
                 <ScalarProperty Name="Origin" ColumnName="Origin" />
-                <ScalarProperty Name="VSL" ColumnName="VSL" />
+                <ScalarProperty Name="Voyage" ColumnName="Voyage" />
                 <ScalarProperty Name="Vessel" ColumnName="Vessel" />
                 <ScalarProperty Name="CarrierId" ColumnName="CarrierId" />
                 <ScalarProperty Name="ShipperRefNo" ColumnName="ShipperRefNo" />
@@ -803,6 +835,7 @@
               <MappingFragment StoreEntitySet="BillingItems">
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
                 <ScalarProperty Name="PayoutAmount" ColumnName="PayoutAmount" />
                 <ScalarProperty Name="BillingAmount" ColumnName="BillingAmount" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

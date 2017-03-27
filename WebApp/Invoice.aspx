@@ -138,9 +138,9 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="panel-heading col-xs-4">
-                                    <h3 class="panel-title"><strong>Carrier/Voyage</strong><br />
+                                    <h3 class="panel-title"><strong>Voyage</strong><br />
                                     </h3>
-                                    <asp:Label ID="lblCarrier" runat="server"></asp:Label>
+                                    <asp:Label ID="lblVoyage" runat="server"></asp:Label>
                                 </div>
                                 <div class="panel-heading col-xs-2">
                                     <h3 class="panel-title"><strong>Origin</strong><br />
@@ -186,7 +186,7 @@
                                                      <asp:Label ID="lblDescription" Width="300px" runat="server" Text='Total'></asp:Label>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField ControlStyle-CssClass="form-control col-xs-2" HeaderText="Billing Amount">
+                                            <asp:TemplateField ControlStyle-CssClass="form-control col-xs-2" HeaderText="Billing($)">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblBillingAmount" Width="100px" runat="server" Text='<%# String.Format("{0:0.00}", Eval("BillingAmount")) %>'></asp:Label>
                                                 </ItemTemplate>
@@ -197,7 +197,7 @@
                                                     <asp:TextBox ID="txtBillingAmount" CssClass="form-control" Enabled="false" Width="100px" runat="server"></asp:TextBox>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField ControlStyle-CssClass="form-control col-xs-2" HeaderText="PayOut Amount">
+                                            <asp:TemplateField ControlStyle-CssClass="form-control col-xs-2" HeaderText="PayOut($)">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblPayOutAmount" Width="100px" runat="server" Text='<%# String.Format("{0:0.00}", Eval("PayoutAmount")) %>'></asp:Label>
                                                 </ItemTemplate>
@@ -208,11 +208,18 @@
                                                     <asp:TextBox ID="txtPayOutAmount" CssClass="form-control" Enabled="false" Width="100px" runat="server"></asp:TextBox>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-<%--                                            <asp:TemplateField ControlStyle-CssClass="form-control col-xs-2">
+                                            <asp:TemplateField ControlStyle-CssClass="form-control col-xs-2" HeaderText="Vendor">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblVendor" Width="100px" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Vendor")) %>'></asp:Label>
+                                                </ItemTemplate>
+                                                <EditItemTemplate>
+                                                    <asp:TextBox ID="txtVendor" Width="100px" Enabled="true" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Vendor")) %>'></asp:TextBox>
+                                                </EditItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:Button ID="btnAddNew" Text="Update" runat="server" OnClick="btnUpdateTotal_Click" />
+                                                    <asp:TextBox ID="txtVendor" CssClass="form-control" Enabled="false" Width="100px" runat="server"></asp:TextBox>
                                                 </FooterTemplate>
-                                            </asp:TemplateField>--%>
+                                            </asp:TemplateField>
+
                                             <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Left" />
                                         </Columns>
                                     </asp:GridView>
@@ -225,19 +232,23 @@
                                                     <asp:ListItem>Select</asp:ListItem>
                                                 </asp:DropDownList>
                                             </asp:TableCell>
-                                            <asp:TableCell CssClass="group-control col-xs-4">
+                                            <asp:TableCell CssClass="group-control col-xs-3">
                                                 Description:<br />
                                                 <asp:TextBox CssClass="form-control" ID="txtAddDescription" Width="300px" runat="server"></asp:TextBox>
                                             </asp:TableCell>
                                             <asp:TableCell CssClass="group-control col-xs-2">
-                                                Billing Amount:<br />
+                                                Billing:<br />
                                                 <asp:TextBox CssClass="form-control" Width="100px" ID="txtAddBillingAmount" runat="server"></asp:TextBox>
                                             </asp:TableCell>
                                             <asp:TableCell CssClass="group-control col-xs-2">
-                                                PayOut Amount:<br />
+                                                PayOut:<br />
                                                 <asp:TextBox CssClass="form-control" Width="100px" ID="txtAddPayoutAmount" runat="server"></asp:TextBox>
                                             </asp:TableCell>
-                                            <asp:TableCell CssClass="group-group col-md-2">
+                                            <asp:TableCell CssClass="group-control col-xs-2">
+                                                Vendor:<br />
+                                                <asp:DropDownList CssClass="form-control" Width="100px" ID="ddlAddVendor" runat="server"></asp:DropDownList>
+                                            </asp:TableCell>
+                                            <asp:TableCell CssClass="group-group col-md-1">
                                                 <br />
                                                 <asp:Button ID="btnAddBillingItem" CssClass="btn btn-md btn-info" Visible="true" runat="server" Text="Add" CausesValidation="true" OnClick="btnAddBillingItem_Click" />
                                             </asp:TableCell>

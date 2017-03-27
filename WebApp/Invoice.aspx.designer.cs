@@ -103,13 +103,13 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtPaymentDueBy;
         
         /// <summary>
-        /// lblCarrier control.
+        /// lblVoyage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCarrier;
+        protected global::System.Web.UI.WebControls.Label lblVoyage;
         
         /// <summary>
         /// lblOrigin control.
@@ -191,6 +191,15 @@ namespace WebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAddPayoutAmount;
+        
+        /// <summary>
+        /// ddlAddVendor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAddVendor;
         
         /// <summary>
         /// btnAddBillingItem control.

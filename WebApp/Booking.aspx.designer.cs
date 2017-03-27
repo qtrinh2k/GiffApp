@@ -94,13 +94,13 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtVessel;
         
         /// <summary>
-        /// txtVSL control.
+        /// txtVoyage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVSL;
+        protected global::System.Web.UI.WebControls.TextBox txtVoyage;
         
         /// <summary>
         /// txtOrigin control.
@@ -121,6 +121,15 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtLoad;
         
         /// <summary>
+        /// txtETD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtETD;
+        
+        /// <summary>
         /// txtDischarge control.
         /// </summary>
         /// <remarks>
@@ -137,6 +146,15 @@ namespace WebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDest;
+        
+        /// <summary>
+        /// txtETA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtETA;
         
         /// <summary>
         /// txtCommod control.
