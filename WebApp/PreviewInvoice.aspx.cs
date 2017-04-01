@@ -48,27 +48,6 @@ namespace WebApp
                         controlTotal.Text = string.Format("{0:0.00}", GetInvoiceTotal(bookingId));
                         controlTotal.DataBind();
                         #endregion
-
-                        #region Payout
-                        lblBillTo2.Text = cpInfo;
-                        lblBillTo2.DataBind();
-
-                        lblDescription2.Text = b.Commodity.Trim();
-
-                        lblYourRef2.Text = b.ShipperRefNo;
-                        lblInvoiceDate2.Text = b.CreatedTime.ToString("d");
-
-                        lblCarrier2.Text = DataUtil.GetCarrierNameByCarrierId(b.CarrierId);
-                        lblOrigin2.Text = b.Origin;
-                        lblDestination2.Text = b.Destination;
-
-                        rptPayout.DataSource = DataUtil.GetPayoutItems(bookingId);
-                        rptPayout.DataBind();
-
-                        var controlPayoutTotal = rptPayout.FindControlInFooter("lblPayoutTotal") as Label;
-                        controlPayoutTotal.Text = string.Format("{0:0.00}", GetPayoutTotal(bookingId));
-                        controlPayoutTotal.DataBind();
-                        #endregion
                     }
                 }
             }

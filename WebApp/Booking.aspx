@@ -8,7 +8,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#<%=txtCutOffDate.ClientID %>").dynDateTime({
-            showsTime: true,
+            showsTime: false,
             ifFormat: "%Y/%m/%d",
             daFormat: "%l;%M %p, %e %m,  %Y",
             align: "BR",
@@ -18,7 +18,7 @@
             button: ".next()"
         });
         $("#<%=txtCargoCut.ClientID %>").dynDateTime({
-            showsTime: true,
+            showsTime: false,
             ifFormat: "%Y/%m/%d",
             daFormat: "%l;%M %p, %e %m,  %Y",
             align: "BR",
@@ -28,7 +28,7 @@
             button: ".next()"
         });
         $("#<%=txtDOC.ClientID %>").dynDateTime({
-            showsTime: true,
+            showsTime: false,
             ifFormat: "%Y/%m/%d",
             daFormat: "%l;%M %p, %e %m,  %Y",
             align: "BR",
@@ -38,7 +38,7 @@
             button: ".next()"
         });
         $("#<%=txtVGM.ClientID %>").dynDateTime({
-            showsTime: true,
+            showsTime: false,
             ifFormat: "%Y/%m/%d",
             daFormat: "%l;%M %p, %e %m,  %Y",
             align: "BR",
@@ -48,7 +48,7 @@
             button: ".next()"
         });
         $("#<%=txtETD.ClientID %>").dynDateTime({
-            showsTime: true,
+            showsTime: false,
             ifFormat: "%Y/%m/%d",
             daFormat: "%l;%M %p, %e %m,  %Y",
             align: "BR",
@@ -58,7 +58,7 @@
             button: ".next()"
         });
         $("#<%=txtETA.ClientID %>").dynDateTime({
-            showsTime: true,
+            showsTime: false,
             ifFormat: "%Y/%m/%d",
             daFormat: "%l;%M %p, %e %m,  %Y",
             align: "BR",
@@ -314,7 +314,7 @@
                     </div>
 
                     <div class="col-sm-3 form-group">
-                        <asp:Button ID="btnClose" Text="Close" CssClass="btn btn-lg btn-info" TabIndex="23" runat="server" OnClick="AddNewBooking_Click" Visible="false" />
+                        <asp:Button ID="btnClose" Text="Close" CssClass="btn btn-lg btn-info" TabIndex="23" runat="server" OnClick="btnClose_Click" Visible="false" />
                     </div>
                     <div class="col-sm-3 form-group">
                         <asp:Button ID="btnNext" Text="Next >>" CssClass="btn btn-lg btn-info" TabIndex="24" runat="server" OnClick="btnNext_Click" Visible="false" />

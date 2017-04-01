@@ -66,6 +66,18 @@ namespace WebApp
 
         }
 
+        public static string GetCompanyNameById(int companyId)
+        {
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                var results = (from c in dc.Companies
+                               where c.Id == companyId
+                               select c.CompanyName);
+
+                return results.FirstOrDefault();
+            }
+        }
+
         public static string GetCarrierNameByCarrierId(int carrierId)
         {
             using (GiffiDBEntities dc = new GiffiDBEntities())
@@ -174,6 +186,5 @@ namespace WebApp
                 return results.ToList();
             }
         }
-
     }
 }

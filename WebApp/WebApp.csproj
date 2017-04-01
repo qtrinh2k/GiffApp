@@ -137,7 +137,7 @@
     <Content Include="BookingConfirm.aspx" />
     <Content Include="CSS\calendar-blue.css" />
     <Content Include="CSS\Style.css" />
-    <Content Include="HtmlPage1.html" />
+    <Content Include="Global.asax" />
     <Content Include="Image\calender.png" />
     <Content Include="Carrier.aspx" />
     <Content Include="Company.aspx" />
@@ -156,7 +156,6 @@
     <Content Include="Freight.aspx" />
     <Content Include="Index.aspx" />
     <Content Include="Invoice.aspx" />
-    <Content Include="InvoiceSample.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Management.aspx" />
     <Content Include="packages.config" />
@@ -335,6 +334,9 @@
     <Compile Include="GetFreightById_Result.cs">
       <DependentUpon>CompanyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -347,13 +349,6 @@
     </Compile>
     <Compile Include="Invoice.aspx.designer.cs">
       <DependentUpon>Invoice.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="InvoiceSample.aspx.cs">
-      <DependentUpon>InvoiceSample.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="InvoiceSample.aspx.designer.cs">
-      <DependentUpon>InvoiceSample.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

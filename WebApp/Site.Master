@@ -5,19 +5,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="stylesheet" href="Content/bootstrap.min.css"/>
-        <link rel="stylesheet" href="CSS/main.css" />
-        <script src="Scripts/jquery-3.1.1.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="CSS/main.css" />
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
-
     </asp:ContentPlaceHolder>
 </head>
 <body>
@@ -40,8 +39,20 @@
                                 <li><a href="Accounting.aspx">Accounting</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="Login.aspx"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-                                <li><a href="Signup.aspx"><span class="glyphicon glyphicon-log-in"></span> Sign Up</a></li>
+                                <li>
+                                    <asp:LoginView ID="LoginView1" runat="server">
+                                        <LoggedInTemplate>
+                                            Welcome,
+                                        <asp:LoginName ID="logginId" runat="server" />
+                                        </LoggedInTemplate>
+                                        <AnonymousTemplate>
+                                            Guest
+                                        </AnonymousTemplate>
+                                    </asp:LoginView>
+                                </li>
+                                <li>
+                                    <asp:LoginStatus ID="LoginStatus1" LogoutAction="Redirect" LogoutPageUrl="~/Login.aspx" LogoutText=" | LogOut" runat="server" />
+                                </li>
                             </ul>
                         </div>
                     </nav>
@@ -54,7 +65,7 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     </form>
 </body>
 </html>

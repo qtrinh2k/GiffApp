@@ -14,7 +14,10 @@ namespace WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (this.Page.User != null && this.User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("Index.aspx");
+            }
         }
 
         protected void userLogin_Authenticate(object sender, AuthenticateEventArgs e)
@@ -36,5 +39,25 @@ namespace WebApp
                     break;
             }
         }
+
+        //protected void Login_Click(object sender, EventArgs e)
+        //{
+        //    UserRepository repo = new UserRepository();
+        //    int userId = repo.ValidateUser(userLogin.UserName, userLogin.Password);
+
+        //    switch (userId)
+        //    {
+        //        case -1:
+        //            userLogin.FailureText = "Username and/or password is incorrect.";
+        //            break;
+        //        case -2:
+        //            userLogin.FailureText = "Account has not been activated.";
+        //            break;
+        //        default:
+        //            //userLogin.DestinationPageUrl = "~/index.aspx";
+        //            FormsAuthentication.RedirectFromLoginPage(userLogin.UserName, userLogin.RememberMeSet);
+        //            break;
+        //    }
+        //}
     }
 }

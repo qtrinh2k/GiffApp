@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Freight.aspx.cs" Inherits="WebApp.Freight" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="Freight.aspx.cs" Inherits="WebApp.Freight" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script lang="javascript" type="text/javascript">
         $(function () {
@@ -107,42 +107,42 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Rate" ItemStyle-Width="100px">
                                    <ItemTemplate>
-                                        <asp:Label ID="lblRate" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Rate")) %>'></asp:Label>
+                                        <asp:Label ID="lblRate" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("Rate")) %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtRate" Width="98" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Rate")) %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtRate" Width="98" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("Rate")) %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="AMT. PPD" ItemStyle-Width="100px">
                                    <ItemTemplate>
-                                        <asp:Label ID="lblAmtPPD" runat="server" Text='<%# String.Format("{0:0.00}", Eval("AmtPPD")) %>'></asp:Label>
+                                        <asp:Label ID="lblAmtPPD" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("AmtPPD")) %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtAmtPPD" Width="98" runat="server" Text='<%# String.Format("{0:0.00}", Eval("AmtPPD")) %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtAmtPPD" Width="98" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("AmtPPD")) %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="AMT COL" ItemStyle-Width="100px">
                                    <ItemTemplate>
-                                        <asp:Label ID="lblAmtCOL" runat="server" Text='<%# String.Format("{0:0.00}", Eval("AmtCOL")) %>'></asp:Label>
+                                        <asp:Label ID="lblAmtCOL" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("AmtCOL")) %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtAmtCOL" Width="98" runat="server" Text='<%# String.Format("{0:0.00}", Eval("AmtCOL")) %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtAmtCOL" Width="98" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("AmtCOL")) %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="BRK Rate" ItemStyle-Width="100px">
                                    <ItemTemplate>
-                                        <asp:Label ID="lblBrkRate" runat="server" Text='<%# String.Format("{0:0.00}", Eval("BrkRate")) %>'></asp:Label>
+                                        <asp:Label ID="lblBrkRate" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("BrkRate")) %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtBrkRate" Width="98" runat="server" Text='<%# String.Format("{0:0.00}", Eval("BrkRate")) %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtBrkRate" Width="98" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("BrkRate")) %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="BRK AMT" ItemStyle-Width="100px">
                                    <ItemTemplate>
-                                        <asp:Label ID="lblBrkAmt" runat="server" Text='<%# String.Format("{0:0.00}", Eval("BrkAmt")) %>'></asp:Label>
+                                        <asp:Label ID="lblBrkAmt" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("BrkAmt")) %>'></asp:Label>
                                    </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="txtBrkAmt" Width="98" runat="server" Text='<%# String.Format("{0:0.00}", Eval("BrkAmt")) %>'></asp:TextBox>
+                                        <asp:TextBox ID="txtBrkAmt" Width="98" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("BrkAmt")) %>'></asp:TextBox>
                                     </EditItemTemplate>
                                 </asp:TemplateField>
                                 <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true" ItemStyle-Width="100" />
@@ -177,7 +177,7 @@
                                     </asp:TableCell>
                                     <asp:TableCell style="width: 100px">
                                         Rate:<br />
-                                        <asp:TextBox ID="txtNewRate" runat="server" Width="90" OnTextChanged="txtNewRate_TextChanged"/>
+                                        <asp:TextBox ID="txtNewRate" runat="server" Width="90" OnTextChanged="txtNewRate_TextChanged" AutoPostBack="true"/>
                                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewRate" ValidationGroup="AddFreight" runat="server" />
                                     </asp:TableCell>
                                     <asp:TableCell style="width: 100px">

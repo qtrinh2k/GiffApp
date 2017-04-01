@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Invoice.aspx.cs" Inherits="WebApp.Invoice1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="Invoice.aspx.cs" Inherits="WebApp.Invoice1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script lang="javascript" type="text/javascript">
@@ -259,8 +259,8 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="panel-footer form-horizontal right">
-                                        <asp:Button ID="btnPreviewInvoice" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Preview Invoice" OnClick="btnPreviewInvoice_Click"></asp:Button>
-                                    <asp:Button ID="btnPayoutPreview" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="PayOut Invoice" OnClick="btnPreviewPayout_Click"></asp:Button>
+                                        <asp:Button ID="btnPreviewInvoice" CssClass="btn btn-lg btn-primary pull-right" Visible="false" runat="server" Text="Preview Invoice" OnClick="btnPreviewInvoice_Click"></asp:Button>
+                                    <asp:Button ID="btnPayoutPreview" CssClass="btn btn-lg btn-primary pull-right" Visible="false" runat="server" Text="Preview PayOut" OnClick="btnPreviewPayout_Click"></asp:Button>
                                 </div>
                             </div>
                                     

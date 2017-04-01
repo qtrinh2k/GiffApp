@@ -166,7 +166,7 @@
                                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewNet" ValidationGroup="NewContainer" runat="server" />
                                     </asp:TableCell>
                                     <asp:TableCell style="width: 130px">
-                                        GRS:<br />
+                                        GRS (Kg):<br />
                                         <asp:TextBox ID="txtNewGRS" runat="server" Width="120" />
                                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewGRS" ValidationGroup="NewContainer" runat="server" />
                                     </asp:TableCell>

@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebApp.DataAccess;
 
 namespace WebApp
 {
@@ -14,18 +15,36 @@ namespace WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.Page.User.Identity.IsAuthenticated)
+            if (!IsPostBack)
             {
-                FormsAuthentication.RedirectToLoginPage();
+                if (this.Page.User == null || !this.Page.User.Identity.IsAuthenticated)
+                {
+                    FormsAuthentication.RedirectToLoginPage();
+                }
+                else
+                {
+
+                    string userName = this.Page.User.Identity.Name;
+                    BookingRepository repo = new BookingRepository();
+                    var results = repo.GetBookingByUsername(userName);
+                    gvIndex.DataSource = results;
+                    gvIndex.DataBind();
+                }
+
             }
-            else
-            {
-                lbUser.Text = this.Page.User.Identity.Name;
-            }
+
         }
         protected void SelectedSearch_Click(object sender, EventArgs e)
         {
-            //TODO
+            //long giffiRef = -1;
+            //if (!string.IsNullOrEmpty(txtSearchBox.Text) && long.TryParse(txtSearchBox.Text, out giffiRef) && giffiRef > 10000)
+            //{
+            //    txtGiffRef.Text = txtSearchBox.Text;
+            //    txtGiffRef.DataBind();
+
+            //    txtSearchBox.Text = string.Empty;
+
+            //}
         }
         #region WebMethod
         [WebMethod]
@@ -57,5 +76,12 @@ namespace WebApp
         }
         #endregion
 
+        protected void btlGiffiRef_Click(object sender, EventArgs e)
+        {
+            var lbGiffiRef = sender as LinkButton;
+
+
+            Response.Redirect(string.Format("Booking.aspx?ref={0}", lbGiffiRef.Text));
+        }
     }
 }

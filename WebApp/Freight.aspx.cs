@@ -248,13 +248,13 @@ namespace WebApp
 
             if (f.PC == "P")
             {
-                if (Math.Round(f.AmtPPD, 2, MidpointRounding.ToEven) != Math.Round(f.Units * f.Rate, 2, MidpointRounding.ToEven))
+                if (Math.Round(f.AmtPPD, 2, MidpointRounding.AwayFromZero) != Math.Round(f.Units * f.Rate, 2, MidpointRounding.AwayFromZero))
                 {
                     outMsg = string.Format("ERROR!!! AmtPPD={0:0.00}, and Units * Rate= {1:0.00} * {2:0.00}= {3:0.00} are not equal)", f.AmtPPD, f.Units, f.Rate, f.Units * f.Rate);
                     return false;
                 }
 
-                if (Math.Round(f.BrkAmt, 2, MidpointRounding.ToEven) != Math.Round(f.AmtPPD * f.BrkRate, 2, MidpointRounding.ToEven))
+                if (Math.Round(f.BrkAmt, 2, MidpointRounding.AwayFromZero) != Math.Round(f.AmtPPD * f.BrkRate, 2, MidpointRounding.AwayFromZero))
                 {
                     outMsg = string.Format("ERROR!!! BrkAmt= {0:0.00} and AmtPPD * BrkRate= {1:0.00} * {2:0.00}= {3:0.00} are not equal!!!", f.BrkAmt, f.AmtPPD, f.BrkRate, f.AmtPPD * f.BrkRate);
                     return false;

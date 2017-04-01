@@ -16,15 +16,83 @@ namespace WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<string> companyNames = new List<string>();
+            long giffiRef = -1;
+            if (!IsPostBack && Request.Params.HasKeys())
+            {
+                if (!string.IsNullOrEmpty(Request.QueryString["ref"]) &&
+                    long.TryParse(Request.QueryString["ref"].ToString(), out giffiRef))
+                {
+                    txtGiffRef.Text = giffiRef.ToString();
+                    txtGiffRef.DataBind();
+
+                    PopulateData(giffiRef);
+                    return;
+                }
+            }
 
             txtDate.Text = DateTime.Now.ToString("d");
             txtDate.DataBind();
+
+            txtCreatedBy.Text = this.Page.User.Identity.Name;
 
             txtCreatedBy.Focus();
             txtCreatedBy.DataBind();
         }
 
+        /*
+                    cmd.Parameters.Add("@createdBy", SqlDbType.NVarChar).Value = txtCreatedBy.Text.Trim();
+                    cmd.Parameters.Add("@createdTime", SqlDbType.DateTime).Value = txtDate.Text.Trim();
+                    cmd.Parameters.Add("@modifiedTime", SqlDbType.DateTime).Value = txtDate.Text.Trim();
+                    cmd.Parameters.Add("@billToId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtBillTo.Text.Trim());
+                    cmd.Parameters.Add("@shipperId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtShipper.Text.Trim());
+                    cmd.Parameters.Add("@shipperRefNo", SqlDbType.NVarChar).Value = txtShipperRef.Text.Trim();
+                    cmd.Parameters.Add("@carrierId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromCode(txtCarrier.Text.Trim());
+                    cmd.Parameters.Add("@vessel", SqlDbType.NVarChar).Value = txtVessel.Text.Trim();
+                    cmd.Parameters.Add("@voyage", SqlDbType.NChar).Value = txtVoyage.Text.Trim();
+                    cmd.Parameters.Add("@origin", SqlDbType.NVarChar).Value = txtOrigin.Text.Trim();
+                    cmd.Parameters.Add("@load", SqlDbType.NVarChar).Value = txtLoad.Text.Trim();
+                    cmd.Parameters.Add("@destination", SqlDbType.NVarChar).Value = txtDest.Text.Trim();                    
+                    cmd.Parameters.Add("@discharge", SqlDbType.NVarChar).Value = txtDischarge.Text.Trim();
+                    cmd.Parameters.Add("@commodity", SqlDbType.NVarChar).Value = txtCommod.Text.Trim();
+                    cmd.Parameters.Add("@equipment", SqlDbType.NVarChar).Value = txtEquiq1.Text.Trim() + txtEquiq2.Text.Trim();
+                    cmd.Parameters.Add("@temp", SqlDbType.NChar).Value = txtTemp.Text.Trim();
+                    cmd.Parameters.Add("@vents", SqlDbType.NChar).Value = txtVents.Text.Trim();
+                    cmd.Parameters.Add("@status", SqlDbType.NChar).Value = "CREATED";
+                    cmd.Parameters.Add("@notes", SqlDbType.NVarChar).Value = txtNotes.Text.Trim();
+                    cmd.Parameters.Add("@CutOffDate", SqlDbType.DateTime).Value = DateTime.Parse(txtCutOffDate.Text.Trim());
+                    cmd.Parameters.Add("@DOC", SqlDbType.DateTime).Value = DateTime.Parse(txtDOC.Text.Trim());
+                    cmd.Parameters.Add("@CargoCut", SqlDbType.DateTime).Value = DateTime.Parse(txtCargoCut.Text.Trim());
+                    cmd.Parameters.Add("@VGM", SqlDbType.DateTime).Value = DateTime.Parse(txtVGM.Text.Trim());
+                    cmd.Parameters.Add("@ETD", SqlDbType.DateTime).Value = DateTime.Parse(txtETD.Text.Trim());
+                    cmd.Parameters.Add("@ETA", SqlDbType.DateTime).Value = DateTime.Parse(txtETA.Text.Trim());
+        */         
+        private void PopulateData(long giffiRef)
+        {
+            Booking r = DataUtil.GetBookingInfo(giffiRef);
+            txtCreatedBy.Text = r.CreatedBy;
+            txtDate.Text = r.CreatedTime.ToString("d");
+            txtBillTo.Text = DataUtil.GetCompanyNameById(r.BillToId);
+            txtCarrier.Text = DataUtil.GetCompanyNameById(r.CarrierId);
+            txtShipper.Text = DataUtil.GetCompanyNameById(r.ShipperId);
+            txtShipperRef.Text = r.ShipperRefNo;
+            txtVessel.Text = r.Vessel;
+            txtVoyage.Text = r.Voyage;
+            txtOrigin.Text = r.Origin;
+            txtLoad.Text = r.Load;
+            txtDest.Text = r.Destination;
+            txtDischarge.Text = r.Discharge;
+            txtCommod.Text = r.Commodity;
+            txtEquiq1.Text = r.Equipment.Split('|').First();
+            txtTemp.Text = r.Temp;
+            txtVents.Text = r.Vents;
+            txtNotes.Text = r.Notes;
+            txtCutOffDate.Text = (r.CutOffDate.HasValue) ? r.CutOffDate.Value.ToString("d") : "";
+            txtDOC.Text = (r.DOC.HasValue) ? r.DOC.Value.ToString("d") : "";
+            txtCargoCut.Text = (r.CargoCut.HasValue) ? r.CargoCut.Value.ToString("d") : "";
+            txtVGM.Text = (r.VGM.HasValue) ? r.VGM.Value.ToString("d") : "";
+            txtETD.Text = (r.ETD.HasValue) ? r.ETD.Value.ToString("d") : "";
+            txtETA.Text = (r.ETA.HasValue) ? r.ETD.Value.ToString("d") : "";
+        }
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
@@ -84,8 +152,6 @@ namespace WebApp
                 txtGiffRef.Text = giffiRef.ToString();
                 txtGiffRef.DataBind();
 
-                //TODO: create submition page and return reference no.
-
                 ClientScript.RegisterStartupScript(GetType(), "alert", string.Format("alert('Successfully Submit Reference#{0}');", giffiRef), true);
 
                 var tboxControls = this.Controls.FindAll().OfType<TextBox>();
@@ -94,7 +160,6 @@ namespace WebApp
                     item.Enabled = false;
                 }
 
-                //btnSubmitBooking.Enabled = false;
                 btnSubmitBooking.Visible = false;
                 btnClose.Visible = true;
                 btnNext.Visible = true;
@@ -155,5 +220,10 @@ namespace WebApp
             return carrierNames;
         }
 
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Index.aspx");
+        }
     }
 }
+ 

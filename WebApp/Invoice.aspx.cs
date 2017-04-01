@@ -98,6 +98,9 @@ namespace WebApp
                 tbAddBilling.Visible = true;
                 tbAddBilling.DataBind();
 
+                btnPreviewInvoice.Visible = true;
+                btnPayoutPreview.Visible = true;
+
                 txtSearchBox.Text = string.Empty;
             }
         }

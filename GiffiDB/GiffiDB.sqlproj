@@ -120,6 +120,7 @@
     <Build Include="dbo\Tables\FreightCharge.sql" />
     <Build Include="dbo\InsertFreightCharge.sql" />
     <Build Include="dbo\GetFreightCharge.sql" />
+    <Build Include="dbo\GetBookingByUserName.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Snapshots\GiffiDB_20170219_15-15-06.dacpac" />

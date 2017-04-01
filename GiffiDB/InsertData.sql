@@ -5,8 +5,8 @@ GO
 delete [dbo].Freight
 delete [dbo].Container
 DELETE [dbo].Carrier
-DELETE [dbo].Booking
 DELETE [dbo].BookingReference
+DELETE [dbo].Booking
 delete [dbo].Company
 
 INSERT INTO [dbo].[AccountingCode]
