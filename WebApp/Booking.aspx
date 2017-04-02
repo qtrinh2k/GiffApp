@@ -8,66 +8,66 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#<%=txtCutOffDate.ClientID %>").dynDateTime({
-            showsTime: false,
-            ifFormat: "%Y/%m/%d",
-            daFormat: "%l;%M %p, %e %m,  %Y",
-            align: "BR",
-            electric: false,
-            singleClick: false,
-            displayArea: ".siblings('.dtcDisplayArea')",
-            button: ".next()"
+                showsTime: false,
+                ifFormat: "%Y/%m/%d",
+                daFormat: "%l;%M %p, %e %m,  %Y",
+                align: "BR",
+                electric: false,
+                singleClick: false,
+                displayArea: ".siblings('.dtcDisplayArea')",
+                button: ".next()"
+            });
+            $("#<%=txtCargoCut.ClientID %>").dynDateTime({
+                showsTime: false,
+                ifFormat: "%Y/%m/%d",
+                daFormat: "%l;%M %p, %e %m,  %Y",
+                align: "BR",
+                electric: false,
+                singleClick: false,
+                displayArea: ".siblings('.dtcDisplayArea')",
+                button: ".next()"
+            });
+            $("#<%=txtDOC.ClientID %>").dynDateTime({
+                showsTime: false,
+                ifFormat: "%Y/%m/%d",
+                daFormat: "%l;%M %p, %e %m,  %Y",
+                align: "BR",
+                electric: false,
+                singleClick: false,
+                displayArea: ".siblings('.dtcDisplayArea')",
+                button: ".next()"
+            });
+            $("#<%=txtVGM.ClientID %>").dynDateTime({
+                showsTime: false,
+                ifFormat: "%Y/%m/%d",
+                daFormat: "%l;%M %p, %e %m,  %Y",
+                align: "BR",
+                electric: false,
+                singleClick: false,
+                displayArea: ".siblings('.dtcDisplayArea')",
+                button: ".next()"
+            });
+            $("#<%=txtETD.ClientID %>").dynDateTime({
+                showsTime: false,
+                ifFormat: "%Y/%m/%d",
+                daFormat: "%l;%M %p, %e %m,  %Y",
+                align: "BR",
+                electric: false,
+                singleClick: false,
+                displayArea: ".siblings('.dtcDisplayArea')",
+                button: ".next()"
+            });
+            $("#<%=txtETA.ClientID %>").dynDateTime({
+                showsTime: false,
+                ifFormat: "%Y/%m/%d",
+                daFormat: "%l;%M %p, %e %m,  %Y",
+                align: "BR",
+                electric: false,
+                singleClick: false,
+                displayArea: ".siblings('.dtcDisplayArea')",
+                button: ".next()"
+            });
         });
-        $("#<%=txtCargoCut.ClientID %>").dynDateTime({
-            showsTime: false,
-            ifFormat: "%Y/%m/%d",
-            daFormat: "%l;%M %p, %e %m,  %Y",
-            align: "BR",
-            electric: false,
-            singleClick: false,
-            displayArea: ".siblings('.dtcDisplayArea')",
-            button: ".next()"
-        });
-        $("#<%=txtDOC.ClientID %>").dynDateTime({
-            showsTime: false,
-            ifFormat: "%Y/%m/%d",
-            daFormat: "%l;%M %p, %e %m,  %Y",
-            align: "BR",
-            electric: false,
-            singleClick: false,
-            displayArea: ".siblings('.dtcDisplayArea')",
-            button: ".next()"
-        });
-        $("#<%=txtVGM.ClientID %>").dynDateTime({
-            showsTime: false,
-            ifFormat: "%Y/%m/%d",
-            daFormat: "%l;%M %p, %e %m,  %Y",
-            align: "BR",
-            electric: false,
-            singleClick: false,
-            displayArea: ".siblings('.dtcDisplayArea')",
-            button: ".next()"
-        });
-        $("#<%=txtETD.ClientID %>").dynDateTime({
-            showsTime: false,
-            ifFormat: "%Y/%m/%d",
-            daFormat: "%l;%M %p, %e %m,  %Y",
-            align: "BR",
-            electric: false,
-            singleClick: false,
-            displayArea: ".siblings('.dtcDisplayArea')",
-            button: ".next()"
-        });
-        $("#<%=txtETA.ClientID %>").dynDateTime({
-            showsTime: false,
-            ifFormat: "%Y/%m/%d",
-            daFormat: "%l;%M %p, %e %m,  %Y",
-            align: "BR",
-            electric: false,
-            singleClick: false,
-            displayArea: ".siblings('.dtcDisplayArea')",
-            button: ".next()"
-        });
-    });
     </script>
     <script lang="javascript" type="text/javascript">
         $(function () {

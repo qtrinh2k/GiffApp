@@ -460,11 +460,10 @@ namespace WebApp
 
         }
 
+
         private void AlertMessage(string msg)
         {
-            string script = string.Format("alert(\"{0}!\");", msg);
-            ScriptManager.RegisterStartupScript(this, GetType(),
-                                  "ServerControlScript", script, true);
+            this.Page.AlertMessage(GetType(), msg);
         }
 
         protected void btnPreviewInvoice_Click(object sender, EventArgs e)

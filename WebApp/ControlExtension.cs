@@ -8,6 +8,13 @@ namespace WebApp
 {
     public static class ControlExtension
     {
+        public static void AlertMessage(this Page page, Type type, string msg)
+        {
+            string script = string.Format("alert(\"{0}!\");", msg);
+            ScriptManager.RegisterStartupScript(page, type,
+                                  "ServerControlScript", script, true);
+        }
+
         public static IEnumerable<Control> FindAll(this ControlCollection collection)
         {
             foreach(Control item in collection)

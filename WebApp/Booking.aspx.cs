@@ -12,6 +12,8 @@ using System.Data.SqlClient;
 
 namespace WebApp
 {
+    using DataAccess;
+
     public partial class Booking : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -38,34 +40,7 @@ namespace WebApp
             txtCreatedBy.Focus();
             txtCreatedBy.DataBind();
         }
-
-        /*
-                    cmd.Parameters.Add("@createdBy", SqlDbType.NVarChar).Value = txtCreatedBy.Text.Trim();
-                    cmd.Parameters.Add("@createdTime", SqlDbType.DateTime).Value = txtDate.Text.Trim();
-                    cmd.Parameters.Add("@modifiedTime", SqlDbType.DateTime).Value = txtDate.Text.Trim();
-                    cmd.Parameters.Add("@billToId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtBillTo.Text.Trim());
-                    cmd.Parameters.Add("@shipperId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtShipper.Text.Trim());
-                    cmd.Parameters.Add("@shipperRefNo", SqlDbType.NVarChar).Value = txtShipperRef.Text.Trim();
-                    cmd.Parameters.Add("@carrierId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromCode(txtCarrier.Text.Trim());
-                    cmd.Parameters.Add("@vessel", SqlDbType.NVarChar).Value = txtVessel.Text.Trim();
-                    cmd.Parameters.Add("@voyage", SqlDbType.NChar).Value = txtVoyage.Text.Trim();
-                    cmd.Parameters.Add("@origin", SqlDbType.NVarChar).Value = txtOrigin.Text.Trim();
-                    cmd.Parameters.Add("@load", SqlDbType.NVarChar).Value = txtLoad.Text.Trim();
-                    cmd.Parameters.Add("@destination", SqlDbType.NVarChar).Value = txtDest.Text.Trim();                    
-                    cmd.Parameters.Add("@discharge", SqlDbType.NVarChar).Value = txtDischarge.Text.Trim();
-                    cmd.Parameters.Add("@commodity", SqlDbType.NVarChar).Value = txtCommod.Text.Trim();
-                    cmd.Parameters.Add("@equipment", SqlDbType.NVarChar).Value = txtEquiq1.Text.Trim() + txtEquiq2.Text.Trim();
-                    cmd.Parameters.Add("@temp", SqlDbType.NChar).Value = txtTemp.Text.Trim();
-                    cmd.Parameters.Add("@vents", SqlDbType.NChar).Value = txtVents.Text.Trim();
-                    cmd.Parameters.Add("@status", SqlDbType.NChar).Value = "CREATED";
-                    cmd.Parameters.Add("@notes", SqlDbType.NVarChar).Value = txtNotes.Text.Trim();
-                    cmd.Parameters.Add("@CutOffDate", SqlDbType.DateTime).Value = DateTime.Parse(txtCutOffDate.Text.Trim());
-                    cmd.Parameters.Add("@DOC", SqlDbType.DateTime).Value = DateTime.Parse(txtDOC.Text.Trim());
-                    cmd.Parameters.Add("@CargoCut", SqlDbType.DateTime).Value = DateTime.Parse(txtCargoCut.Text.Trim());
-                    cmd.Parameters.Add("@VGM", SqlDbType.DateTime).Value = DateTime.Parse(txtVGM.Text.Trim());
-                    cmd.Parameters.Add("@ETD", SqlDbType.DateTime).Value = DateTime.Parse(txtETD.Text.Trim());
-                    cmd.Parameters.Add("@ETA", SqlDbType.DateTime).Value = DateTime.Parse(txtETA.Text.Trim());
-        */         
+       
         private void PopulateData(long giffiRef)
         {
             Booking r = DataUtil.GetBookingInfo(giffiRef);
@@ -94,6 +69,47 @@ namespace WebApp
             txtETA.Text = (r.ETA.HasValue) ? r.ETD.Value.ToString("d") : "";
         }
 
+        private Booking CreateBooking()
+        {
+            long giffiRef = -1;
+            int bookingId = -1;
+            if(long.TryParse(txtGiffRef.Text, out giffiRef))
+            {
+                bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
+            }
+
+            Booking b = new Booking
+            {
+                Id = bookingId,
+                CreatedBy = txtCreatedBy.Text,
+                CreatedTime = DateTime.Now,
+                ModifiedTime = DateTime.Now,
+                BillToId = DataUtil.GetCompanyIdFromName(txtBillTo.Text.Trim()),
+                ShipperId = DataUtil.GetCompanyIdFromName(txtShipper.Text.Trim()),
+                ShipperRefNo = txtShipperRef.Text.Trim(),
+                CarrierId = DataUtil.GetCompanyIdFromCode(txtCarrier.Text.Trim()),
+                Vessel = txtVessel.Text,
+                Voyage = txtVoyage.Text,
+                Origin = txtOrigin.Text,
+                Load = txtLoad.Text,
+                Destination = txtDest.Text,
+                Discharge = txtDischarge.Text,
+                Commodity = txtCommod.Text,
+                Equipment = string.Join("|", txtEquiq1.Text.Trim(), txtEquiq2.Text.Trim()),
+                Temp = txtTemp.Text,
+                Status = "CREATED",
+                Notes = txtNotes.Text,
+                CutOffDate = DateTime.Parse(txtCutOffDate.Text.Trim()),
+                DOC = DateTime.Parse(txtDOC.Text.Trim()),
+                CargoCut = DateTime.Parse(txtCargoCut.Text.Trim()),
+                VGM = DateTime.Parse(txtVGM.Text.Trim()),
+                ETD = DateTime.Parse(txtETD.Text.Trim()),
+                ETA = DateTime.Parse(txtETA.Text.Trim())
+            };
+
+            return b;
+        }
+
         protected void btnNext_Click(object sender, EventArgs e)
         {
             Response.Redirect(string.Format("Container.aspx?ref={0}&cusId={1}", txtGiffRef.Text, DataUtil.GetCompanyIdFromName(txtBillTo.Text)));
@@ -101,72 +117,90 @@ namespace WebApp
 
         protected void AddNewBooking_Click(object sender, EventArgs e)
         {
+            BookingRepository bRepo = new BookingRepository();
             long giffiRef = -1;
+            /*
+                        DataAccessBase dbAccess = new DataAccessBase();
 
-            DataAccessBase dbAccess = new DataAccessBase();
+                        using (SqlConnection con = new SqlConnection(dbAccess.ConnectionString))
+                        {
+                            using (SqlCommand cmd = new SqlCommand("InsertBooking", con))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
 
-            using (SqlConnection con = new SqlConnection(dbAccess.ConnectionString))
+                                cmd.Parameters.Add("@createdBy", SqlDbType.NVarChar).Value = txtCreatedBy.Text.Trim();
+                                cmd.Parameters.Add("@createdTime", SqlDbType.DateTime).Value = txtDate.Text.Trim();
+                                cmd.Parameters.Add("@modifiedTime", SqlDbType.DateTime).Value = txtDate.Text.Trim();
+                                cmd.Parameters.Add("@billToId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtBillTo.Text.Trim());
+                                cmd.Parameters.Add("@shipperId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtShipper.Text.Trim());
+                                cmd.Parameters.Add("@shipperRefNo", SqlDbType.NVarChar).Value = txtShipperRef.Text.Trim();
+                                cmd.Parameters.Add("@carrierId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromCode(txtCarrier.Text.Trim());
+                                cmd.Parameters.Add("@vessel", SqlDbType.NVarChar).Value = txtVessel.Text.Trim();
+                                cmd.Parameters.Add("@voyage", SqlDbType.NChar).Value = txtVoyage.Text.Trim();
+                                cmd.Parameters.Add("@origin", SqlDbType.NVarChar).Value = txtOrigin.Text.Trim();
+                                cmd.Parameters.Add("@load", SqlDbType.NVarChar).Value = txtLoad.Text.Trim();
+                                cmd.Parameters.Add("@destination", SqlDbType.NVarChar).Value = txtDest.Text.Trim();
+                                cmd.Parameters.Add("@discharge", SqlDbType.NVarChar).Value = txtDischarge.Text.Trim();
+                                cmd.Parameters.Add("@commodity", SqlDbType.NVarChar).Value = txtCommod.Text.Trim();
+                                cmd.Parameters.Add("@equipment", SqlDbType.NVarChar).Value = txtEquiq1.Text.Trim() + txtEquiq2.Text.Trim();
+                                cmd.Parameters.Add("@temp", SqlDbType.NChar).Value = txtTemp.Text.Trim();
+                                cmd.Parameters.Add("@vents", SqlDbType.NChar).Value = txtVents.Text.Trim();
+                                cmd.Parameters.Add("@status", SqlDbType.NChar).Value = "CREATED";
+                                cmd.Parameters.Add("@notes", SqlDbType.NVarChar).Value = txtNotes.Text.Trim();
+                                cmd.Parameters.Add("@CutOffDate", SqlDbType.DateTime).Value = DateTime.Parse(txtCutOffDate.Text.Trim());
+                                cmd.Parameters.Add("@DOC", SqlDbType.DateTime).Value = DateTime.Parse(txtDOC.Text.Trim());
+                                cmd.Parameters.Add("@CargoCut", SqlDbType.DateTime).Value = DateTime.Parse(txtCargoCut.Text.Trim());
+                                cmd.Parameters.Add("@VGM", SqlDbType.DateTime).Value = DateTime.Parse(txtVGM.Text.Trim());
+                                cmd.Parameters.Add("@ETD", SqlDbType.DateTime).Value = DateTime.Parse(txtETD.Text.Trim());
+                                cmd.Parameters.Add("@ETA", SqlDbType.DateTime).Value = DateTime.Parse(txtETA.Text.Trim());
+                                cmd.Parameters.Add("@ReturnValue", SqlDbType.BigInt).Direction = ParameterDirection.ReturnValue;
+                                con.Open();
+                                var result = cmd.ExecuteNonQuery();
+                                if (!long.TryParse(cmd.Parameters["@ReturnValue"].Value.ToString(), out giffiRef))
+                                {
+                                    ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Error occured when Submit data to SQL Database!!!');", true);
+                                }
+
+                            }
+                        }
+            */
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("InsertBooking", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                Booking booking = CreateBooking();
 
-                    cmd.Parameters.Add("@createdBy", SqlDbType.NVarChar).Value = txtCreatedBy.Text.Trim();
-                    cmd.Parameters.Add("@createdTime", SqlDbType.DateTime).Value = txtDate.Text.Trim();
-                    cmd.Parameters.Add("@modifiedTime", SqlDbType.DateTime).Value = txtDate.Text.Trim();
-                    cmd.Parameters.Add("@billToId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtBillTo.Text.Trim());
-                    cmd.Parameters.Add("@shipperId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtShipper.Text.Trim());
-                    cmd.Parameters.Add("@shipperRefNo", SqlDbType.NVarChar).Value = txtShipperRef.Text.Trim();
-                    cmd.Parameters.Add("@carrierId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromCode(txtCarrier.Text.Trim());
-                    cmd.Parameters.Add("@vessel", SqlDbType.NVarChar).Value = txtVessel.Text.Trim();
-                    cmd.Parameters.Add("@voyage", SqlDbType.NChar).Value = txtVoyage.Text.Trim();
-                    cmd.Parameters.Add("@origin", SqlDbType.NVarChar).Value = txtOrigin.Text.Trim();
-                    cmd.Parameters.Add("@load", SqlDbType.NVarChar).Value = txtLoad.Text.Trim();
-                    cmd.Parameters.Add("@destination", SqlDbType.NVarChar).Value = txtDest.Text.Trim();                    
-                    cmd.Parameters.Add("@discharge", SqlDbType.NVarChar).Value = txtDischarge.Text.Trim();
-                    cmd.Parameters.Add("@commodity", SqlDbType.NVarChar).Value = txtCommod.Text.Trim();
-                    cmd.Parameters.Add("@equipment", SqlDbType.NVarChar).Value = txtEquiq1.Text.Trim() + txtEquiq2.Text.Trim();
-                    cmd.Parameters.Add("@temp", SqlDbType.NChar).Value = txtTemp.Text.Trim();
-                    cmd.Parameters.Add("@vents", SqlDbType.NChar).Value = txtVents.Text.Trim();
-                    cmd.Parameters.Add("@status", SqlDbType.NChar).Value = "CREATED";
-                    cmd.Parameters.Add("@notes", SqlDbType.NVarChar).Value = txtNotes.Text.Trim();
-                    cmd.Parameters.Add("@CutOffDate", SqlDbType.DateTime).Value = DateTime.Parse(txtCutOffDate.Text.Trim());
-                    cmd.Parameters.Add("@DOC", SqlDbType.DateTime).Value = DateTime.Parse(txtDOC.Text.Trim());
-                    cmd.Parameters.Add("@CargoCut", SqlDbType.DateTime).Value = DateTime.Parse(txtCargoCut.Text.Trim());
-                    cmd.Parameters.Add("@VGM", SqlDbType.DateTime).Value = DateTime.Parse(txtVGM.Text.Trim());
-                    cmd.Parameters.Add("@ETD", SqlDbType.DateTime).Value = DateTime.Parse(txtETD.Text.Trim());
-                    cmd.Parameters.Add("@ETA", SqlDbType.DateTime).Value = DateTime.Parse(txtETA.Text.Trim());
-                    cmd.Parameters.Add("@ReturnValue", SqlDbType.BigInt).Direction = ParameterDirection.ReturnValue;
-                    con.Open();
-                    var result = cmd.ExecuteNonQuery();
-                    if(!long.TryParse(cmd.Parameters["@ReturnValue"].Value.ToString(), out giffiRef))
+                bRepo.InsertUpdateBooking(booking, out giffiRef);
+
+                if (giffiRef > 10000)
+                {
+                    txtGiffRef.Text = giffiRef.ToString();
+                    txtGiffRef.DataBind();
+
+                    this.Page.AlertMessage(GetType(), string.Format("Successfully Submit Reference#{0}", giffiRef));
+
+                    var tboxControls = this.Controls.FindAll().OfType<TextBox>();
+                    foreach (TextBox item in tboxControls)
                     {
-                        ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Error occured when Submit data to SQL Database!!!');", true);
+                        item.Enabled = false;
                     }
-                    
+
+                    btnSubmitBooking.Visible = false;
+                    btnClose.Visible = true;
+                    btnNext.Visible = true;
                 }
-            }
-
-            if (giffiRef > 10000)
-            {
-                txtGiffRef.Text = giffiRef.ToString();
-                txtGiffRef.DataBind();
-
-                ClientScript.RegisterStartupScript(GetType(), "alert", string.Format("alert('Successfully Submit Reference#{0}');", giffiRef), true);
-
-                var tboxControls = this.Controls.FindAll().OfType<TextBox>();
-                foreach (TextBox item in tboxControls)
+                else
                 {
-                    item.Enabled = false;
+                    this.Page.AlertMessage(GetType(), string.Format("Error occured when Submit data bookingId={0}", booking.Id));
                 }
-
-                btnSubmitBooking.Visible = false;
-                btnClose.Visible = true;
-                btnNext.Visible = true;
             }
-            else
+            catch (SqlException se)
             {
-                ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Error occured when Submit data');", true);
+                string outMsg = string.Format("Unable to insert booking to database. SQLException={0}'", se.Message);
+                this.Page.AlertMessage(GetType(), outMsg);
+            }
+            catch (Exception ex)
+            {
+                string outMsg = string.Format("Unable to insert booking due to an invalid entry. Exception={0}", ex.Message);
+                this.Page.AlertMessage(GetType(), outMsg);
             }
         }
 

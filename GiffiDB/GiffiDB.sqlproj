@@ -106,7 +106,6 @@
     <Build Include="dbo\InsertFreight.sql" />
     <Build Include="dbo\DeleteContainer.sql" />
     <Build Include="dbo\DeleteFreight.sql" />
-    <Build Include="dbo\UpdateBooking.sql" />
     <Build Include="dbo\Tables\Users.sql" />
     <Build Include="dbo\ValidateUser.sql" />
     <Build Include="dbo\InsertUser.sql" />
@@ -121,6 +120,7 @@
     <Build Include="dbo\InsertFreightCharge.sql" />
     <Build Include="dbo\GetFreightCharge.sql" />
     <Build Include="dbo\GetBookingByUserName.sql" />
+    <Build Include="dbo\UpdateBooking.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Snapshots\GiffiDB_20170219_15-15-06.dacpac" />

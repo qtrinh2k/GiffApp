@@ -1,32 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="WebApp.Index" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script lang="javascript" type="text/javascript">
-        $(function () {
-            $('#<%=txtSearchBox.ClientID%>').autocomplete({
-                source: function (request, response) {
-                    op = $("#ddlOption option:selected").val();
-                    $.ajax({
-                        url: "Index.aspx/SearchFor",
-                        data: "{ 'pre':'" + request.term + "', 'option': " + op + "}",
-                        dataType: "json",
-                        type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data) {
-                            response($.map(data.d, function (item) {
-                                return { value: item }
-                            }))
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alert(textStatus);
-                        }
-                    });
-                }
-            });
-        });
-
-    </script>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row">
@@ -35,7 +9,6 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                 <asp:TextBox ID="txtSearchBox" CssClass="form-control" TabIndex="1" runat="server" />
-                <%--<asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtSearchBox" runat="server" />--%>
             </div>
             <div class="col-sm-3 form-group">
                 <asp:DropDownList CssClass="form-control" ID="DropDownList1" ClientIDMode="Static" TabIndex="2" runat="server">
@@ -51,9 +24,12 @@
         </div>
     </div>
     <div class="row">
-        <asp:GridView ID="gvIndex" CssClass="table table-striped" runat="server" AutoGenerateColumns="false">
+        <asp:GridView ID="gvIndex" DataKeyNames="BookingId" CssClass="table table-striped" runat="server" AutoGenerateColumns="false">
             <Columns>
                 <asp:TemplateField HeaderText="GiffiRef" ItemStyle-Width="100px">
+                    <ItemTemplate>
+                        <asp:HiddenField ID="hiddenBookingId" Value='<%# Eval("BookingId") %>' runat="server" />
+                    </ItemTemplate>
                     <ItemTemplate>
                         <asp:LinkButton ID="btlGiffiRef" OnClick="btlGiffiRef_Click"  runat="server" Text='<%# Eval("GiffiId") %>'></asp:LinkButton> 
                     </ItemTemplate>

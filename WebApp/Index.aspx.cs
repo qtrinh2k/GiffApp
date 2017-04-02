@@ -79,8 +79,6 @@ namespace WebApp
         protected void btlGiffiRef_Click(object sender, EventArgs e)
         {
             var lbGiffiRef = sender as LinkButton;
-
-
             Response.Redirect(string.Format("Booking.aspx?ref={0}", lbGiffiRef.Text));
         }
     }
