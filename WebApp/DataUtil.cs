@@ -53,6 +53,18 @@ namespace WebApp
             }
         }
 
+        internal static string GetCompanyCodeById(int id)
+        {
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                var results = (from c in dc.Companies
+                               where c.Id == id
+                               select c.Code);
+
+                return results.FirstOrDefault();
+            }
+        }
+
         public static string GetCarrierNameByCarrierId(int carrierId)
         {
             using (GiffiDBEntities dc = new GiffiDBEntities())
@@ -73,7 +85,7 @@ namespace WebApp
                 where bf.GiffiId == giffiRef
                 select bf.BookingId;
 
-                return (int)results.First();
+                return (results.Any()) ? (int)results.First() : -1;
             }
         }
 
@@ -127,39 +139,45 @@ namespace WebApp
             return repo.GetPayoutItems(bookingId);
         }
 
-        public static List<BillingItem> GetBillingItems(int bookingId)
+        public static DataTable GetBillingItems(int bookingId)
         {
-            using (GiffiDBEntities dc = new GiffiDBEntities())
-            {
-                var results = (from a in dc.BillingItems
-                               where a.BookingId == bookingId
-                               select a);
+            BillingRepository billRepo = new BillingRepository();
+            return billRepo.GetBillingItem(bookingId);
+
+            //using (GiffiDBEntities dc = new GiffiDBEntities())
+            //{
+            //    var results = (from a in dc.BillingItems
+            //                   where a.BookingId == bookingId
+            //                   select a);
 
 
-                if (results == null || !results.Any())
-                    return null;
+            //    if (results == null || !results.Any())
+            //        return null;
 
-                return results.ToList();
-            }
+            //    return results.ToList();
+            //}
         }
 
-        public static List<BillingItem> GetBillingItems(long giffiRef)
+        public static DataTable GetBillingItems(long giffiRef)
         {
             int bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
 
-            using (GiffiDBEntities dc = new GiffiDBEntities())
-            {
-                var results = (from b in dc.BillingItems
-                               where b.BookingId == bookingId
-                               select b);
+            BillingRepository billRepo = new BillingRepository();
+            return billRepo.GetBillingItem(bookingId);
 
-                if (results == null || results.Count() == 0)
-                {
-                    return null;
-                }
+            //using (GiffiDBEntities dc = new GiffiDBEntities())
+            //{
+            //    var results = (from b in dc.BillingItems
+            //                   where b.BookingId == bookingId
+            //                   select b);
 
-                return results.ToList();
-            }
+            //    if (results == null || results.Count() == 0)
+            //    {
+            //        return null;
+            //    }
+
+            //    return results.ToList();
+            //}
         }
 
     }

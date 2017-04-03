@@ -28,14 +28,14 @@ namespace WebApp
         }
     
         public virtual DbSet<BookingReference> BookingReferences { get; set; }
-        public virtual DbSet<Container> Containers { get; set; }
         public virtual DbSet<AccountingCode> AccountingCodes { get; set; }
-        public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<FreightCharge> FreightCharges { get; set; }
         public virtual DbSet<Freight> Freights { get; set; }
-        public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<BillingItem> BillingItems { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<Container> Containers { get; set; }
+        public virtual DbSet<Booking> Bookings { get; set; }
     
         public virtual ObjectResult<GetFreightByBookingId_Result> GetFreightByBookingId(Nullable<int> bookingId)
         {

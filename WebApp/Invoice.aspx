@@ -188,10 +188,10 @@
                                             </asp:TemplateField>
                                             <asp:TemplateField ControlStyle-CssClass="form-control col-xs-2" HeaderText="Billing($)">
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblBillingAmount" Width="100px" runat="server" Text='<%# String.Format("{0:0.00}", Eval("BillingAmount")) %>'></asp:Label>
+                                                    <asp:Label ID="lblBillingAmount" Width="100px" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("BillingAmount")) %>'></asp:Label>
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtBillingAmount" Width="100px" Enabled="true" runat="server" Text='<%# String.Format("{0:0.00}", Eval("BillingAmount")) %>'></asp:TextBox>
+                                                    <asp:TextBox ID="txtBillingAmount" Width="100px" Enabled="true" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("BillingAmount")) %>'></asp:TextBox>
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                     <asp:TextBox ID="txtBillingAmount" CssClass="form-control" Enabled="false" Width="100px" runat="server"></asp:TextBox>
@@ -199,10 +199,10 @@
                                             </asp:TemplateField>
                                             <asp:TemplateField ControlStyle-CssClass="form-control col-xs-2" HeaderText="PayOut($)">
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblPayOutAmount" Width="100px" runat="server" Text='<%# String.Format("{0:0.00}", Eval("PayoutAmount")) %>'></asp:Label>
+                                                    <asp:Label ID="lblPayOutAmount" Width="100px" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("PayoutAmount")) %>'></asp:Label>
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtPayOutAmount" Width="100px" Enabled="true" runat="server" Text='<%# String.Format("{0:0.00}", Eval("PayoutAmount")) %>'></asp:TextBox>
+                                                    <asp:TextBox ID="txtPayOutAmount" Width="100px" Enabled="true" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("PayoutAmount")) %>'></asp:TextBox>
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                     <asp:TextBox ID="txtPayOutAmount" CssClass="form-control" Enabled="false" Width="100px" runat="server"></asp:TextBox>
@@ -210,10 +210,10 @@
                                             </asp:TemplateField>
                                             <asp:TemplateField ControlStyle-CssClass="form-control col-xs-2" HeaderText="Vendor">
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblVendor" Width="100px" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Vendor")) %>'></asp:Label>
+                                                    <asp:Label ID="lblVendor" Width="100px" runat="server" Text='<%# Eval("Vendor") %>'></asp:Label>
                                                 </ItemTemplate>
                                                 <EditItemTemplate>
-                                                    <asp:TextBox ID="txtVendor" Width="100px" Enabled="true" runat="server" Text='<%# String.Format("{0:0.00}", Eval("Vendor")) %>'></asp:TextBox>
+                                                    <asp:TextBox ID="txtVendor" Width="100px" Enabled="true" runat="server" Text='<%# Eval("Vendor") %>'></asp:TextBox>
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                     <asp:TextBox ID="txtVendor" CssClass="form-control" Enabled="false" Width="100px" runat="server"></asp:TextBox>

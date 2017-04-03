@@ -2,8 +2,8 @@
 @Id int,
 @BookingId int,
 @ContainerNo nvarchar(15),
-@SealNo bigint,
-@PkgsWeight float,
+@SealNo nchar(15),
+@NumOfPkgs int,
 @NetWeight float,
 @GRS float,
 @Truck nchar(10),
@@ -16,7 +16,7 @@ BEGIN TRAN
 		SET [BookingId] = @BookingId
            ,[ContainerNo] = @ContainerNo
            ,[SealNo] = @SealNo
-           ,[PkgsWeight] = @PkgsWeight
+           ,[NumOfPkgs] = @NumOfPkgs
            ,[NetWeight] = @NetWeight
            ,[GRS] = @GRS
            ,[Truck] = @Truck

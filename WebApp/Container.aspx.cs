@@ -33,8 +33,6 @@ namespace WebApp
                         tbNewContainer.Visible = true;
                         tbNewContainer.DataBind();
 
-                        txtNewCreatedDate.Text = DateTime.Now.ToString("d");
-
                         gvContainer.DataSource = GetContainers(long.Parse(txtGiffRef.Text));
                         gvContainer.DataBind();
                     }
@@ -60,12 +58,12 @@ namespace WebApp
                 {
                     BookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text)),
                     ContainerNo = txtNewContainerNo.Text.Trim(),
-                    SealNo = long.Parse(txtNewSealNo.Text.Trim()),
-                    PkgsWeight = double.Parse(txtNewPackage.Text.Trim()),
+                    SealNo = txtNewSealNo.Text.Trim(),
+                    NumOfPkgs = int.Parse(txtNewNumOfPkgs.Text.Trim()),
                     NetWeight = double.Parse(txtNewNet.Text.Trim()),
                     GRS = float.Parse(txtNewGRS.Text.Trim()),
                     Truck = txtNewTruck.Text.Trim(),
-                    Invoice = long.Parse(txtNewInvoice.Text.Trim()),
+                    Invoice = long.Parse(txtNewTruckInvoice.Text.Trim()),
                     CreatedDate = DateTime.Now
                 };
 
@@ -80,8 +78,7 @@ namespace WebApp
                     gvContainer.Visible = true;
                     gvContainer.DataBind();
 
-                    ClearContainerInput();
-
+                    ClearContainerInput();                    
                 }
                 else
                 {
@@ -91,15 +88,11 @@ namespace WebApp
             }
             catch(SqlException sex)
             {
-                lblAlertFailure.Visible = true;
-                lblAlertFailure.Text = string.Format("<strong>Error!</strong> Unable to add ContainerNo={0} to GIFFI Ref={1}, SqlError={2}", cont.ContainerNo, txtGiffRef.Text, sex.Message);
+                this.Page.AlertMessage(GetType(), string.Format("SQL Error!!! Unable to add ContainerNo={0} to GIFFI Ref={1}, EXCEPTION={2}", txtNewContainerNo, txtGiffRef.Text, sex.Message));
             }
             catch(Exception ex)
-            {
-                Trace.Write(ex.ToString());
-                lblAlertFailure.Visible = true;
-                lblAlertFailure.Text = string.Format("<strong>Error!</strong> Unable to add ContainerNo={0} to GIFFI Ref={1}", cont.ContainerNo, txtGiffRef.Text);
-
+            {                
+                this.Page.AlertMessage(GetType(), string.Format("Error!!! Unable to add ContainerNo={0} to GIFFI Ref={1}, EXCEPTION={2}", txtNewContainerNo, txtGiffRef.Text, ex.Message));
             }
 
         }
@@ -116,9 +109,6 @@ namespace WebApp
                 //populate existing containers
                 gvContainer.DataSource = GetContainers(giffiRef);
                 gvContainer.DataBind();
-
-                txtNewCreatedDate.Text = DateTime.Now.ToString("d");
-                txtNewCreatedDate.DataBind();
 
                 tbNewContainer.Visible = true;
                 tbNewContainer.DataBind();
@@ -158,12 +148,12 @@ namespace WebApp
                 Id = containerId,
                 BookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text)),
                 ContainerNo = (row.FindControl("txtContainerNo") as TextBox).Text.Trim(),
-                SealNo = long.Parse((row.FindControl("txtSealNo") as TextBox).Text.Trim()),
-                PkgsWeight = double.Parse((row.FindControl("txtPkgsWeight") as TextBox).Text.Trim()),
+                SealNo = (row.FindControl("txtSealNo") as TextBox).Text.Trim(),
+                NumOfPkgs = int.Parse((row.FindControl("txtNumOfPkgs") as TextBox).Text.Trim()),
                 NetWeight = double.Parse((row.FindControl("txtNetWeight") as TextBox).Text.Trim()),
                 GRS = float.Parse((row.FindControl("txtGRS") as TextBox).Text.Trim()),
                 Truck = (row.FindControl("txtTruck") as TextBox).Text.Trim(),
-                Invoice = long.Parse((row.FindControl("txtInvoice") as TextBox).Text.Trim()),
+                Invoice = long.Parse((row.FindControl("txtTruckInvoice") as TextBox).Text.Trim()),
                 CreatedDate = DateTime.Now
             };
 

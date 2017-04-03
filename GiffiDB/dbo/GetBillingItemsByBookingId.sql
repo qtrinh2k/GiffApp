@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[GetBillingItemsByBookingId]
 	@bookingId int
 AS
-	SELECT [BookingId], [CodeId], [Description], [BillingAmount], [PayoutAmount] 
-	FROM [dbo].[BillingItems] 
+	SELECT bi.[Id], [BookingId], [CodeId], [Description], [BillingAmount], [PayoutAmount], c.Code as [Vendor]
+	FROM [dbo].[BillingItems] bi
+	JOIN [dbo].Company c on c.Id = bi.VendorId
 	WHERE [BookingId] = @bookingId
-

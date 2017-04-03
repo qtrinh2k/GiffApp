@@ -179,7 +179,7 @@
                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtShipper" runat="server" />
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Reference Number: </label>
+                        <label>Shipper Reference: </label>
                         <asp:TextBox ID="txtShipperRef" CssClass="form-control" TabIndex="4" runat="server" />
                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtShipperRef" runat="server" />
                     </div>
@@ -188,6 +188,11 @@
                     <div class="col-sm-6 form-group">
                         <label>Carrier: </label>
                         <asp:TextBox ID="txtCarrier" CssClass="form-control" TabIndex="5" runat="server" />
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Carrier Reference: </label>
+                        <asp:TextBox ID="txtCarrierRef" CssClass="form-control" TabIndex="4" runat="server" />
+                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCarrierRef" runat="server" />
                     </div>
                 </div>
                 <div class="row">

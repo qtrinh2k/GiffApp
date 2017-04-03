@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[InsertContainer]
 @BookingId int,
 @ContainerNo nvarchar(15),
-@SealNo bigint,
-@PkgsWeight float,
+@SealNo nchar(15),
+@NumOfPkgs int,
 @NetWeight float,
 @GRS float,
 @Truck nchar(10),
@@ -22,7 +22,7 @@ AS
 			   [BookingId]
 			   ,[ContainerNo]
 			   ,[SealNo]
-			   ,[PkgsWeight]
+			   ,[NumOfPkgs]
 			   ,[NetWeight]
 			   ,[GRS]
 			   ,[Truck]
@@ -32,7 +32,7 @@ AS
 			   (@BookingId,
 				@ContainerNo,
 				@SealNo,
-				@PkgsWeight,
+				@NumOfPkgs,
 				@NetWeight,
 				@GRS,
 				@Truck,

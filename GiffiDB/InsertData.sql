@@ -2,12 +2,14 @@
   USE [GiffiDB]
 GO
 
-delete [dbo].Freight
+delete [dbo].[BillingItems]
 delete [dbo].Container
 DELETE [dbo].Carrier
+Delete [dbo].Freight
 DELETE [dbo].BookingReference
 DELETE [dbo].Booking
-delete [dbo].Company
+
+/*delete [dbo].Company*/
 
 INSERT INTO [dbo].[AccountingCode]
            ([Id]

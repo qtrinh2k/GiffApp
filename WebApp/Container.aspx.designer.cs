@@ -112,13 +112,13 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtNewSealNo;
         
         /// <summary>
-        /// txtNewPackage control.
+        /// txtNewNumOfPkgs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewPackage;
+        protected global::System.Web.UI.WebControls.TextBox txtNewNumOfPkgs;
         
         /// <summary>
         /// txtNewNet control.
@@ -148,22 +148,13 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtNewTruck;
         
         /// <summary>
-        /// txtNewInvoice control.
+        /// txtNewTruckInvoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewInvoice;
-        
-        /// <summary>
-        /// txtNewCreatedDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewCreatedDate;
+        protected global::System.Web.UI.WebControls.TextBox txtNewTruckInvoice;
         
         /// <summary>
         /// btnSubmitContainer control.

@@ -90,28 +90,28 @@
                                                 <asp:TextBox ID="txtSealNo" Width="120" runat="server" Text='<%# Eval("SealNo") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Packages" ItemStyle-Width="130px">
+                                        <asp:TemplateField HeaderText="NumOfPkgs" ItemStyle-Width="130px">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblPkgsWeight" runat="server" Text='<%# Eval("PkgsWeight") %>'></asp:Label>
+                                                <asp:Label ID="lblNumOfPkgs" runat="server" Text='<%# Eval("NumOfPkgs") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtPkgsWeight" Width="120" runat="server" Text='<%# Eval("PkgsWeight") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtNumOfPkgs" Width="120" runat="server" Text='<%# Eval("NumOfPkgs") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="NET (Kg)" ItemStyle-Width="130px">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblNetWeight" runat="server" Text='<%# Eval("NetWeight") %>'></asp:Label>
+                                                <asp:Label ID="lblNetWeight" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("NetWeight")) %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtNetWeight" Width="120" runat="server" Text='<%# Eval("NetWeight") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtNetWeight" Width="120" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("NetWeight")) %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="GRS (Kg)" ItemStyle-Width="130px">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblGRS" Width="120" runat="server" Text='<%# Eval("GRS") %>'></asp:Label>
+                                                <asp:Label ID="lblGRS" Width="120" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("GRS")) %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtGRS" Width="120" runat="server" Text='<%# Eval("GRS") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtGRS" Width="120" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("GRS")) %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Truck" ItemStyle-Width="130px">
@@ -122,20 +122,12 @@
                                                 <asp:TextBox ID="txtTruck" Width="120" runat="server" Text='<%# Eval("Truck") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Invoice" ItemStyle-Width="130px">
+                                        <asp:TemplateField HeaderText="Truck Invoice" ItemStyle-Width="130px">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblInvoice" Width="120" runat="server" Text='<%# Eval("Invoice") %>'></asp:Label>
+                                                <asp:Label ID="lblTruckInvoice" Width="120" runat="server" Text='<%# Eval("Invoice") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:TextBox ID="txtInvoice" Width="120" runat="server" Text='<%# Eval("Invoice") %>'></asp:TextBox>
-                                            </EditItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="CreatedDate" ItemStyle-Width="130px">
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblCreatedDate" runat="server" Text='<%# Eval("CreatedDate") %>'></asp:Label>
-                                            </ItemTemplate>
-                                            <EditItemTemplate>
-                                                <asp:TextBox ID="txtCreatedDate" Width="120" runat="server" Text='<%# Eval("CreatedDate") %>'></asp:TextBox>
+                                                <asp:TextBox ID="txtTruckInvoice" Width="120" runat="server" Text='<%# Eval("Invoice") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
                                         <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true" ItemStyle-Width="150" />
@@ -146,7 +138,7 @@
                                     <asp:TableRow Font-Bold="true">
 
                                     <asp:TableCell style="width: 130px">
-                                        Contaner No:<br />
+                                        Container No:<br />
                                         <asp:TextBox ID="txtNewContainerNo" runat="server" Width="120" />
                                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewContainerNo" ValidationGroup="NewContainer" runat="server" />
                                     </asp:TableCell>
@@ -156,9 +148,9 @@
                                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewSealNo" ValidationGroup="NewContainer" runat="server" />
                                     </asp:TableCell>
                                     <asp:TableCell style="width: 130px">
-                                        Packages:<br />
-                                        <asp:TextBox ID="txtNewPackage" runat="server" Width="120" />
-                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewPackage" ValidationGroup="NewContainer" runat="server" />
+                                        NumOfPkgs:<br />
+                                        <asp:TextBox ID="txtNewNumOfPkgs" runat="server" Width="120" />
+                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewNumOfPkgs" ValidationGroup="NewContainer" runat="server" />
                                     </asp:TableCell>
                                     <asp:TableCell style="width: 130px">
                                         Net (Kg):<br />
@@ -176,13 +168,8 @@
                                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewTruck" ValidationGroup="NewContainer" runat="server" />
                                     </asp:TableCell>
                                     <asp:TableCell style="width: 130px">
-                                        Invoice:<br />
-                                        <asp:TextBox ID="txtNewInvoice" runat="server" Width="120" />                                        
-                                    </asp:TableCell>
-                                    <asp:TableCell style="width: 150px">
-                                        Date:<br />
-                                        <asp:TextBox ID="txtNewCreatedDate" runat="server" Width="130" />
-                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNewCreatedDate" ValidationGroup="NewContainer" runat="server" />
+                                        Truck Invoice:<br />
+                                        <asp:TextBox ID="txtNewTruckInvoice" runat="server" Width="120" />                                        
                                     </asp:TableCell>
                                     <asp:TableCell style="width: 130px">
                                         <br />

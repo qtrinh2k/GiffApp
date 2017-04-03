@@ -7,6 +7,7 @@
     [ShipperId]     INT            NOT NULL,
 	[ShipperRefNo]	NCHAR(25) NULL,
     [CarrierId]     INT            NOT NULL,
+	[CarrierRefNo]	NCHAR(25) NULL,
     [Vessel]        NVARCHAR (50)  NOT NULL,
     [Voyage]           NCHAR (15)     NOT NULL,
     [Origin]      NVARCHAR (50)  NOT NULL,

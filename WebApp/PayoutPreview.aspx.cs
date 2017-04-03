@@ -47,6 +47,9 @@ namespace WebApp
 
                         var controlPayoutTotal = rptPayout.FindControlInFooter("lblPayoutTotal") as Label;
                         controlPayoutTotal.Text = string.Format("{0:0.00}", GetPayoutTotal(bookingId));
+
+                        var controlNETTotal = rptPayout.FindControlInFooter("lblNETTotal") as Label;
+                        controlNETTotal.Text = string.Format("{0:0.00}", GetNETTotal(bookingId));
                         controlPayoutTotal.DataBind();
                         #endregion
                     }
@@ -68,7 +71,25 @@ namespace WebApp
 
                 decimal payout = results.AsEnumerable().Sum(a => a.PayoutAmount);
 
-                return payout;
+                return Math.Round(payout, 2, MidpointRounding.AwayFromZero);
+            }
+        }
+
+        private decimal GetNETTotal(int bookingId)
+        {
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                var results = (from b in dc.BillingItems
+                               where b.BookingId == bookingId
+                               select new {b.BillingAmount, b.PayoutAmount });
+
+
+                if (results == null || !results.Any())
+                    return 0;
+
+                decimal billing = results.AsEnumerable().Sum(a => a.BillingAmount);
+                decimal payout = results.AsEnumerable().Sum(a => a.PayoutAmount);
+                return Math.Round(billing - payout, 2, MidpointRounding.AwayFromZero);
             }
         }
     }

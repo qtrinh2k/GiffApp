@@ -17,8 +17,8 @@ namespace WebApp
         public int Id { get; set; }
         public int BookingId { get; set; }
         public string ContainerNo { get; set; }
-        public long SealNo { get; set; }
-        public double PkgsWeight { get; set; }
+        public string SealNo { get; set; }
+        public int NumOfPkgs { get; set; }
         public double NetWeight { get; set; }
         public float GRS { get; set; }
         public string Truck { get; set; }

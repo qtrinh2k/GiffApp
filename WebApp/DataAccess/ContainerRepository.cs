@@ -19,8 +19,8 @@ namespace WebApp.DataAccess
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@BookingId", SqlDbType.Int).Value = c.BookingId;
             cmd.Parameters.Add("@ContainerNo", SqlDbType.NVarChar).Value = c.ContainerNo;
-            cmd.Parameters.Add("@SealNo", SqlDbType.BigInt).Value = c.SealNo;            
-            cmd.Parameters.Add("@PkgsWeight", SqlDbType.Float).Value = c.PkgsWeight;
+            cmd.Parameters.Add("@SealNo", SqlDbType.NChar).Value = c.SealNo;            
+            cmd.Parameters.Add("@NumOfPkgs", SqlDbType.Int).Value = c.NumOfPkgs;
             cmd.Parameters.Add("@NetWeight", SqlDbType.Float).Value = c.NetWeight;
             cmd.Parameters.Add("@GRS", SqlDbType.Float).Value = c.GRS;
             cmd.Parameters.Add("@Truck", SqlDbType.NChar).Value = c.Truck;
@@ -37,8 +37,8 @@ namespace WebApp.DataAccess
             cmd.Parameters.Add("@Id", SqlDbType.Int).Value = c.Id;
             cmd.Parameters.Add("@BookingId", SqlDbType.Int).Value = c.BookingId;
             cmd.Parameters.Add("@ContainerNo", SqlDbType.NVarChar).Value = c.ContainerNo;
-            cmd.Parameters.Add("@SealNo", SqlDbType.BigInt).Value = c.SealNo;
-            cmd.Parameters.Add("@PkgsWeight", SqlDbType.Float).Value = c.PkgsWeight;
+            cmd.Parameters.Add("@SealNo", SqlDbType.NChar).Value = c.SealNo;
+            cmd.Parameters.Add("@NumOfPkgs", SqlDbType.Int).Value = c.NumOfPkgs;
             cmd.Parameters.Add("@NetWeight", SqlDbType.Float).Value = c.NetWeight;
             cmd.Parameters.Add("@GRS", SqlDbType.Float).Value = c.GRS;
             cmd.Parameters.Add("@Truck", SqlDbType.NChar).Value = c.Truck;
@@ -58,17 +58,18 @@ namespace WebApp.DataAccess
             
             foreach(DataRow row in result.Rows)
             {
+                long inv = 0;
                 containers.Add(new Container
                 {
                     Id = int.Parse(row["Id"].ToString()),
                     BookingId = int.Parse(row["BookingId"].ToString()),
                     ContainerNo = row["ContainerNo"].ToString(),
-                    SealNo = long.Parse(row["SealNo"].ToString()),
-                    PkgsWeight = float.Parse(row["PkgsWeight"].ToString()),
+                    SealNo = row["SealNo"].ToString(),
+                    NumOfPkgs = int.Parse(row["NumOfPkgs"].ToString()),
                     NetWeight = float.Parse(row["NetWeight"].ToString()),
                     GRS = float.Parse(row["GRS"].ToString()),
                     Truck = row["Truck"].ToString(),
-                    Invoice = long.Parse(row["Invoice"].ToString()),
+                    Invoice = (long.TryParse(row["Invoice"].ToString(), out inv)) ? inv : 0,
                     CreatedDate = DateTime.Parse(row["CreatedDate"].ToString())
                 });
             }

@@ -47,9 +47,10 @@ namespace WebApp
             txtCreatedBy.Text = r.CreatedBy;
             txtDate.Text = r.CreatedTime.ToString("d");
             txtBillTo.Text = DataUtil.GetCompanyNameById(r.BillToId);
-            txtCarrier.Text = DataUtil.GetCompanyNameById(r.CarrierId);
             txtShipper.Text = DataUtil.GetCompanyNameById(r.ShipperId);
             txtShipperRef.Text = r.ShipperRefNo;
+            txtCarrier.Text = DataUtil.GetCompanyCodeById(r.CarrierId);
+            txtCarrierRef.Text = r.CarrierRefNo;
             txtVessel.Text = r.Vessel;
             txtVoyage.Text = r.Voyage;
             txtOrigin.Text = r.Origin;
@@ -88,6 +89,7 @@ namespace WebApp
                 ShipperId = DataUtil.GetCompanyIdFromName(txtShipper.Text.Trim()),
                 ShipperRefNo = txtShipperRef.Text.Trim(),
                 CarrierId = DataUtil.GetCompanyIdFromCode(txtCarrier.Text.Trim()),
+                CarrierRefNo = txtCarrierRef.Text.Trim(),
                 Vessel = txtVessel.Text,
                 Voyage = txtVoyage.Text,
                 Origin = txtOrigin.Text,
@@ -98,6 +100,7 @@ namespace WebApp
                 Equipment = string.Join("|", txtEquiq1.Text.Trim(), txtEquiq2.Text.Trim()),
                 Temp = txtTemp.Text,
                 Status = "CREATED",
+                Vents = txtVents.Text,
                 Notes = txtNotes.Text,
                 CutOffDate = DateTime.Parse(txtCutOffDate.Text.Trim()),
                 DOC = DateTime.Parse(txtDOC.Text.Trim()),
@@ -168,9 +171,18 @@ namespace WebApp
             {
                 Booking booking = CreateBooking();
 
-                bRepo.InsertUpdateBooking(booking, out giffiRef);
+                //update booking info only, use exist giffiRefNo
+                if (long.TryParse(txtGiffRef.Text, out giffiRef))
+                {
+                    long ignoreNo = -1;
+                    bRepo.InsertUpdateBooking(booking, out ignoreNo);
+                }
+                else
+                {
+                    bRepo.InsertUpdateBooking(booking, out giffiRef);
+                }
 
-                if (giffiRef > 10000)
+                 if (giffiRef > 10000)
                 {
                     txtGiffRef.Text = giffiRef.ToString();
                     txtGiffRef.DataBind();

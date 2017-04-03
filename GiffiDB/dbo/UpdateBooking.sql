@@ -6,6 +6,7 @@
 	@shipperId int,
 	@shipperRefNo nvarchar(25),
 	@carrierId int,
+	@carrierRefNo nvarchar(25),
 	@vessel nvarchar(50),
 	@voyage nchar(10),
 	@origin nvarchar(50),
@@ -22,7 +23,8 @@
 	@equipment nvarchar(100),
 	@temp nchar(10),
 	@vents nchar(10),
-	@notes nvarchar(500)
+	@notes nvarchar(500),
+	@status nchar(15)
 AS
 
 BEGIN TRAN
@@ -34,6 +36,7 @@ UPDATE [dbo].[Booking]
       ,[ShipperId] = @shipperId
       ,[ShipperRefNo] = @shipperRefNo
       ,[CarrierId] = @carrierId
+	  ,[CarrierRefNo] = @carrierRefNo
       ,[Vessel] = @vessel
       ,[Voyage] = @voyage
       ,[Origin] = @origin
@@ -51,6 +54,8 @@ UPDATE [dbo].[Booking]
       ,[Temp] = @temp
       ,[Vents] = @vents
       ,[Notes] = @notes
-      ,[Status] = 'UPDATE'
+      ,[Status] = @status
  WHERE [Id] = @Id
  COMMIT TRAN
+
+SELECT TOP 1 GiffiId AS GiffiRefId FROM [dbo].BookingReference WHERE BookingId = @Id

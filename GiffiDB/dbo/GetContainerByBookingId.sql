@@ -6,7 +6,7 @@ AS
       ,[BookingId]
       ,[ContainerNo]
       ,[SealNo]
-      ,[PkgsWeight]
+      ,[NumOfPkgs]
       ,[NetWeight]
       ,[GRS]
       ,[Truck]

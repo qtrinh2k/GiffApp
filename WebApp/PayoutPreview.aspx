@@ -102,9 +102,10 @@
                             <asp:Repeater ID="rptPayout" runat="server">
                                 <HeaderTemplate>
                                     <tr>
-                                        <td>Code</td>
-                                        <td colspan="2">Description</td>
-                                        <td>Price</td>
+                                        <td>Id</td>
+                                        <td colspan="2">Code</td>
+                                        <td>POUT</td>
+                                        <td>NET</td>
                                     </tr>
                                 </HeaderTemplate>
                                 <ItemTemplate>
@@ -113,10 +114,13 @@
                                             <strong><asp:Label ID="lblCode" Width="100px" runat="server" Text='<%# Eval("MapId") %>'></asp:Label></strong>
                                         </td>
                                         <td colspan="2">
-                                            <strong><asp:Label ID="lblDescription" runat="server" Text='<%# Eval("Description") %>'></asp:Label></strong>
+                                            <strong><asp:Label ID="lblDescription" runat="server" Text='<%# Eval("Code") %>'></asp:Label></strong>
                                         </td>
                                         <td>
-                                            <strong><asp:Label ID="lblPayoutAmount" runat="server" Text='<%# String.Format("{0:0.00}", Eval("PayoutAmount")) %>'></asp:Label></strong>
+                                            <strong><asp:Label ID="lblPayoutAmount" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("PayoutAmount")) %>'></asp:Label></strong>
+                                        </td>
+                                        <td>
+                                            <strong><asp:Label ID="lblNET" runat="server" Text='<%# String.Format("{0:#,##0.00}", Eval("NET")) %>'></asp:Label></strong>
                                         </td>
                                     </tr>
                                 </ItemTemplate>
@@ -127,6 +131,9 @@
                                         </td>
                                         <td style="padding-top:100px">
                                             <strong><asp:Label ID="lblPayoutTotal" runat="server"></asp:Label></strong>
+                                        </td>
+                                        <td style="padding-top:100px">
+                                            <strong><asp:Label ID="lblNETTotal" runat="server"></asp:Label></strong>
                                         </td>
                                     </tr>
                                 </FooterTemplate>

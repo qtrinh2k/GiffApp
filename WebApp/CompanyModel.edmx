@@ -42,6 +42,7 @@
           <Property Name="ShipperId" Type="int" Nullable="false" />
           <Property Name="ShipperRefNo" Type="nchar" MaxLength="25" />
           <Property Name="CarrierId" Type="int" Nullable="false" />
+          <Property Name="CarrierRefNo" Type="nchar" MaxLength="25" />
           <Property Name="Vessel" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Voyage" Type="nchar" MaxLength="15" Nullable="false" />
           <Property Name="Origin" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -95,8 +96,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BookingId" Type="int" Nullable="false" />
           <Property Name="ContainerNo" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="SealNo" Type="bigint" Nullable="false" />
-          <Property Name="PkgsWeight" Type="float" Nullable="false" />
+          <Property Name="SealNo" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="NumOfPkgs" Type="int" Nullable="false" />
           <Property Name="NetWeight" Type="float" Nullable="false" />
           <Property Name="GRS" Type="real" Nullable="false" />
           <Property Name="Truck" Type="nchar" MaxLength="10" Nullable="false" />
@@ -321,7 +322,6 @@
       <Schema Namespace="GiffiDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="GiffiDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BookingReferences" EntityType="GiffiDBModel.BookingReference" />
-          <EntitySet Name="Containers" EntityType="GiffiDBModel.Container" />
           <FunctionImport Name="GetFreightByBookingId" ReturnType="Collection(GiffiDBModel.GetFreightByBookingId_Result)">
           <Parameter Name="bookingId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -343,11 +343,25 @@
             <Parameter Name="CreatedBy" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="AccountingCodes" EntityType="GiffiDBModel.AccountingCode" />
-          <EntitySet Name="Companies" EntityType="GiffiDBModel.Company" />
           <EntitySet Name="Users" EntityType="GiffiDBModel.User" />
           <EntitySet Name="FreightCharges" EntityType="GiffiDBModel.FreightCharge" />
           <EntitySet Name="Freights" EntityType="GiffiDBModel.Freight" />
+          <EntitySet Name="BillingItems" EntityType="GiffiDBModel.BillingItem" />
+          <AssociationSet Name="FK_BillingItems_ToAccountingCode" Association="GiffiDBModel.FK_BillingItems_ToAccountingCode">
+            <End Role="AccountingCode" EntitySet="AccountingCodes" />
+            <End Role="BillingItem" EntitySet="BillingItems" />
+          </AssociationSet>
+          <EntitySet Name="Companies" EntityType="GiffiDBModel.Company" />
+          <AssociationSet Name="FK_BillingItems_ToCompany" Association="GiffiDBModel.FK_BillingItems_ToCompany">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="BillingItem" EntitySet="BillingItems" />
+          </AssociationSet>
+          <EntitySet Name="Containers" EntityType="GiffiDBModel.Container" />
           <EntitySet Name="Bookings" EntityType="GiffiDBModel.Booking" />
+          <AssociationSet Name="FK_BillingItems_ToBooking" Association="GiffiDBModel.FK_BillingItems_ToBooking">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="BillingItem" EntitySet="BillingItems" />
+          </AssociationSet>
           <AssociationSet Name="FK_Booking_BillTo" Association="GiffiDBModel.FK_Booking_BillTo">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Booking" EntitySet="Bookings" />
@@ -372,19 +386,6 @@
             <End Role="Booking" EntitySet="Bookings" />
             <End Role="Freight" EntitySet="Freights" />
           </AssociationSet>
-          <EntitySet Name="BillingItems" EntityType="GiffiDBModel.BillingItem" />
-          <AssociationSet Name="FK_BillingItems_ToAccountingCode" Association="GiffiDBModel.FK_BillingItems_ToAccountingCode">
-            <End Role="AccountingCode" EntitySet="AccountingCodes" />
-            <End Role="BillingItem" EntitySet="BillingItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillingItems_ToBooking" Association="GiffiDBModel.FK_BillingItems_ToBooking">
-            <End Role="Booking" EntitySet="Bookings" />
-            <End Role="BillingItem" EntitySet="BillingItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillingItems_ToCompany" Association="GiffiDBModel.FK_BillingItems_ToCompany">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="BillingItem" EntitySet="BillingItems" />
-          </AssociationSet>
           </EntityContainer>
         <EntityType Name="BookingReference">
           <Key>
@@ -395,22 +396,6 @@
           <Property Name="BookingId" Type="Int32" Nullable="false" />
           <Property Name="CloneGiffiId" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_BookingReference_ToTable" FromRole="BookingReference" ToRole="Booking" />
-        </EntityType>
-        <EntityType Name="Container">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookingId" Type="Int32" Nullable="false" />
-          <Property Name="ContainerNo" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="SealNo" Type="Int64" Nullable="false" />
-          <Property Name="PkgsWeight" Type="Double" Nullable="false" />
-          <Property Name="NetWeight" Type="Double" Nullable="false" />
-          <Property Name="GRS" Type="Single" Nullable="false" />
-          <Property Name="Truck" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Invoice" Type="Int64" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_Container_ToBooking" FromRole="Container" ToRole="Booking" />
         </EntityType>
         <ComplexType Name="GetFreightByBookingId_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -443,28 +428,6 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="BillingItems" Relationship="GiffiDBModel.FK_BillingItems_ToAccountingCode" FromRole="AccountingCode" ToRole="BillingItem" />
         </EntityType>
-        <EntityType Name="Company">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyType" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="FederalNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
-          <Property Name="Country" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Bookings" Relationship="GiffiDBModel.FK_Booking_BillTo" FromRole="Company" ToRole="Booking" />
-          <NavigationProperty Name="Bookings1" Relationship="GiffiDBModel.FK_Booking_Carrier" FromRole="Company" ToRole="Booking" />
-          <NavigationProperty Name="Bookings2" Relationship="GiffiDBModel.FK_Booking_Shipper" FromRole="Company" ToRole="Booking" />
-          <NavigationProperty Name="BillingItems" Relationship="GiffiDBModel.FK_BillingItems_ToCompany" FromRole="Company" ToRole="BillingItem" />
-          </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
@@ -503,6 +466,86 @@
           <Property Name="CreatedBy" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_Freight_ToBooking" FromRole="Freight" ToRole="Booking" />
         </EntityType>
+        <EntityType Name="BillingItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingId" Type="Int32" Nullable="false" />
+          <Property Name="CodeId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BillingAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PayoutAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="VendorId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AccountingCode" Relationship="GiffiDBModel.FK_BillingItems_ToAccountingCode" FromRole="BillingItem" ToRole="AccountingCode" />
+          <NavigationProperty Name="Company" Relationship="GiffiDBModel.FK_BillingItems_ToCompany" FromRole="BillingItem" ToRole="Company" />
+          <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_BillingItems_ToBooking" FromRole="BillingItem" ToRole="Booking" />
+        </EntityType>
+        <Association Name="FK_BillingItems_ToAccountingCode">
+          <End Type="GiffiDBModel.AccountingCode" Role="AccountingCode" Multiplicity="1" />
+          <End Type="GiffiDBModel.BillingItem" Role="BillingItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountingCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillingItem">
+              <PropertyRef Name="CodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyType" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="FederalNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BillingItems" Relationship="GiffiDBModel.FK_BillingItems_ToCompany" FromRole="Company" ToRole="BillingItem" />
+          <NavigationProperty Name="Bookings" Relationship="GiffiDBModel.FK_Booking_BillTo" FromRole="Company" ToRole="Booking" />
+          <NavigationProperty Name="Bookings1" Relationship="GiffiDBModel.FK_Booking_Carrier" FromRole="Company" ToRole="Booking" />
+          <NavigationProperty Name="Bookings2" Relationship="GiffiDBModel.FK_Booking_Shipper" FromRole="Company" ToRole="Booking" />
+          </EntityType>
+        <Association Name="FK_BillingItems_ToCompany">
+          <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="GiffiDBModel.BillingItem" Role="BillingItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillingItem">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Container">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingId" Type="Int32" Nullable="false" />
+          <Property Name="ContainerNo" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="SealNo" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="NumOfPkgs" Type="Int32" Nullable="false" />
+          <Property Name="NetWeight" Type="Double" Nullable="false" />
+          <Property Name="GRS" Type="Single" Nullable="false" />
+          <Property Name="Truck" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Invoice" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_Container_ToBooking" FromRole="Container" ToRole="Booking" />
+        </EntityType>
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="Id" />
@@ -515,6 +558,7 @@
           <Property Name="ShipperId" Type="Int32" Nullable="false" />
           <Property Name="ShipperRefNo" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
           <Property Name="CarrierId" Type="Int32" Nullable="false" />
+          <Property Name="CarrierRefNo" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
           <Property Name="Vessel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Voyage" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
           <Property Name="Origin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -533,14 +577,26 @@
           <Property Name="Vents" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="BillingItems" Relationship="GiffiDBModel.FK_BillingItems_ToBooking" FromRole="Booking" ToRole="BillingItem" />
           <NavigationProperty Name="Company" Relationship="GiffiDBModel.FK_Booking_BillTo" FromRole="Booking" ToRole="Company" />
           <NavigationProperty Name="Company1" Relationship="GiffiDBModel.FK_Booking_Carrier" FromRole="Booking" ToRole="Company" />
           <NavigationProperty Name="Company2" Relationship="GiffiDBModel.FK_Booking_Shipper" FromRole="Booking" ToRole="Company" />
           <NavigationProperty Name="BookingReferences" Relationship="GiffiDBModel.FK_BookingReference_ToTable" FromRole="Booking" ToRole="BookingReference" />
           <NavigationProperty Name="Containers" Relationship="GiffiDBModel.FK_Container_ToBooking" FromRole="Booking" ToRole="Container" />
           <NavigationProperty Name="Freights" Relationship="GiffiDBModel.FK_Freight_ToBooking" FromRole="Booking" ToRole="Freight" />
-          <NavigationProperty Name="BillingItems" Relationship="GiffiDBModel.FK_BillingItems_ToBooking" FromRole="Booking" ToRole="BillingItem" />
         </EntityType>
+        <Association Name="FK_BillingItems_ToBooking">
+          <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="1" />
+          <End Type="GiffiDBModel.BillingItem" Role="BillingItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillingItem">
+              <PropertyRef Name="BookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Booking_BillTo">
           <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
           <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="*" />
@@ -613,60 +669,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="BillingItem">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookingId" Type="Int32" Nullable="false" />
-          <Property Name="CodeId" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BillingAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="PayoutAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="VendorId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AccountingCode" Relationship="GiffiDBModel.FK_BillingItems_ToAccountingCode" FromRole="BillingItem" ToRole="AccountingCode" />
-          <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_BillingItems_ToBooking" FromRole="BillingItem" ToRole="Booking" />
-          <NavigationProperty Name="Company" Relationship="GiffiDBModel.FK_BillingItems_ToCompany" FromRole="BillingItem" ToRole="Company" />
-        </EntityType>
-        <Association Name="FK_BillingItems_ToAccountingCode">
-          <End Type="GiffiDBModel.AccountingCode" Role="AccountingCode" Multiplicity="1" />
-          <End Type="GiffiDBModel.BillingItem" Role="BillingItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AccountingCode">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingItem">
-              <PropertyRef Name="CodeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BillingItems_ToBooking">
-          <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="1" />
-          <End Type="GiffiDBModel.BillingItem" Role="BillingItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Booking">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingItem">
-              <PropertyRef Name="BookingId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BillingItems_ToCompany">
-          <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="GiffiDBModel.BillingItem" Role="BillingItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingItem">
-              <PropertyRef Name="VendorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -679,22 +681,6 @@
                 <ScalarProperty Name="CloneGiffiId" ColumnName="CloneGiffiId" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="GiffiId" ColumnName="GiffiId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Containers">
-            <EntityTypeMapping TypeName="GiffiDBModel.Container">
-              <MappingFragment StoreEntitySet="Container">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Invoice" ColumnName="Invoice" />
-                <ScalarProperty Name="Truck" ColumnName="Truck" />
-                <ScalarProperty Name="GRS" ColumnName="GRS" />
-                <ScalarProperty Name="NetWeight" ColumnName="NetWeight" />
-                <ScalarProperty Name="PkgsWeight" ColumnName="PkgsWeight" />
-                <ScalarProperty Name="SealNo" ColumnName="SealNo" />
-                <ScalarProperty Name="ContainerNo" ColumnName="ContainerNo" />
-                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -734,25 +720,6 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="MapId" ColumnName="MapId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Companies">
-            <EntityTypeMapping TypeName="GiffiDBModel.Company">
-              <MappingFragment StoreEntitySet="Company">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="FederalNumber" ColumnName="FederalNumber" />
-                <ScalarProperty Name="CompanyType" ColumnName="CompanyType" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -798,6 +765,57 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BillingItems">
+            <EntityTypeMapping TypeName="GiffiDBModel.BillingItem">
+              <MappingFragment StoreEntitySet="BillingItems">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="PayoutAmount" ColumnName="PayoutAmount" />
+                <ScalarProperty Name="BillingAmount" ColumnName="BillingAmount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="CodeId" ColumnName="CodeId" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="GiffiDBModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="FederalNumber" ColumnName="FederalNumber" />
+                <ScalarProperty Name="CompanyType" ColumnName="CompanyType" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Containers">
+            <EntityTypeMapping TypeName="GiffiDBModel.Container">
+              <MappingFragment StoreEntitySet="Container">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Invoice" ColumnName="Invoice" />
+                <ScalarProperty Name="Truck" ColumnName="Truck" />
+                <ScalarProperty Name="GRS" ColumnName="GRS" />
+                <ScalarProperty Name="NetWeight" ColumnName="NetWeight" />
+                <ScalarProperty Name="NumOfPkgs" ColumnName="NumOfPkgs" />
+                <ScalarProperty Name="SealNo" ColumnName="SealNo" />
+                <ScalarProperty Name="ContainerNo" ColumnName="ContainerNo" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Bookings">
             <EntityTypeMapping TypeName="GiffiDBModel.Booking">
               <MappingFragment StoreEntitySet="Booking">
@@ -819,6 +837,7 @@
                 <ScalarProperty Name="Origin" ColumnName="Origin" />
                 <ScalarProperty Name="Voyage" ColumnName="Voyage" />
                 <ScalarProperty Name="Vessel" ColumnName="Vessel" />
+                <ScalarProperty Name="CarrierRefNo" ColumnName="CarrierRefNo" />
                 <ScalarProperty Name="CarrierId" ColumnName="CarrierId" />
                 <ScalarProperty Name="ShipperRefNo" ColumnName="ShipperRefNo" />
                 <ScalarProperty Name="ShipperId" ColumnName="ShipperId" />
@@ -826,22 +845,6 @@
                 <ScalarProperty Name="ModifiedTime" ColumnName="ModifiedTime" />
                 <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BillingItems">
-            <EntityTypeMapping TypeName="GiffiDBModel.BillingItem">
-              <MappingFragment StoreEntitySet="BillingItems">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
-                <ScalarProperty Name="PayoutAmount" ColumnName="PayoutAmount" />
-                <ScalarProperty Name="BillingAmount" ColumnName="BillingAmount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="CodeId" ColumnName="CodeId" />
-                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
