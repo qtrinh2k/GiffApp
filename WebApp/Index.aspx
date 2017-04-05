@@ -27,11 +27,9 @@
         <asp:GridView ID="gvIndex" DataKeyNames="BookingId" CssClass="table table-striped" runat="server" AutoGenerateColumns="false">
             <Columns>
                 <asp:TemplateField HeaderText="GiffiRef" ItemStyle-Width="100px">
-                    <ItemTemplate>
-                        <asp:HiddenField ID="hiddenBookingId" Value='<%# Eval("BookingId") %>' runat="server" />
-                    </ItemTemplate>
-                    <ItemTemplate>
+                    <ItemTemplate>                        
                         <asp:LinkButton ID="btlGiffiRef" OnClick="btlGiffiRef_Click"  runat="server" Text='<%# Eval("GiffiId") %>'></asp:LinkButton> 
+                        <asp:HiddenField ID="hiddenBookingId" Value='<%# Eval("BookingId") %>' runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="BillTo" ItemStyle-Width="40px">

@@ -16,6 +16,7 @@ namespace WebApp.DataAccess
 
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "InsertCompany";
+            cmd.Parameters.Add("Id", SqlDbType.Int).Value = c.Id;
             cmd.Parameters.Add("@code", SqlDbType.NVarChar).Value = c.Code;
             cmd.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = c.CompanyName;
             cmd.Parameters.Add("@companyType", SqlDbType.NVarChar).Value = c.CompanyType;

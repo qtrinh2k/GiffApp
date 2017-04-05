@@ -144,18 +144,6 @@ namespace WebApp
             BillingRepository billRepo = new BillingRepository();
             return billRepo.GetBillingItem(bookingId);
 
-            //using (GiffiDBEntities dc = new GiffiDBEntities())
-            //{
-            //    var results = (from a in dc.BillingItems
-            //                   where a.BookingId == bookingId
-            //                   select a);
-
-
-            //    if (results == null || !results.Any())
-            //        return null;
-
-            //    return results.ToList();
-            //}
         }
 
         public static DataTable GetBillingItems(long giffiRef)
@@ -164,20 +152,6 @@ namespace WebApp
 
             BillingRepository billRepo = new BillingRepository();
             return billRepo.GetBillingItem(bookingId);
-
-            //using (GiffiDBEntities dc = new GiffiDBEntities())
-            //{
-            //    var results = (from b in dc.BillingItems
-            //                   where b.BookingId == bookingId
-            //                   select b);
-
-            //    if (results == null || results.Count() == 0)
-            //    {
-            //        return null;
-            //    }
-
-            //    return results.ToList();
-            //}
         }
 
     }

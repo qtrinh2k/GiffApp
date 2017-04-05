@@ -191,7 +191,7 @@
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Carrier Reference: </label>
-                        <asp:TextBox ID="txtCarrierRef" CssClass="form-control" TabIndex="4" runat="server" />
+                        <asp:TextBox ID="txtCarrierRef" CssClass="form-control" TabIndex="5" runat="server" />
                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtCarrierRef" runat="server" />
                     </div>
                 </div>
@@ -221,7 +221,7 @@
                     <div class="col-sm-3 form-group">
                         <label>ETD: </label>
                         <div class="form-group form-inline">
-                            <asp:TextBox ID="txtETD" CssClass="form-control" TabIndex="-1" runat="server" />
+                            <asp:TextBox ID="txtETD" CssClass="form-control" TabIndex="9" runat="server" />
                             <img src="Image/calender.png" />
                         </div>
                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtETD" runat="server" />
@@ -241,7 +241,7 @@
                     <div class="col-sm-3 form-group">
                         <label>ETA: </label>
                         <div class="form-group form-inline">
-                            <asp:TextBox ID="txtETA" CssClass="form-control" TabIndex="-1" runat="server" />
+                            <asp:TextBox ID="txtETA" CssClass="form-control" TabIndex="11" runat="server" />
                             <img src="Image/calender.png" />
                         </div>
                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtETA" runat="server" />

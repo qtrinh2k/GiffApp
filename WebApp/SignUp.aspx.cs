@@ -32,6 +32,7 @@ namespace WebApp
                     break;
                 default:
                     message = "Registration successful.\\nUser Id: " + userId.ToString();
+                    Response.Redirect("Login.aspx");
                     break;
             }
             ClientScript.RegisterStartupScript(GetType(), "alert", "alert('" + message + "');", true);

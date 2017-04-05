@@ -1,5 +1,6 @@
 ﻿
 CREATE PROCEDURE [dbo].[InsertCompany]
+	@id int,
 	@code nvarchar(25),
     @companyName nvarchar(200),
 	@companyType nvarchar(15),
@@ -14,9 +15,20 @@ CREATE PROCEDURE [dbo].[InsertCompany]
 AS
 BEGIN
 	DECLARE @errorMsg as nvarchar(200)	
-	IF EXISTS (SELECT CompanyName FROM [dbo].[Company] WHERE CompanyName = @companyName)
+	IF EXISTS (SELECT CompanyName FROM [dbo].[Company] WHERE Id = @id)
 	BEGIN
-		set @errorMsg = 'Company Name already exist!!!'
+		UPDATE Company 
+		SET Code = @code, 
+			CompanyName = @companyName,
+			CompanyType = @companyType, 
+			[Address] = @address, 
+			City = @city,
+			[State] = @state,
+			ZipCode = @zipCode,
+			Country = @country,
+			Phone = @phone,
+			Email = @email
+		WHERE Id = @id
 	END
 	ELSE
 	BEGIN

@@ -16,6 +16,16 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            var url = window.location;
+            $('.container .row .nav li a').each(function () {
+                if (this.href == url) {
+                    $(this).parent().addClass('active');
+                }
+            });
+        });
+    </script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -27,16 +37,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <nav class="navbar navbar-default">
+                    <nav class="navbar navbar-default" id="mainNav">
                         <div class="container-fluid">
                             <ul class="nav navbar-nav">
-                                <li><a href="Index.aspx">Home</a></li>
-                                <li><a href="Booking.aspx">Booking</a></li>
-                                <li><a href="Container.aspx">Container</a></li>
-                                <li><a href="Freight.aspx">Freight</a></li>
-                                <li><a href="Invoice.aspx">Invoice</a></li>
-                                <li><a href="Management.aspx">Management</a></li>
-                                <li><a href="Accounting.aspx">Accounting</a></li>
+                                <li><a id="indexPage" href="Index.aspx">Home</a></li>
+                                <li><a id="bookingPage" href="Booking.aspx">Booking</a></li>
+                                <li><a id="containerPage" href="Container.aspx">Container</a></li>
+                                <li><a id="freightPage" href="Freight.aspx">Freight</a></li>
+                                <li><a id="invoicePage" href="Invoice.aspx">Invoice</a></li>
+                                <li><a id="mgmtPage" href="Management.aspx">Management</a></li>
+                                <li><a id="accountingPage" href="Accounting.aspx">Accounting</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li>

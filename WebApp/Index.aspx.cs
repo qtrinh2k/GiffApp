@@ -71,7 +71,6 @@ namespace WebApp
                 }
             }
 
-
             return results;
         }
         #endregion
