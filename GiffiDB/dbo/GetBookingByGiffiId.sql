@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[GetBookingByGiffiId]
-	@GiffiId int = 0
+	@GiffiId FLOAT
 AS
 	SELECT b.Id, 
 		bf.GiffiId, 

@@ -1,17 +1,15 @@
 ﻿CREATE PROCEDURE [dbo].[InsertBookingReference]
 	@bookingId int,
-	@giffiId bigint
+	@giffiId float
 AS
-
-	if(@giffiId	<= 0)
+	DECLARE @newGiffId as FLOAT
+	IF(@giffiId	<= 0) /* new booking */
 	begin
 		set @giffiId = CONCAT(YEAR(GETDATE()) - 2000, @bookingId)
+			BEGIN TRAN
+		SET XACT_ABORT ON
+			INSERT INTO BookingReference(BookingId, GiffiId, ParentGiffiId)
+			VALUES(@bookingId, @giffiId, ROUND(@giffiId, 0, 1))
+		COMMIT TRAN
 	end
-
-	BEGIN TRAN
-	SET XACT_ABORT ON
-		INSERT INTO BookingReference(BookingId, GiffiId, CloneGiffiId)
-		VALUES(@bookingId, @giffiId, 0)
-	COMMIT TRAN
-
 RETURN @giffiId

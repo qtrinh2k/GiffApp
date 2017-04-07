@@ -59,17 +59,13 @@
                                 <div class="col-sm-6 form-group">
                                     <label>GIFFI REF:</label>
                                     <asp:TextBox ID="txtGiffRef" CssClass="form-control" TabIndex="-1" runat="server" Enabled="false" />
+                                    <asp:HiddenField ID="hfBookingId" runat="server" />
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="container">
                                 <h2>Container Summary:</h2>
-                                <asp:Label ID="lblAlertSucess" Visible="false" CssClass="alert alert-success alert-dismissable fade in" runat="server">
-                                </asp:Label>
-                                <asp:Label ID="lblAlertFailure" Visible ="false" CssClass="alert alert-danger alert-dismissable fade in" runat="server">
-                                </asp:Label>
-
                                 <asp:GridView CssClass="table table-striped" ID="gvContainer" DataKeyNames="Id" runat="server" AutoGenerateColumns="false"
                                     OnRowEditing="gvContainer_RowEditing" OnRowDeleting="gvContainer_RowDeleting" OnRowUpdating="gvContainer_RowUpdating" OnRowCancelingEdit="gvContainer_RowCancelEditing"
                                     EmptyDataText="No records has been added." Font-Bold="true">

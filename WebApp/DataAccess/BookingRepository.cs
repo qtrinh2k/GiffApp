@@ -18,7 +18,7 @@ namespace WebApp.DataAccess
             return this.FillDataTable(cmd);
         }
 
-        public bool InsertUpdateBooking(Booking b, out long giffiRef)
+        public bool InsertUpdateBooking(Booking b, out double giffiRef)
         {
             giffiRef = -1;
             SqlCommand cmd = new SqlCommand();
@@ -60,7 +60,7 @@ namespace WebApp.DataAccess
                 cmd.Parameters.Add("@ReturnValue", SqlDbType.BigInt).Direction = ParameterDirection.ReturnValue;
                 result = this.ExecuteNonQuery(cmd);
 
-                long.TryParse(cmd.Parameters["@ReturnValue"].Value.ToString(), out giffiRef);
+                double.TryParse(cmd.Parameters["@ReturnValue"].Value.ToString(), out giffiRef);
             }
             else
             {
@@ -71,10 +71,38 @@ namespace WebApp.DataAccess
                 cmd.Parameters.Add("@ReturnValue", SqlDbType.BigInt).Direction = ParameterDirection.ReturnValue;
                 result = this.ExecuteNonQuery(cmd);
 
-                long.TryParse(cmd.Parameters["@ReturnValue"].Value.ToString(), out giffiRef);
+                double.TryParse(cmd.Parameters["@ReturnValue"].Value.ToString(), out giffiRef);
             }
 
             return result > 0;
         }
+
+        public bool CloneBooking(int bookingId, out int newBookingId, out string giffiRef)
+        {
+            newBookingId = 1;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "CloneBooking";
+            cmd.Parameters.Add("@bookingId", SqlDbType.NVarChar).Value = bookingId;
+            //cmd.Parameters.Add("@ReturnValue", SqlDbType.Float).Direction = ParameterDirection.ReturnValue;
+            //cmd.Parameters.Add("@cloneId", SqlDbType.Float).Direction = ParameterDirection.ReturnValue;
+
+            SqlParameter newBookingIdRetVal = new SqlParameter("@newBookingId", SqlDbType.Int);
+            newBookingIdRetVal.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(newBookingIdRetVal);
+
+            SqlParameter newGiffIdRetVal = new SqlParameter("@newGiffiId", SqlDbType.Float);
+            newGiffIdRetVal.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(newGiffIdRetVal);
+
+            int result = this.ExecuteNonQuery(cmd);
+
+            int.TryParse(newBookingIdRetVal.Value.ToString(), out newBookingId);
+            giffiRef = newGiffIdRetVal.Value.ToString();
+
+            return newBookingId > 10000;
+        }
+
     }
 }

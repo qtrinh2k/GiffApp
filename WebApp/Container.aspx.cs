@@ -18,22 +18,23 @@ namespace WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            long giffRef = -1;
-
+            int bookingId = -1;
             if (!Page.IsPostBack)
             {
                 if (Request.Params.HasKeys())
                 {
-                    if (!string.IsNullOrEmpty(Request.QueryString["ref"]) && 
-                        long.TryParse(Request.QueryString["ref"].ToString(), out giffRef))
+                    if (!string.IsNullOrEmpty(Request.QueryString["ref"]) &&
+                        int.TryParse(Request.QueryString["bid"].ToString(), out bookingId))
                     {
-                        txtGiffRef.Text = giffRef.ToString();
+                        txtGiffRef.Text = Request.QueryString["ref"];
                         txtGiffRef.DataBind();
+
+                        hfBookingId.Value = Request.QueryString["bid"].ToString();
 
                         tbNewContainer.Visible = true;
                         tbNewContainer.DataBind();
 
-                        gvContainer.DataSource = GetContainers(long.Parse(txtGiffRef.Text));
+                        gvContainer.DataSource = GetContainers(bookingId);
                         gvContainer.DataBind();
                     }
                     else
@@ -56,7 +57,7 @@ namespace WebApp
             {
                 cont = new Container()
                 {
-                    BookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text)),
+                    BookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(txtGiffRef.Text)),
                     ContainerNo = txtNewContainerNo.Text.Trim(),
                     SealNo = txtNewSealNo.Text.Trim(),
                     NumOfPkgs = int.Parse(txtNewNumOfPkgs.Text.Trim()),
@@ -74,7 +75,7 @@ namespace WebApp
                     //lblAlertSucess.Visible = true;
                     //lblAlertSucess.Text = string.Format("<strong>Success!</strong> Container No. {0} added GIFFI Ref={1}", cont.ContainerNo, txtGiffRef.Text);
 
-                    gvContainer.DataSource = GetContainers(long.Parse(txtGiffRef.Text));
+                    gvContainer.DataSource = GetContainers(this._bookingId);
                     gvContainer.Visible = true;
                     gvContainer.DataBind();
 
@@ -82,8 +83,7 @@ namespace WebApp
                 }
                 else
                 {
-                    lblAlertFailure.Visible = true;
-                    lblAlertFailure.Text = string.Format("<strong>Error!</strong> Unable to add ContainerNo={0} to GIFFI Ref={1}", cont.ContainerNo, txtGiffRef.Text);
+                    this.Page.AlertMessage(GetType(), string.Format("Error!!!! unable to add ContainerNo={0} to GIFFI Ref={1}", cont.ContainerNo, txtGiffRef.Text));
                 }
             }
             catch(SqlException sex)
@@ -98,16 +98,18 @@ namespace WebApp
         }
         protected void SelectedSearch_Click(object sender, EventArgs e)
         {
-            long giffiRef = -1;
-            if (!string.IsNullOrEmpty(txtSearchBox.Text) && long.TryParse(txtSearchBox.Text, out giffiRef) && giffiRef > 10000)
+            double giffiRef = -1;
+            if (!string.IsNullOrEmpty(txtSearchBox.Text) && double.TryParse(txtSearchBox.Text, out giffiRef) && giffiRef > 10000)
             {
                 txtGiffRef.Text = txtSearchBox.Text;
                 txtGiffRef.DataBind();
 
                 txtSearchBox.Text = string.Empty;
 
+                hfBookingId.Value = DataUtil.GetBookingIdFromGiffiId(giffiRef).ToString();
+
                 //populate existing containers
-                gvContainer.DataSource = GetContainers(giffiRef);
+                gvContainer.DataSource = GetContainers(this._bookingId);
                 gvContainer.DataBind();
 
                 tbNewContainer.Visible = true;
@@ -115,13 +117,12 @@ namespace WebApp
             }
         }
 
-
         protected void gvContainer_RowEditing(object sender, GridViewEditEventArgs e)
         {
             long giffiRef = -1;
             if (long.TryParse(txtGiffRef.Text, out giffiRef))
             {
-                gvContainer.DataSource = GetContainers(giffiRef);
+                gvContainer.DataSource = GetContainers(this._bookingId);
                 gvContainer.EditIndex = e.NewEditIndex;
                 gvContainer.DataBind();
             }
@@ -129,10 +130,10 @@ namespace WebApp
 
         protected void gvContainer_RowCancelEditing(object sender, GridViewCancelEditEventArgs e)
         {
-            long giffiRef = -1;
-            if (long.TryParse(txtGiffRef.Text, out giffiRef))
+            double giffiRef = -1;
+            if (double.TryParse(txtGiffRef.Text, out giffiRef))
             {
-                gvContainer.DataSource = GetContainers(giffiRef);
+                gvContainer.DataSource = GetContainers(this._bookingId);
                 gvContainer.EditIndex = -1;
                 gvContainer.DataBind();
             }
@@ -146,7 +147,7 @@ namespace WebApp
             Container cont = new Container()
             {
                 Id = containerId,
-                BookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text)),
+                BookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(txtGiffRef.Text)),
                 ContainerNo = (row.FindControl("txtContainerNo") as TextBox).Text.Trim(),
                 SealNo = (row.FindControl("txtSealNo") as TextBox).Text.Trim(),
                 NumOfPkgs = int.Parse((row.FindControl("txtNumOfPkgs") as TextBox).Text.Trim()),
@@ -162,7 +163,7 @@ namespace WebApp
 
             gvContainer.EditIndex = -1;
 
-            gvContainer.DataSource = GetContainers(long.Parse(txtGiffRef.Text));
+            gvContainer.DataSource = GetContainers(this._bookingId);
             gvContainer.DataBind();
         }
 
@@ -174,7 +175,7 @@ namespace WebApp
             cr.Delete(containerId);
 
             gvContainer.EditIndex = -1;
-            gvContainer.DataSource = GetContainers(long.Parse(txtGiffRef.Text));
+            gvContainer.DataSource = GetContainers(this._bookingId);
             gvContainer.DataBind();
         }
 
@@ -187,13 +188,19 @@ namespace WebApp
             }
         }
 
-        private List<Container> GetContainers(long giffiRef)
+        private List<Container> GetContainers(int bookingId)
         {
             ContainerRepository cr = new ContainerRepository();
-
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text));
             return cr.GetContainerByBookingId(bookingId);
 
+        }
+
+        private int _bookingId
+        {
+            get
+            {
+                return int.Parse(hfBookingId.Value.ToString());
+            }
         }
 
         [WebMethod]
@@ -205,20 +212,7 @@ namespace WebApp
             switch(option)
             {
                 case 1:
-                    using (GiffiDBEntities dc = new GiffiDBEntities())
-                    {
-                        if (pre.Equals("*") || pre.Equals("."))
-                        {
-                            results = (from c in dc.BookingReferences
-                                       select c.GiffiId.ToString()).Distinct().ToList();
-                        }
-                        else
-                        {
-                            results = (from c in dc.BookingReferences
-                                       where c.GiffiId.ToString().StartsWith(pre)
-                                       select c.GiffiId.ToString()).Distinct().ToList();
-                        }
-                    }
+                    results = DataUtil.SearchBookingReferenceFor(pre);
                     break;
                 case 2:
                     using (GiffiDBEntities dc = new GiffiDBEntities())
@@ -226,13 +220,13 @@ namespace WebApp
                         if (pre.Equals("*") || pre.Equals("."))
                         {
                             results = (from c in dc.BookingReferences
-                                       select c.GiffiId.ToString()).Distinct().ToList();
+                                       select Convert.ToString(c.GiffiId)).Distinct().ToList();
                         }
                         else
                         {
                             results = (from c in dc.BookingReferences
-                                       where c.GiffiId.ToString().StartsWith(pre)
-                                       select c.GiffiId.ToString()).Distinct().ToList();
+                                       where Convert.ToString(c.GiffiId).StartsWith(pre)
+                                       select Convert.ToString(c.GiffiId)).Distinct().ToList();
                         }
                     }
                     break;

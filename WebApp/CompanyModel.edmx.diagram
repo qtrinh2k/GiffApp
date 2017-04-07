@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="364faf132ba94edd8b9dd741a1b804de" Name="Diagram1">
-        <EntityTypeShape EntityType="GiffiDBModel.BookingReference" Width="1.5" PointX="5.625" PointY="5.375" />
         <EntityTypeShape EntityType="GiffiDBModel.AccountingCode" Width="1.5" PointX="1.125" PointY="6.125" />
         <EntityTypeShape EntityType="GiffiDBModel.User" Width="1.5" PointX="10" PointY="3.875" />
         <EntityTypeShape EntityType="GiffiDBModel.FreightCharge" Width="1.5" PointX="8.375" PointY="0.75" />
@@ -20,9 +19,10 @@
         <AssociationConnector Association="GiffiDBModel.FK_Booking_BillTo" />
         <AssociationConnector Association="GiffiDBModel.FK_Booking_Carrier" />
         <AssociationConnector Association="GiffiDBModel.FK_Booking_Shipper" />
-        <AssociationConnector Association="GiffiDBModel.FK_BookingReference_ToTable" />
         <AssociationConnector Association="GiffiDBModel.FK_Container_ToBooking" />
         <AssociationConnector Association="GiffiDBModel.FK_Freight_ToBooking" />
+        <EntityTypeShape EntityType="GiffiDBModel.BookingReference" Width="1.5" PointX="5.625" PointY="5.125" />
+        <AssociationConnector Association="GiffiDBModel.FK_BookingReference_ToTable" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

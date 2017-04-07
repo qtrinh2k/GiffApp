@@ -155,6 +155,7 @@
                         <div class="col-sm-6 form-group">
                             <label>GIFFI REF:</label>
                             <asp:TextBox ID="txtGiffRef" CssClass="form-control" TabIndex="-1" runat="server" Enabled="false" />
+                            <asp:HiddenField ID="hfBookingId" runat="server" />
                         </div>
                     </div>
                 </div>
@@ -308,7 +309,6 @@
                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtVGM" runat="server" />
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>Notes:</label>
                     <asp:TextBox ID="txtNotes" placeholder="Write note here.." Rows="3" TabIndex="21" CssClass="form-control" runat="server"></asp:TextBox>
@@ -317,7 +317,9 @@
                     <div class="col-sm-6 form-group">
                         <asp:Button ID="btnSubmitBooking" Text="Submit" CssClass="btn btn-lg btn-info" TabIndex="22" runat="server" OnClick="AddNewBooking_Click" />
                     </div>
-
+                     <div class="col-sm-6 form-group">
+                        <asp:Button ID="btnClone" Text="DoClone" CssClass="btn btn-lg btn-info" TabIndex="22" runat="server" OnClick="btnClone_Click" Visible="false" />
+                    </div>
                     <div class="col-sm-3 form-group">
                         <asp:Button ID="btnClose" Text="Close" CssClass="btn btn-lg btn-info" TabIndex="23" runat="server" OnClick="btnClose_Click" Visible="false" />
                     </div>

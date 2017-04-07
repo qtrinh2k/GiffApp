@@ -15,9 +15,9 @@ namespace WebApp
     public partial class BookingReference
     {
         public int Id { get; set; }
-        public long GiffiId { get; set; }
         public int BookingId { get; set; }
-        public byte CloneGiffiId { get; set; }
+        public double GiffiId { get; set; }
+        public long ParentGiffiId { get; set; }
     
         public virtual Booking Booking { get; set; }
     }

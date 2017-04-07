@@ -25,10 +25,10 @@ namespace WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            long giffiRef = -1;
+            double giffiRef = -1;
             if (!IsPostBack)
             {
-                if (!string.IsNullOrEmpty(txtSearchBox.Text) && long.TryParse(txtSearchBox.Text, out giffiRef) && giffiRef > 10000)
+                if (!string.IsNullOrEmpty(txtSearchBox.Text) && double.TryParse(txtSearchBox.Text, out giffiRef) && giffiRef > 10000)
                 {
                     if (gvInvoice.FooterRow != null)
                     {
@@ -55,10 +55,10 @@ namespace WebApp
         protected void SelectedSearch_Click(object sender, EventArgs e)
         {
 
-            long giffiRef = -1;
+            double giffiRef = -1;
             BillingRepository repo = new BillingRepository();
 
-            if (!string.IsNullOrEmpty(txtSearchBox.Text) && long.TryParse(txtSearchBox.Text, out giffiRef) && giffiRef > 10000)
+            if (!string.IsNullOrEmpty(txtSearchBox.Text) && double.TryParse(txtSearchBox.Text, out giffiRef) && giffiRef > 10000)
             {
                 lblGiffiRef.Text = txtSearchBox.Text;
                 lblGiffiRef.DataBind();
@@ -108,7 +108,7 @@ namespace WebApp
 
         protected void gvInvoice_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(lblGiffiRef.Text));
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(lblGiffiRef.Text));
             gvInvoice.DataSource = DataUtil.GetBillingItems(bookingId);
             gvInvoice.EditIndex = e.NewEditIndex;
             gvInvoice.DataBind();
@@ -120,7 +120,7 @@ namespace WebApp
 
             GridViewRow row = gvInvoice.Rows[e.RowIndex];
             int billingItemId = (int)gvInvoice.DataKeys[e.RowIndex].Value;
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(lblGiffiRef.Text));
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(lblGiffiRef.Text));
 
             BillingItem bi = null;
 
@@ -160,7 +160,7 @@ namespace WebApp
 
         protected void gvInvoice_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(lblGiffiRef.Text));
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(lblGiffiRef.Text));
             gvInvoice.DataSource = DataUtil.GetBillingItems(bookingId);
             gvInvoice.EditIndex = -1;
             gvInvoice.DataBind();
@@ -168,7 +168,7 @@ namespace WebApp
 
         protected void gvInvoice_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(lblGiffiRef.Text));
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(lblGiffiRef.Text));
 
             int billingItemId = (int)gvInvoice.DataKeys[e.RowIndex].Value;
 
@@ -245,9 +245,9 @@ namespace WebApp
             }
         }
 
-        private Booking GetBookingInfo(long giffiRef)
+        private Booking GetBookingInfo(double giffiRef)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
 
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
@@ -290,9 +290,9 @@ namespace WebApp
                 return results.FirstOrDefault();
             }
         }
-        private Company GetCompanyInfo(long giffiRef)
+        private Company GetCompanyInfo(double giffiRef)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
 
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
@@ -323,20 +323,7 @@ namespace WebApp
 
             if (option == 1)
             {
-                using (GiffiDBEntities dc = new GiffiDBEntities())
-                {
-                    if (pre.Equals("*") || pre.Equals("."))
-                    {
-                        results = (from c in dc.BookingReferences
-                                   select c.GiffiId.ToString()).Distinct().ToList();
-                    }
-                    else
-                    {
-                        results = (from c in dc.BookingReferences
-                                   where c.GiffiId.ToString().StartsWith(pre)
-                                   select c.GiffiId.ToString()).Distinct().ToList();
-                    }
-                }
+                results = DataUtil.SearchBookingReferenceFor(pre);
             }
 
 
@@ -351,7 +338,7 @@ namespace WebApp
         }
         protected void gvInvoice_DataBound(object sender, EventArgs e)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(lblGiffiRef.Text));
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(lblGiffiRef.Text));
             Tuple<decimal, decimal> totals = GetTotal(bookingId);
             if (totals != null)
             {
@@ -379,7 +366,7 @@ namespace WebApp
 
         protected void btnAddBillingItem_Click(object sender, EventArgs e)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(lblGiffiRef.Text));
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(lblGiffiRef.Text));
 
             BillingRepository repo = new BillingRepository();
             var arrCodeMap = ddlAddCode.SelectedValue.Split(',');

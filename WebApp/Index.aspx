@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="row">
-        <asp:GridView ID="gvIndex" DataKeyNames="BookingId" CssClass="table table-striped" runat="server" AutoGenerateColumns="false">
+        <asp:GridView ID="gvIndex" DataKeyNames="BookingId" CssClass="table table-striped" runat="server" OnRowCommand="gvIndex_RowCommand" AutoGenerateColumns="false">
             <Columns>
                 <asp:TemplateField HeaderText="GiffiRef" ItemStyle-Width="100px">
                     <ItemTemplate>                        

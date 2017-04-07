@@ -55,20 +55,7 @@ namespace WebApp
 
             if (option == 1)
             {
-                using (GiffiDBEntities dc = new GiffiDBEntities())
-                {
-                    if (pre.Equals("*") || pre.Equals("."))
-                    {
-                        results = (from c in dc.BookingReferences
-                                   select c.GiffiId.ToString()).Distinct().ToList();
-                    }
-                    else
-                    {
-                        results = (from c in dc.BookingReferences
-                                   where c.GiffiId.ToString().StartsWith(pre)
-                                   select c.GiffiId.ToString()).Distinct().ToList();
-                    }
-                }
+                results = DataUtil.SearchBookingReferenceFor(pre);
             }
 
             return results;
@@ -78,7 +65,18 @@ namespace WebApp
         protected void btlGiffiRef_Click(object sender, EventArgs e)
         {
             var lbGiffiRef = sender as LinkButton;
-            Response.Redirect(string.Format("Booking.aspx?ref={0}", lbGiffiRef.Text));
+            GridViewRow clickedRow = ((LinkButton)sender).NamingContainer as GridViewRow;
+            HiddenField hfBookingId = (HiddenField)clickedRow.FindControl("hiddenBookingId");
+            
+            Response.Redirect(string.Format("Booking.aspx?ref={0}&bid={1}", lbGiffiRef.Text, hfBookingId.Value));
+        }
+
+        protected void gvIndex_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            GridViewRow row = gvIndex.Rows[index];
+
+            HiddenField hdnField = (HiddenField)row.FindControl("hiddenBookingId");
         }
     }
 }

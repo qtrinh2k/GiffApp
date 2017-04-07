@@ -118,15 +118,12 @@
                                 <div class="panel-heading col-md-4">
                                     <h3 class="panel-title"><strong>Your Reference</strong><br />
                                     </h3>
-
                                     <asp:Label ID="lblYourRef" runat="server"></asp:Label>
                                 </div>
                                 <div class="panel-heading col-md-4">
                                     <h3 class="panel-title"><strong>Invoice Date</strong><br />
                                     </h3>
-
                                     <asp:Label ID="lblInvoiceDate" runat="server"></asp:Label>
-
                                 </div>
                                 <div class="panel-heading col-md-4">
                                     <h3 class="panel-title"><strong>Payment Due By</strong><br />

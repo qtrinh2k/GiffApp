@@ -41,6 +41,19 @@ namespace WebApp
 
         }
 
+        internal static Booking GetBookingFromGiffiId(double giffiRef)
+        {
+            int bookingId = GetBookingIdFromGiffiId(giffiRef);
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                var results = from b in dc.Bookings
+                              where b.Id == bookingId
+                              select b;
+
+                return (results.Any()) ? results.First() : null;
+            }
+        }
+
         public static string GetCompanyNameById(int companyId)
         {
             using (GiffiDBEntities dc = new GiffiDBEntities())
@@ -77,7 +90,7 @@ namespace WebApp
             }
         }
 
-        public static int GetBookingFromGiffiRef(long giffiRef)
+        public static int GetBookingIdFromGiffiId(double giffiRef)
         {
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
@@ -89,9 +102,9 @@ namespace WebApp
             }
         }
 
-        public static Company GetCompanyInfo(long giffiRef)
+        public static Company GetCompanyInfo(double giffiRef)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
 
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
@@ -113,11 +126,8 @@ namespace WebApp
             }
         }
 
-
-        public static Booking GetBookingInfo(long giffiRef)
+        public static Booking GetBookingInfo(int bookingId)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
-
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
                 var results = (from b in dc.Bookings
@@ -146,12 +156,34 @@ namespace WebApp
 
         }
 
-        public static DataTable GetBillingItems(long giffiRef)
+        public static DataTable GetBillingItems(double giffiRef)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
 
             BillingRepository billRepo = new BillingRepository();
             return billRepo.GetBillingItem(bookingId);
+        }
+
+        public static List<string> SearchBookingReferenceFor(string pre)
+        {
+            List<string> results = new List<string>();
+
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                List<double> giffiIds = (from c in dc.BookingReferences select c.GiffiId).ToList();//.Select(d => string.Format("{0:0.00}",d));
+                List<string> listGiffiIds = giffiIds.Select(d => string.Format("{0:0.##}", d)).ToList();
+
+                if (pre.Equals("*") || pre.Equals("."))
+                {
+                    results = listGiffiIds;
+                }
+                else
+                {
+                    results = listGiffiIds.Where(s => s.StartsWith(pre)).ToList();
+                }
+            }
+
+            return results;
         }
 
     }

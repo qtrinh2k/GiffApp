@@ -67,9 +67,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GiffiId" Type="bigint" Nullable="false" />
           <Property Name="BookingId" Type="int" Nullable="false" />
-          <Property Name="CloneGiffiId" Type="tinyint" Nullable="false" />
+          <Property Name="GiffiId" Type="float" Nullable="false" />
+          <Property Name="ParentGiffiId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -321,7 +321,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="GiffiDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="GiffiDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="BookingReferences" EntityType="GiffiDBModel.BookingReference" />
           <FunctionImport Name="GetFreightByBookingId" ReturnType="Collection(GiffiDBModel.GetFreightByBookingId_Result)">
           <Parameter Name="bookingId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -374,10 +373,6 @@
             <End Role="Company" EntitySet="Companies" />
             <End Role="Booking" EntitySet="Bookings" />
           </AssociationSet>
-          <AssociationSet Name="FK_BookingReference_ToTable" Association="GiffiDBModel.FK_BookingReference_ToTable">
-            <End Role="Booking" EntitySet="Bookings" />
-            <End Role="BookingReference" EntitySet="BookingReferences" />
-          </AssociationSet>
           <AssociationSet Name="FK_Container_ToBooking" Association="GiffiDBModel.FK_Container_ToBooking">
             <End Role="Booking" EntitySet="Bookings" />
             <End Role="Container" EntitySet="Containers" />
@@ -386,17 +381,12 @@
             <End Role="Booking" EntitySet="Bookings" />
             <End Role="Freight" EntitySet="Freights" />
           </AssociationSet>
+          <EntitySet Name="BookingReferences" EntityType="GiffiDBModel.BookingReference" />
+          <AssociationSet Name="FK_BookingReference_ToTable" Association="GiffiDBModel.FK_BookingReference_ToTable">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="BookingReference" EntitySet="BookingReferences" />
+          </AssociationSet>
           </EntityContainer>
-        <EntityType Name="BookingReference">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GiffiId" Type="Int64" Nullable="false" />
-          <Property Name="BookingId" Type="Int32" Nullable="false" />
-          <Property Name="CloneGiffiId" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_BookingReference_ToTable" FromRole="BookingReference" ToRole="Booking" />
-        </EntityType>
         <ComplexType Name="GetFreightByBookingId_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="BookingId" Nullable="false" />
@@ -581,9 +571,9 @@
           <NavigationProperty Name="Company" Relationship="GiffiDBModel.FK_Booking_BillTo" FromRole="Booking" ToRole="Company" />
           <NavigationProperty Name="Company1" Relationship="GiffiDBModel.FK_Booking_Carrier" FromRole="Booking" ToRole="Company" />
           <NavigationProperty Name="Company2" Relationship="GiffiDBModel.FK_Booking_Shipper" FromRole="Booking" ToRole="Company" />
-          <NavigationProperty Name="BookingReferences" Relationship="GiffiDBModel.FK_BookingReference_ToTable" FromRole="Booking" ToRole="BookingReference" />
           <NavigationProperty Name="Containers" Relationship="GiffiDBModel.FK_Container_ToBooking" FromRole="Booking" ToRole="Container" />
           <NavigationProperty Name="Freights" Relationship="GiffiDBModel.FK_Freight_ToBooking" FromRole="Booking" ToRole="Freight" />
+          <NavigationProperty Name="BookingReferences" Relationship="GiffiDBModel.FK_BookingReference_ToTable" FromRole="Booking" ToRole="BookingReference" />
         </EntityType>
         <Association Name="FK_BillingItems_ToBooking">
           <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="1" />
@@ -633,18 +623,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BookingReference_ToTable">
-          <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="1" />
-          <End Type="GiffiDBModel.BookingReference" Role="BookingReference" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Booking">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BookingReference">
-              <PropertyRef Name="BookingId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Container_ToBooking">
           <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="1" />
           <End Type="GiffiDBModel.Container" Role="Container" Multiplicity="*" />
@@ -669,22 +647,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BookingReference">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingId" Type="Int32" Nullable="false" />
+          <Property Name="GiffiId" Type="Double" Nullable="false" />
+          <Property Name="ParentGiffiId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_BookingReference_ToTable" FromRole="BookingReference" ToRole="Booking" />
+        </EntityType>
+        <Association Name="FK_BookingReference_ToTable">
+          <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="1" />
+          <End Type="GiffiDBModel.BookingReference" Role="BookingReference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingReference">
+              <PropertyRef Name="BookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="GiffiDBModelStoreContainer" CdmEntityContainer="GiffiDBEntities">
-          <EntitySetMapping Name="BookingReferences">
-            <EntityTypeMapping TypeName="GiffiDBModel.BookingReference">
-              <MappingFragment StoreEntitySet="BookingReference">
-                <ScalarProperty Name="CloneGiffiId" ColumnName="CloneGiffiId" />
-                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
-                <ScalarProperty Name="GiffiId" ColumnName="GiffiId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetFreightByBookingId" FunctionName="GiffiDBModel.Store.GetFreightByBookingId">
             <ResultMapping>
               <ComplexTypeMapping TypeName="GiffiDBModel.GetFreightByBookingId_Result">
@@ -845,6 +835,16 @@
                 <ScalarProperty Name="ModifiedTime" ColumnName="ModifiedTime" />
                 <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingReferences">
+            <EntityTypeMapping TypeName="GiffiDBModel.BookingReference">
+              <MappingFragment StoreEntitySet="BookingReference">
+                <ScalarProperty Name="ParentGiffiId" ColumnName="ParentGiffiId" />
+                <ScalarProperty Name="GiffiId" ColumnName="GiffiId" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

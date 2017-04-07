@@ -31,6 +31,15 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtGiffRef;
         
         /// <summary>
+        /// hfBookingId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfBookingId;
+        
+        /// <summary>
         /// txtCreatedBy control.
         /// </summary>
         /// <remarks>
@@ -263,6 +272,15 @@ namespace WebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmitBooking;
+        
+        /// <summary>
+        /// btnClone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnClone;
         
         /// <summary>
         /// btnClose control.

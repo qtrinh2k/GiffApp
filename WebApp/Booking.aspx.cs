@@ -18,32 +18,37 @@ namespace WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            long giffiRef = -1;
+            int bookingId = -1;
             if (!IsPostBack && Request.Params.HasKeys())
             {
                 if (!string.IsNullOrEmpty(Request.QueryString["ref"]) &&
-                    long.TryParse(Request.QueryString["ref"].ToString(), out giffiRef))
+                    int.TryParse(Request.QueryString["bid"].ToString(), out bookingId))
                 {
-                    txtGiffRef.Text = giffiRef.ToString();
+                    txtGiffRef.Text = Request.QueryString["ref"];
                     txtGiffRef.DataBind();
+                    hfBookingId.Value = Request.QueryString["bid"].ToString();
+                    PopulateData(bookingId);
 
-                    PopulateData(giffiRef);
+                    btnClone.Visible = true;
                     return;
                 }
             }
 
-            txtDate.Text = DateTime.Now.ToString("d");
-            txtDate.DataBind();
+            if (!IsPostBack)
+            {
+                txtDate.Text = DateTime.Now.ToString("d");
+                txtDate.DataBind();
 
-            txtCreatedBy.Text = this.Page.User.Identity.Name;
+                txtCreatedBy.Text = this.Page.User.Identity.Name.ToUpper();
 
-            txtCreatedBy.Focus();
-            txtCreatedBy.DataBind();
+                txtCreatedBy.Focus();
+                txtCreatedBy.DataBind();
+            }
         }
        
-        private void PopulateData(long giffiRef)
+        private void PopulateData(int bookingId)
         {
-            Booking r = DataUtil.GetBookingInfo(giffiRef);
+            Booking r = DataUtil.GetBookingInfo(bookingId);
             txtCreatedBy.Text = r.CreatedBy;
             txtDate.Text = r.CreatedTime.ToString("d");
             txtBillTo.Text = DataUtil.GetCompanyNameById(r.BillToId);
@@ -59,6 +64,7 @@ namespace WebApp
             txtDischarge.Text = r.Discharge;
             txtCommod.Text = r.Commodity;
             txtEquiq1.Text = r.Equipment.Split('|').First();
+            txtEquiq2.Text = r.Equipment.Split('|').Skip(1).First();
             txtTemp.Text = r.Temp;
             txtVents.Text = r.Vents;
             txtNotes.Text = r.Notes;
@@ -72,11 +78,11 @@ namespace WebApp
 
         private Booking CreateBooking()
         {
-            long giffiRef = -1;
+            double giffiRef = -1;
             int bookingId = -1;
-            if(long.TryParse(txtGiffRef.Text, out giffiRef))
+            if(double.TryParse(txtGiffRef.Text, out giffiRef))
             {
-                bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
+                bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
             }
 
             Booking b = new Booking
@@ -115,66 +121,22 @@ namespace WebApp
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
-            Response.Redirect(string.Format("Container.aspx?ref={0}&cusId={1}", txtGiffRef.Text, DataUtil.GetCompanyIdFromName(txtBillTo.Text)));
+            Response.Redirect(string.Format("Container.aspx?ref={0}&bid={1}", txtGiffRef.Text, hfBookingId.Value));
         }
 
         protected void AddNewBooking_Click(object sender, EventArgs e)
         {
             BookingRepository bRepo = new BookingRepository();
-            long giffiRef = -1;
-            /*
-                        DataAccessBase dbAccess = new DataAccessBase();
+            double giffiRef = -1;
 
-                        using (SqlConnection con = new SqlConnection(dbAccess.ConnectionString))
-                        {
-                            using (SqlCommand cmd = new SqlCommand("InsertBooking", con))
-                            {
-                                cmd.CommandType = CommandType.StoredProcedure;
-
-                                cmd.Parameters.Add("@createdBy", SqlDbType.NVarChar).Value = txtCreatedBy.Text.Trim();
-                                cmd.Parameters.Add("@createdTime", SqlDbType.DateTime).Value = txtDate.Text.Trim();
-                                cmd.Parameters.Add("@modifiedTime", SqlDbType.DateTime).Value = txtDate.Text.Trim();
-                                cmd.Parameters.Add("@billToId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtBillTo.Text.Trim());
-                                cmd.Parameters.Add("@shipperId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromName(txtShipper.Text.Trim());
-                                cmd.Parameters.Add("@shipperRefNo", SqlDbType.NVarChar).Value = txtShipperRef.Text.Trim();
-                                cmd.Parameters.Add("@carrierId", SqlDbType.Int).Value = DataUtil.GetCompanyIdFromCode(txtCarrier.Text.Trim());
-                                cmd.Parameters.Add("@vessel", SqlDbType.NVarChar).Value = txtVessel.Text.Trim();
-                                cmd.Parameters.Add("@voyage", SqlDbType.NChar).Value = txtVoyage.Text.Trim();
-                                cmd.Parameters.Add("@origin", SqlDbType.NVarChar).Value = txtOrigin.Text.Trim();
-                                cmd.Parameters.Add("@load", SqlDbType.NVarChar).Value = txtLoad.Text.Trim();
-                                cmd.Parameters.Add("@destination", SqlDbType.NVarChar).Value = txtDest.Text.Trim();
-                                cmd.Parameters.Add("@discharge", SqlDbType.NVarChar).Value = txtDischarge.Text.Trim();
-                                cmd.Parameters.Add("@commodity", SqlDbType.NVarChar).Value = txtCommod.Text.Trim();
-                                cmd.Parameters.Add("@equipment", SqlDbType.NVarChar).Value = txtEquiq1.Text.Trim() + txtEquiq2.Text.Trim();
-                                cmd.Parameters.Add("@temp", SqlDbType.NChar).Value = txtTemp.Text.Trim();
-                                cmd.Parameters.Add("@vents", SqlDbType.NChar).Value = txtVents.Text.Trim();
-                                cmd.Parameters.Add("@status", SqlDbType.NChar).Value = "CREATED";
-                                cmd.Parameters.Add("@notes", SqlDbType.NVarChar).Value = txtNotes.Text.Trim();
-                                cmd.Parameters.Add("@CutOffDate", SqlDbType.DateTime).Value = DateTime.Parse(txtCutOffDate.Text.Trim());
-                                cmd.Parameters.Add("@DOC", SqlDbType.DateTime).Value = DateTime.Parse(txtDOC.Text.Trim());
-                                cmd.Parameters.Add("@CargoCut", SqlDbType.DateTime).Value = DateTime.Parse(txtCargoCut.Text.Trim());
-                                cmd.Parameters.Add("@VGM", SqlDbType.DateTime).Value = DateTime.Parse(txtVGM.Text.Trim());
-                                cmd.Parameters.Add("@ETD", SqlDbType.DateTime).Value = DateTime.Parse(txtETD.Text.Trim());
-                                cmd.Parameters.Add("@ETA", SqlDbType.DateTime).Value = DateTime.Parse(txtETA.Text.Trim());
-                                cmd.Parameters.Add("@ReturnValue", SqlDbType.BigInt).Direction = ParameterDirection.ReturnValue;
-                                con.Open();
-                                var result = cmd.ExecuteNonQuery();
-                                if (!long.TryParse(cmd.Parameters["@ReturnValue"].Value.ToString(), out giffiRef))
-                                {
-                                    ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Error occured when Submit data to SQL Database!!!');", true);
-                                }
-
-                            }
-                        }
-            */
             try
             {
                 Booking booking = CreateBooking();
 
                 //update booking info only, use exist giffiRefNo
-                if (long.TryParse(txtGiffRef.Text, out giffiRef))
+                if (double.TryParse(txtGiffRef.Text, out giffiRef))
                 {
-                    long ignoreNo = -1;
+                    double ignoreNo = -1;
                     bRepo.InsertUpdateBooking(booking, out ignoreNo);
                 }
                 else
@@ -198,6 +160,7 @@ namespace WebApp
                     btnSubmitBooking.Visible = false;
                     btnClose.Visible = true;
                     btnNext.Visible = true;
+                    btnClone.Visible = true;
                 }
                 else
                 {
@@ -269,6 +232,53 @@ namespace WebApp
         protected void btnClose_Click(object sender, EventArgs e)
         {
             Response.Redirect("Index.aspx");
+        }
+
+        protected void btnClone_Click(object sender, EventArgs e)
+        {
+            BookingRepository bRepo = new BookingRepository();
+            double giffiRef = -1;
+            //clone data
+            
+            if(!double.TryParse(txtGiffRef.Text, out giffiRef))
+            {
+                this.Page.AlertMessage(GetType(), string.Format("INVALID GiffiRefId={0}", giffiRef));
+                return;
+            }
+
+            try
+            {
+                int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
+                //popular with new giffiId
+                int newBookingId = -1;
+                string newGiffiId = string.Empty;
+                if (bRepo.CloneBooking(bookingId, out newBookingId, out newGiffiId))
+                {
+                    txtGiffRef.Text = newGiffiId;
+                    txtGiffRef.DataBind();
+
+                    PopulateData(newBookingId);
+
+                    this.Page.AlertMessage(GetType(), string.Format("Successfully clone booking data to new GiffiRef={0}.", giffiRef.ToString("R")));
+
+                    btnClone.Visible = false;
+                    btnNext.Visible = true;
+                    btnClose.Visible = true;
+                }
+                else
+                {
+                    this.Page.AlertMessage(GetType(), "Failed to Clone existing record!!!");
+                }
+            }
+            catch (SqlException se)
+            {
+                this.Page.AlertMessage(GetType(), string.Format("Failed to Clone existing record!!! With SQLError={0}", se.Message));
+            }
+            catch(Exception ex)
+            {
+                this.Page.AlertMessage(GetType(), string.Format("Failed to Clone existing record!!! Error={0}", ex.Message));
+            }
+
         }
     }
 }

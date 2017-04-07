@@ -121,6 +121,7 @@
     <Build Include="dbo\GetFreightCharge.sql" />
     <Build Include="dbo\GetBookingByUserName.sql" />
     <Build Include="dbo\UpdateBooking.sql" />
+    <Build Include="dbo\CloneBooking.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Snapshots\GiffiDB_20170219_15-15-06.dacpac" />

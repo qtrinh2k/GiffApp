@@ -11,19 +11,25 @@ namespace WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            long giffiRef = -1;
+            double giffiRef = -1;
             if (!Page.IsPostBack)
             {
                 if (Request.Params.HasKeys())
                 {
                     if (!string.IsNullOrEmpty(Request.QueryString["ref"]) &&
-                        long.TryParse(Request.QueryString["ref"].ToString(), out giffiRef))
+                        double.TryParse(Request.QueryString["ref"].ToString(), out giffiRef))
                     {
                         lblInvoiceNo.Text = giffiRef.ToString();
                         lblInvoiceNo.DataBind();
 
                         Company c = DataUtil.GetCompanyInfo(giffiRef);
-                        Booking b = DataUtil.GetBookingInfo(giffiRef);
+                        Booking b = DataUtil.GetBookingFromGiffiId(giffiRef);
+
+                        if(b == null)
+                        {
+                            this.Page.AlertMessage(GetType(), string.Format("System Error!!! Unable to find booking data for GiffiRef={0}", giffiRef));
+                            return;
+                        }
 
                         string cityZip = string.Join(", ", c.City.Trim(), c.State.Trim(), c.ZipCode.Trim());
                         string cpInfo = string.Join("</br>", c.CompanyName, c.Address, cityZip, c.Country);
@@ -40,12 +46,12 @@ namespace WebApp
                         lblOrigin.Text = b.Origin;
                         lblDestination.Text = b.Destination;
 
-                        int bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
-                        rptInvoice.DataSource = DataUtil.GetBillingItems(bookingId);
+                        
+                        rptInvoice.DataSource = DataUtil.GetBillingItems(b.Id);
                         rptInvoice.DataBind();
 
                         var controlTotal = rptInvoice.FindControlInFooter("lblTotal") as Label;
-                        controlTotal.Text = string.Format("{0:0.00}", GetInvoiceTotal(bookingId));
+                        controlTotal.Text = string.Format("{0:0.00}", GetInvoiceTotal(b.Id));
                         controlTotal.DataBind();
                         #endregion
                     }

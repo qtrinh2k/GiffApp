@@ -18,22 +18,23 @@ namespace WebApp
         string zeroStr = "0.00";
         protected void Page_Load(object sender, EventArgs e)
         {
-            long giffRef = -1;
+            double giffiRef = -1;
 
             if (!Page.IsPostBack)
             {
                 if (Request.Params.HasKeys())
                 {
-                    if (!string.IsNullOrEmpty(Request.QueryString["ref"]) &&
-                        long.TryParse(Request.QueryString["ref"].ToString(), out giffRef))
+                    if (!string.IsNullOrEmpty(Request.QueryString["ref"]))
                     {
-                        txtGiffRef.Text = giffRef.ToString();
+                        txtGiffRef.Text = Request.QueryString["ref"];
                         txtGiffRef.DataBind();
+
+                        giffiRef = double.Parse(Request.QueryString["ref"]);
 
                         tbAddFreight.Visible = true;
                         tbAddFreight.DataBind();
 
-                        gvFreight.DataSource = GetFreights(long.Parse(txtGiffRef.Text));
+                        gvFreight.DataSource = GetFreights(giffiRef);
                         gvFreight.DataBind();
                     }
                     else
@@ -64,20 +65,7 @@ namespace WebApp
 
             if (option == 1)
             {
-                using (GiffiDBEntities dc = new GiffiDBEntities())
-                {
-                    if (pre.Equals("*") || pre.Equals("."))
-                    {
-                        results = (from c in dc.BookingReferences
-                                   select c.GiffiId.ToString()).Distinct().ToList();
-                    }
-                    else
-                    {
-                        results = (from c in dc.BookingReferences
-                                   where c.GiffiId.ToString().StartsWith(pre)
-                                   select c.GiffiId.ToString()).Distinct().ToList();
-                    }
-                }
+                results = DataUtil.SearchBookingReferenceFor(pre);
             }
 
 
@@ -107,9 +95,9 @@ namespace WebApp
             FreightChargeRepository repo = new FreightChargeRepository();
             return repo.GetFreightCharge();
         }
-        private List<Freight> GetFreights(long giffiRef)
+        private List<Freight> GetFreights(double giffiRef)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(giffiRef);
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
 
             if (bookingId < Constants.InitBookingId)
             {
@@ -166,9 +154,9 @@ namespace WebApp
             return dt;
         }
 
-        private bool TryGetGiffiRef(out long giffiRef)
+        private bool TryGetGiffiRef(out double giffiRef)
         {
-            return long.TryParse(txtSearchBox.Text, out giffiRef);
+            return double.TryParse(txtSearchBox.Text, out giffiRef);
         }
 
         #endregion
@@ -179,7 +167,7 @@ namespace WebApp
         {
             string outMsg = string.Empty;
             Freight fr = null;
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text));
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(txtGiffRef.Text));
             if (bookingId < Constants.InitBookingId)
             {
                 lblAlertFailure.Text = string.Format("Invalid bookingId={0}", bookingId);
@@ -290,13 +278,15 @@ namespace WebApp
 
         protected void SelectedSearch_Click(object sender, EventArgs e)
         {
-            long giffiRef = -1;
-            if (!string.IsNullOrEmpty(txtSearchBox.Text) && long.TryParse(txtSearchBox.Text, out giffiRef) && giffiRef > 10000)
+            double giffiRef = -1;
+            if (!string.IsNullOrEmpty(txtSearchBox.Text))
             {
                 txtGiffRef.Text = txtSearchBox.Text;
                 txtGiffRef.DataBind();
 
                 txtSearchBox.Text = string.Empty;
+
+                giffiRef = double.Parse(txtGiffRef.Text);
 
                 gvFreight.DataSource = GetFreights(giffiRef);
                 gvFreight.DataBind();
@@ -308,7 +298,7 @@ namespace WebApp
 
         protected void gvFreight_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text));
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(txtGiffRef.Text));
             List<Freight> results = GetFreightByBookingId(bookingId);
 
             gvFreight.DataSource = results;
@@ -321,7 +311,7 @@ namespace WebApp
             GridViewRow row = gvFreight.Rows[e.RowIndex];
             int freightId = (int)gvFreight.DataKeys[e.RowIndex].Value;
 
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text));
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(txtGiffRef.Text));
             Freight fr = null;
 
             try
@@ -359,7 +349,7 @@ namespace WebApp
 
         protected void gvFreight_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text));
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(txtGiffRef.Text));
             List<Freight> results = GetFreightByBookingId(bookingId);
             gvFreight.DataSource = results;
             gvFreight.EditIndex = -1;
@@ -368,7 +358,7 @@ namespace WebApp
 
         protected void gvFreight_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int bookingId = DataUtil.GetBookingFromGiffiRef(long.Parse(txtGiffRef.Text));
+            int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(txtGiffRef.Text));
 
             int freightId = (int)gvFreight.DataKeys[e.RowIndex].Value;
 
