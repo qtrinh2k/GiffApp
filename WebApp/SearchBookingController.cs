@@ -18,7 +18,9 @@ namespace WebApp
         // GET api/<controller>/5
         public string Get(int id)
         {
-            return "value";
+            if (User.Identity.IsAuthenticated)
+                return "Authenticated User";
+            return "UnAuthenticated!!!!";
         }
 
         // POST api/<controller>

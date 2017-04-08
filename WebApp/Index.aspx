@@ -12,9 +12,9 @@
             </div>
             <div class="col-sm-3 form-group">
                 <asp:DropDownList CssClass="form-control" ID="DropDownList1" ClientIDMode="Static" TabIndex="2" runat="server">
-                    <asp:ListItem Value="1" Selected="True">GIFFI REF</asp:ListItem>
-                    <asp:ListItem Value="2" Text="Shipper REF">Shipper REF</asp:ListItem>
-                    <asp:ListItem Value="3" Text="Container REF">Container REF</asp:ListItem>
+                    <asp:ListItem Value="1" Text="GiffiRef" Selected="True">GIFFI Ref</asp:ListItem>
+                    <asp:ListItem Value="2" Text="ShipperRefNo">ShipperRefNo</asp:ListItem>
+                    <asp:ListItem Value="3" Text="CarrierRefNo">CarrierRefNo</asp:ListItem>
                 </asp:DropDownList>
             </div>
 
@@ -37,9 +37,19 @@
                         <asp:Label ID="lblBillTo" runat="server" Text='<%# Eval("BillTo") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="ShipperRef" ItemStyle-Width="40px">
+                    <ItemTemplate>
+                        <asp:Label ID="lblShipperRef" runat="server" Text='<%# Eval("ShipperRefNo") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Carrier" ItemStyle-Width="40px">
                     <ItemTemplate>
                         <asp:Label ID="lblBS" runat="server" Text='<%# Eval("CarrierCode") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="CarrierRef" ItemStyle-Width="40px">
+                    <ItemTemplate>
+                        <asp:Label ID="lblCarrierRef" runat="server" Text='<%# Eval("CarrierRefNo") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Discharge" ItemStyle-Width="40px">

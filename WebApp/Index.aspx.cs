@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Script.Services;
 using System.Web.Security;
@@ -23,12 +24,19 @@ namespace WebApp
                 }
                 else
                 {
-
                     string userName = this.Page.User.Identity.Name;
-                    BookingRepository repo = new BookingRepository();
-                    var results = repo.GetBookingByUsername(userName);
-                    gvIndex.DataSource = results;
-                    gvIndex.DataBind();
+                    using (GiffiDBEntities dc = new GiffiDBEntities())
+                    {
+                        var results = (from d in dc.BookingViews
+                                       where d.CreatedBy.Equals(userName, StringComparison.InvariantCultureIgnoreCase)
+                                       orderby d.ModifiedTime descending
+                                       select d).ToList();
+                        gvIndex.DataSource = results;
+                        gvIndex.DataBind();
+                    }
+
+                    //BookingRepository repo = new BookingRepository();
+                    //var results = repo.GetBookingByUsername(userName);
                 }
 
             }
@@ -36,15 +44,41 @@ namespace WebApp
         }
         protected void SelectedSearch_Click(object sender, EventArgs e)
         {
-            //long giffiRef = -1;
-            //if (!string.IsNullOrEmpty(txtSearchBox.Text) && long.TryParse(txtSearchBox.Text, out giffiRef) && giffiRef > 10000)
-            //{
-            //    txtGiffRef.Text = txtSearchBox.Text;
-            //    txtGiffRef.DataBind();
+            int option = int.Parse(DropDownList1.SelectedValue.ToString());
+            string searchPhase = txtSearchBox.Text;
+            var regex = new Regex(searchPhase, RegexOptions.IgnoreCase);
 
-            //    txtSearchBox.Text = string.Empty;
-
-            //}
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                var bvList = dc.BookingViews.ToList<BookingView>();
+                switch (option)
+                {
+                    case 1:
+                        
+                        if (searchPhase.Equals(".") || searchPhase.Equals("*"))
+                        {
+                            gvIndex.DataSource = bvList;
+                        }
+                        else
+                        {                            
+                            var results = bvList.Where(x => x.GiffiId.Value.ToString().StartsWith(searchPhase));
+                            gvIndex.DataSource = results;
+                        }
+                        break;
+                    case 2:
+                        var shipperList = bvList.Where(x => regex.IsMatch(x.ShipperRefNo));
+                        gvIndex.DataSource = shipperList;
+                        break;
+                    case 3:
+                        var carrierList = bvList.Where(x => regex.IsMatch(x.CarrierRefNo));
+                        gvIndex.DataSource = carrierList;
+                        break;
+                    default:
+                        gvIndex.DataSource = bvList;
+                        break;
+                }
+                gvIndex.DataBind();
+            }
         }
         #region WebMethod
         [WebMethod]

@@ -267,6 +267,9 @@
     <Compile Include="BookingReference.cs">
       <DependentUpon>CompanyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BookingView.cs">
+      <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Company.aspx.cs">
       <DependentUpon>Company.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

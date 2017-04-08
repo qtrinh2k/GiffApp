@@ -23,6 +23,7 @@
         <AssociationConnector Association="GiffiDBModel.FK_Freight_ToBooking" />
         <EntityTypeShape EntityType="GiffiDBModel.BookingReference" Width="1.5" PointX="5.625" PointY="5.125" />
         <AssociationConnector Association="GiffiDBModel.FK_BookingReference_ToTable" />
+        <EntityTypeShape EntityType="GiffiDBModel.BookingView" Width="1.5" PointX="0.75" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

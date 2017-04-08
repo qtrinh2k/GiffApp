@@ -141,6 +141,31 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="LastLoginDate" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GiffiDB.dbo.BookingView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BookingView">
+          <Key>
+            <PropertyRef Name="BookingId" />
+            <PropertyRef Name="CreatedBy" />
+            <PropertyRef Name="Discharge" />
+            <PropertyRef Name="Destination" />
+            <PropertyRef Name="ModifiedTime" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="BookingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedBy" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="GiffiId" Type="float" />
+          <Property Name="BillTo" Type="nvarchar" MaxLength="200" />
+          <Property Name="ShipperRefNo" Type="nchar" MaxLength="25" />
+          <Property Name="CarrierCode" Type="nvarchar" MaxLength="25" />
+          <Property Name="CarrierRefNo" Type="nchar" MaxLength="25" />
+          <Property Name="Discharge" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Destination" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CutOffDate" Type="datetime" />
+          <Property Name="DOC" Type="datetime" />
+          <Property Name="ModifiedTime" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="nchar" MaxLength="15" Nullable="false" />
+        </EntityType>
         <Association Name="FK_BillingItems_ToAccountingCode">
           <End Role="AccountingCode" Type="Self.AccountingCode" Multiplicity="1" />
           <End Role="BillingItems" Type="Self.BillingItems" Multiplicity="*" />
@@ -279,6 +304,23 @@
           <EntitySet Name="Freight" EntityType="Self.Freight" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FreightCharge" EntityType="Self.FreightCharge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingView" EntityType="Self.BookingView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BookingView].[BookingId] AS [BookingId], 
+    [BookingView].[CreatedBy] AS [CreatedBy], 
+    [BookingView].[GiffiId] AS [GiffiId], 
+    [BookingView].[BillTo] AS [BillTo], 
+    [BookingView].[ShipperRefNo] AS [ShipperRefNo], 
+    [BookingView].[CarrierCode] AS [CarrierCode], 
+    [BookingView].[CarrierRefNo] AS [CarrierRefNo], 
+    [BookingView].[Discharge] AS [Discharge], 
+    [BookingView].[Destination] AS [Destination], 
+    [BookingView].[CutOffDate] AS [CutOffDate], 
+    [BookingView].[DOC] AS [DOC], 
+    [BookingView].[ModifiedTime] AS [ModifiedTime], 
+    [BookingView].[Status] AS [Status]
+    FROM [dbo].[BookingView] AS [BookingView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_BillingItems_ToAccountingCode" Association="Self.FK_BillingItems_ToAccountingCode">
             <End Role="AccountingCode" EntitySet="AccountingCode" />
             <End Role="BillingItems" EntitySet="BillingItems" />
@@ -386,6 +428,7 @@
             <End Role="Booking" EntitySet="Bookings" />
             <End Role="BookingReference" EntitySet="BookingReferences" />
           </AssociationSet>
+          <EntitySet Name="BookingViews" EntityType="GiffiDBModel.BookingView" />
           </EntityContainer>
         <ComplexType Name="GetFreightByBookingId_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -669,6 +712,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BookingView">
+          <Key>
+            <PropertyRef Name="BookingId" />
+            <PropertyRef Name="CreatedBy" />
+            <PropertyRef Name="Discharge" />
+            <PropertyRef Name="Destination" />
+            <PropertyRef Name="ModifiedTime" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="BookingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="GiffiId" Type="Double" />
+          <Property Name="BillTo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ShipperRefNo" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="CarrierCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CarrierRefNo" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="Discharge" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Destination" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CutOffDate" Type="DateTime" Precision="3" />
+          <Property Name="DOC" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -846,6 +912,25 @@
                 <ScalarProperty Name="GiffiId" ColumnName="GiffiId" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingViews">
+            <EntityTypeMapping TypeName="GiffiDBModel.BookingView">
+              <MappingFragment StoreEntitySet="BookingView">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ModifiedTime" ColumnName="ModifiedTime" />
+                <ScalarProperty Name="DOC" ColumnName="DOC" />
+                <ScalarProperty Name="CutOffDate" ColumnName="CutOffDate" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="Discharge" ColumnName="Discharge" />
+                <ScalarProperty Name="CarrierRefNo" ColumnName="CarrierRefNo" />
+                <ScalarProperty Name="CarrierCode" ColumnName="CarrierCode" />
+                <ScalarProperty Name="ShipperRefNo" ColumnName="ShipperRefNo" />
+                <ScalarProperty Name="BillTo" ColumnName="BillTo" />
+                <ScalarProperty Name="GiffiId" ColumnName="GiffiId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

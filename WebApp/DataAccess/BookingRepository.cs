@@ -85,8 +85,6 @@ namespace WebApp.DataAccess
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "CloneBooking";
             cmd.Parameters.Add("@bookingId", SqlDbType.NVarChar).Value = bookingId;
-            //cmd.Parameters.Add("@ReturnValue", SqlDbType.Float).Direction = ParameterDirection.ReturnValue;
-            //cmd.Parameters.Add("@cloneId", SqlDbType.Float).Direction = ParameterDirection.ReturnValue;
 
             SqlParameter newBookingIdRetVal = new SqlParameter("@newBookingId", SqlDbType.Int);
             newBookingIdRetVal.Direction = ParameterDirection.Output;
