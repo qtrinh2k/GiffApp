@@ -53,14 +53,14 @@ namespace WebApp
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BillingItem> BillingItems { get; set; }
-        public virtual Company Company { get; set; }
-        public virtual Company Company1 { get; set; }
-        public virtual Company Company2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Container> Containers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Freight> Freights { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingReference> BookingReferences { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual Company Company1 { get; set; }
+        public virtual Company Company2 { get; set; }
     }
 }

@@ -34,9 +34,6 @@ namespace WebApp
                         gvIndex.DataSource = results;
                         gvIndex.DataBind();
                     }
-
-                    //BookingRepository repo = new BookingRepository();
-                    //var results = repo.GetBookingByUsername(userName);
                 }
 
             }
@@ -50,31 +47,30 @@ namespace WebApp
 
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
-                var bvList = dc.BookingViews.ToList<BookingView>();
                 switch (option)
                 {
                     case 1:
                         
                         if (searchPhase.Equals(".") || searchPhase.Equals("*"))
                         {
-                            gvIndex.DataSource = bvList;
+                            gvIndex.DataSource = dc.BookingViews.ToList<BookingView>();
                         }
                         else
-                        {                            
-                            var results = bvList.Where(x => x.GiffiId.Value.ToString().StartsWith(searchPhase));
+                        {
+                            var results = dc.BookingViews.ToList<BookingView>().Where(x => regex.IsMatch(x.GiffiId.Value.ToString())).ToList();
                             gvIndex.DataSource = results;
                         }
                         break;
                     case 2:
-                        var shipperList = bvList.Where(x => regex.IsMatch(x.ShipperRefNo));
+                        var shipperList = dc.BookingViews.ToList<BookingView>().Where(x => regex.IsMatch(x.ShipperRefNo)).ToList();
                         gvIndex.DataSource = shipperList;
                         break;
                     case 3:
-                        var carrierList = bvList.Where(x => regex.IsMatch(x.CarrierRefNo));
+                        var carrierList = dc.BookingViews.ToList<BookingView>().Where(x => regex.IsMatch(x.CarrierRefNo)).ToList();
                         gvIndex.DataSource = carrierList;
                         break;
                     default:
-                        gvIndex.DataSource = bvList;
+                        gvIndex.DataSource = dc.BookingViews.ToList<BookingView>();
                         break;
                 }
                 gvIndex.DataBind();
@@ -111,6 +107,28 @@ namespace WebApp
             GridViewRow row = gvIndex.Rows[index];
 
             HiddenField hdnField = (HiddenField)row.FindControl("hiddenBookingId");
+        }
+
+        protected void gvIndex_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            string userName = this.Page.User.Identity.Name;
+            gvIndex.PageIndex = e.NewPageIndex;
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                var results = (from d in dc.BookingViews
+                               where d.CreatedBy.Equals(userName, StringComparison.InvariantCultureIgnoreCase)
+                               orderby d.ModifiedTime descending
+                               select d).ToList();
+
+                gvIndex.DataSource = results;
+                gvIndex.DataBind();
+            }
+            
+        }
+
+        protected void gvIndex_DataBound(object sender, EventArgs e)
+        {
+
         }
     }
 }

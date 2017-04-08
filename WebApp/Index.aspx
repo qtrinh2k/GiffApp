@@ -19,12 +19,22 @@
             </div>
 
             <div class="col-sm-3 form-group">
-                <asp:Button ID="btnSelectedSearch" Text="Select" CssClass="btn btn-lg btn-info" TabIndex="3" runat="server" OnClick="SelectedSearch_Click" />
+                <asp:Button ID="btnSelectedSearch" Text="Search" CssClass="btn btn-lg btn-info" TabIndex="3" runat="server" OnClick="SelectedSearch_Click" />
             </div>
         </div>
     </div>
     <div class="row">
-        <asp:GridView ID="gvIndex" DataKeyNames="BookingId" CssClass="table table-striped" runat="server" OnRowCommand="gvIndex_RowCommand" AutoGenerateColumns="false">
+        <asp:GridView ID="gvIndex"
+            DataKeyNames="BookingId"
+            CssClass="table table-striped"
+            AutoGenerateColumns="false"
+            OnPageIndexChanging="gvIndex_PageIndexChanging"
+            AllowPaging="true"
+            AllowSorting="true"
+            PageSize="10"
+            OnDataBound="gvIndex_DataBound"
+            runat="server">
+            <PagerStyle BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="2px"  Font-Bold="true" Font-Size="Large" />
             <Columns>
                 <asp:TemplateField HeaderText="GiffiRef" ItemStyle-Width="100px">
                     <ItemTemplate>                        

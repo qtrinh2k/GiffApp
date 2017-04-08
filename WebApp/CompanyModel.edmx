@@ -392,28 +392,11 @@ warning 6002: The table/view 'GiffiDB.dbo.BookingView' does not have a primary k
             <End Role="AccountingCode" EntitySet="AccountingCodes" />
             <End Role="BillingItem" EntitySet="BillingItems" />
           </AssociationSet>
-          <EntitySet Name="Companies" EntityType="GiffiDBModel.Company" />
-          <AssociationSet Name="FK_BillingItems_ToCompany" Association="GiffiDBModel.FK_BillingItems_ToCompany">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="BillingItem" EntitySet="BillingItems" />
-          </AssociationSet>
           <EntitySet Name="Containers" EntityType="GiffiDBModel.Container" />
           <EntitySet Name="Bookings" EntityType="GiffiDBModel.Booking" />
           <AssociationSet Name="FK_BillingItems_ToBooking" Association="GiffiDBModel.FK_BillingItems_ToBooking">
             <End Role="Booking" EntitySet="Bookings" />
             <End Role="BillingItem" EntitySet="BillingItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Booking_BillTo" Association="GiffiDBModel.FK_Booking_BillTo">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="Booking" EntitySet="Bookings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Booking_Carrier" Association="GiffiDBModel.FK_Booking_Carrier">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="Booking" EntitySet="Bookings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Booking_Shipper" Association="GiffiDBModel.FK_Booking_Shipper">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="Booking" EntitySet="Bookings" />
           </AssociationSet>
           <AssociationSet Name="FK_Container_ToBooking" Association="GiffiDBModel.FK_Container_ToBooking">
             <End Role="Booking" EntitySet="Bookings" />
@@ -429,6 +412,23 @@ warning 6002: The table/view 'GiffiDB.dbo.BookingView' does not have a primary k
             <End Role="BookingReference" EntitySet="BookingReferences" />
           </AssociationSet>
           <EntitySet Name="BookingViews" EntityType="GiffiDBModel.BookingView" />
+          <EntitySet Name="Companies" EntityType="GiffiDBModel.Company" />
+          <AssociationSet Name="FK_BillingItems_ToCompany" Association="GiffiDBModel.FK_BillingItems_ToCompany">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="BillingItem" EntitySet="BillingItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Booking_BillTo" Association="GiffiDBModel.FK_Booking_BillTo">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Booking_Carrier" Association="GiffiDBModel.FK_Booking_Carrier">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Booking_Shipper" Association="GiffiDBModel.FK_Booking_Shipper">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetFreightByBookingId_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -514,8 +514,8 @@ warning 6002: The table/view 'GiffiDB.dbo.BookingView' does not have a primary k
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AccountingCode" Relationship="GiffiDBModel.FK_BillingItems_ToAccountingCode" FromRole="BillingItem" ToRole="AccountingCode" />
-          <NavigationProperty Name="Company" Relationship="GiffiDBModel.FK_BillingItems_ToCompany" FromRole="BillingItem" ToRole="Company" />
           <NavigationProperty Name="Booking" Relationship="GiffiDBModel.FK_BillingItems_ToBooking" FromRole="BillingItem" ToRole="Booking" />
+          <NavigationProperty Name="Company" Relationship="GiffiDBModel.FK_BillingItems_ToCompany" FromRole="BillingItem" ToRole="Company" />
         </EntityType>
         <Association Name="FK_BillingItems_ToAccountingCode">
           <End Type="GiffiDBModel.AccountingCode" Role="AccountingCode" Multiplicity="1" />
@@ -526,40 +526,6 @@ warning 6002: The table/view 'GiffiDB.dbo.BookingView' does not have a primary k
             </Principal>
             <Dependent Role="BillingItem">
               <PropertyRef Name="CodeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Company">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyType" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="FederalNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
-          <Property Name="Country" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="BillingItems" Relationship="GiffiDBModel.FK_BillingItems_ToCompany" FromRole="Company" ToRole="BillingItem" />
-          <NavigationProperty Name="Bookings" Relationship="GiffiDBModel.FK_Booking_BillTo" FromRole="Company" ToRole="Booking" />
-          <NavigationProperty Name="Bookings1" Relationship="GiffiDBModel.FK_Booking_Carrier" FromRole="Company" ToRole="Booking" />
-          <NavigationProperty Name="Bookings2" Relationship="GiffiDBModel.FK_Booking_Shipper" FromRole="Company" ToRole="Booking" />
-          </EntityType>
-        <Association Name="FK_BillingItems_ToCompany">
-          <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="GiffiDBModel.BillingItem" Role="BillingItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingItem">
-              <PropertyRef Name="VendorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -611,12 +577,12 @@ warning 6002: The table/view 'GiffiDB.dbo.BookingView' does not have a primary k
           <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="BillingItems" Relationship="GiffiDBModel.FK_BillingItems_ToBooking" FromRole="Booking" ToRole="BillingItem" />
-          <NavigationProperty Name="Company" Relationship="GiffiDBModel.FK_Booking_BillTo" FromRole="Booking" ToRole="Company" />
-          <NavigationProperty Name="Company1" Relationship="GiffiDBModel.FK_Booking_Carrier" FromRole="Booking" ToRole="Company" />
-          <NavigationProperty Name="Company2" Relationship="GiffiDBModel.FK_Booking_Shipper" FromRole="Booking" ToRole="Company" />
           <NavigationProperty Name="Containers" Relationship="GiffiDBModel.FK_Container_ToBooking" FromRole="Booking" ToRole="Container" />
           <NavigationProperty Name="Freights" Relationship="GiffiDBModel.FK_Freight_ToBooking" FromRole="Booking" ToRole="Freight" />
           <NavigationProperty Name="BookingReferences" Relationship="GiffiDBModel.FK_BookingReference_ToTable" FromRole="Booking" ToRole="BookingReference" />
+          <NavigationProperty Name="Company" Relationship="GiffiDBModel.FK_Booking_BillTo" FromRole="Booking" ToRole="Company" />
+          <NavigationProperty Name="Company1" Relationship="GiffiDBModel.FK_Booking_Carrier" FromRole="Booking" ToRole="Company" />
+          <NavigationProperty Name="Company2" Relationship="GiffiDBModel.FK_Booking_Shipper" FromRole="Booking" ToRole="Company" />
         </EntityType>
         <Association Name="FK_BillingItems_ToBooking">
           <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="1" />
@@ -627,42 +593,6 @@ warning 6002: The table/view 'GiffiDB.dbo.BookingView' does not have a primary k
             </Principal>
             <Dependent Role="BillingItem">
               <PropertyRef Name="BookingId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Booking_BillTo">
-          <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Booking">
-              <PropertyRef Name="BillToId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Booking_Carrier">
-          <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Booking">
-              <PropertyRef Name="CarrierId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Booking_Shipper">
-          <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Booking">
-              <PropertyRef Name="ShipperId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -735,6 +665,76 @@ warning 6002: The table/view 'GiffiDB.dbo.BookingView' does not have a primary k
           <Property Name="ModifiedTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
         </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyType" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="FederalNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BillingItems" Relationship="GiffiDBModel.FK_BillingItems_ToCompany" FromRole="Company" ToRole="BillingItem" />
+          <NavigationProperty Name="Bookings" Relationship="GiffiDBModel.FK_Booking_BillTo" FromRole="Company" ToRole="Booking" />
+          <NavigationProperty Name="Bookings1" Relationship="GiffiDBModel.FK_Booking_Carrier" FromRole="Company" ToRole="Booking" />
+          <NavigationProperty Name="Bookings2" Relationship="GiffiDBModel.FK_Booking_Shipper" FromRole="Company" ToRole="Booking" />
+        </EntityType>
+        <Association Name="FK_BillingItems_ToCompany">
+          <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="GiffiDBModel.BillingItem" Role="BillingItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillingItem">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Booking_BillTo">
+          <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="BillToId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Booking_Carrier">
+          <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="CarrierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Booking_Shipper">
+          <End Type="GiffiDBModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="GiffiDBModel.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="ShipperId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -837,25 +837,6 @@ warning 6002: The table/view 'GiffiDB.dbo.BookingView' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Companies">
-            <EntityTypeMapping TypeName="GiffiDBModel.Company">
-              <MappingFragment StoreEntitySet="Company">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="FederalNumber" ColumnName="FederalNumber" />
-                <ScalarProperty Name="CompanyType" ColumnName="CompanyType" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Containers">
             <EntityTypeMapping TypeName="GiffiDBModel.Container">
               <MappingFragment StoreEntitySet="Container">
@@ -931,6 +912,25 @@ warning 6002: The table/view 'GiffiDB.dbo.BookingView' does not have a primary k
                 <ScalarProperty Name="GiffiId" ColumnName="GiffiId" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="GiffiDBModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="FederalNumber" ColumnName="FederalNumber" />
+                <ScalarProperty Name="CompanyType" ColumnName="CompanyType" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

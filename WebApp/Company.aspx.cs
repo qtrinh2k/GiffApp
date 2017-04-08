@@ -18,7 +18,16 @@ namespace WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            int companyId = -1;
+            if (!IsPostBack && Request.Params.HasKeys())
+            {
+                if (!string.IsNullOrEmpty(Request.QueryString["id"]) &&
+                    int.TryParse(Request.QueryString["id"].ToString(), out companyId))
+                {
+                    Company c = DataUtil.GetCompanyById(companyId);
+                    PopulateData(c);
+                }
+            }
         }
         protected void btnSelectedSearch_Click(object sender, EventArgs e)
         {
@@ -35,19 +44,8 @@ namespace WebApp
                 else
                 {
                     Company c = results.First();
-                    HiddenCompanyId.Value = c.Id.ToString();
-                    txtCode.Text = c.Code;
-                    txtCompanyName.Text = c.CompanyName;
-                    ddlType.SelectedValue = c.CompanyType;
-                    txtFederalNum.Text = c.FederalNumber;
-                    txtAddress1.Text = c.Address;
-                    txtCity.Text = c.City;
-                    txtState.Text = c.State;
-                    txtZip.Text = c.ZipCode;
-                    txtCountry.Text = c.Country;
-                    txtPhone.Text = c.Phone;
-                    txtEmail.Text = c.Email;
 
+                    PopulateData(c);
                     //clear search field
                     txtSearchBox.Text = "";
                 }
@@ -132,6 +130,20 @@ namespace WebApp
             return results;
         }
 
-
+        private void PopulateData(Company c)
+        {
+            HiddenCompanyId.Value = c.Id.ToString();
+            txtCode.Text = c.Code;
+            txtCompanyName.Text = c.CompanyName;
+            ddlType.SelectedValue = c.CompanyType;
+            txtFederalNum.Text = c.FederalNumber;
+            txtAddress1.Text = c.Address;
+            txtCity.Text = c.City;
+            txtState.Text = c.State;
+            txtZip.Text = c.ZipCode;
+            txtCountry.Text = c.Country;
+            txtPhone.Text = c.Phone;
+            txtEmail.Text = c.Email;
+        }
     }
 }

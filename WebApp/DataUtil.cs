@@ -28,6 +28,18 @@ namespace WebApp
 
         }
 
+        internal static Company GetCompanyById(int companyId)
+        {
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                var company = (from c in dc.Companies
+                                    where c.Id == companyId
+                                    select c).First();
+
+                return company;
+            }
+        }
+
         public static int GetCompanyIdFromCode(string carrierCode)
         {
             using (GiffiDBEntities dc = new GiffiDBEntities())
