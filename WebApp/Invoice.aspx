@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="col-sm-3 form-group">
-                            <asp:Button ID="btnSelectedSearch" AutoPostBack="true" Text="Select" CssClass="btn btn-lg btn-info" TabIndex="3" runat="server" OnClick="SelectedSearch_Click" />
+                            <asp:Button ID="btnSelectedSearch" Text="Select" CssClass="btn btn-lg btn-info" TabIndex="3" runat="server" OnClick="SelectedSearch_Click" />
                         </div>
                     </div>
                 </div>

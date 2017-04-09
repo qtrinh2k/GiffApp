@@ -60,7 +60,9 @@
                                     <asp:ListItem Text="Customer" Selected="True" Value="Customer" />
                                     <asp:ListItem Text="Vendor" Value="Vendor" />
                                     <asp:ListItem Text="Customer+Vendor" Value="Both" />
-                                    <asp:ListItem Text="Cosignee" Value="Cosignee" />
+                                    <asp:ListItem Text="Consignee" Value="Consignee" />
+                                    <asp:ListItem Text="Supplier" Value="Supplier" />
+                                    <asp:ListItem Text="Warehouse" Value="Warehouse" />
                                 </asp:DropDownList>
                                 <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="ddlType" ValidationGroup="SubmitCompany" runat="server" />
                             </div>

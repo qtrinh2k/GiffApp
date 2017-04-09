@@ -1,93 +1,130 @@
-﻿<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeBehind="BillOfLanding.aspx.cs" Inherits="WebApp.BillOfLanding" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BillOfLanding.aspx.cs" Inherits="WebApp.BillOfLanding" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script lang="javascript" type="text/javascript">
+        $(function () {
+            $('#<%=txtConsignee.ClientID%>').autocomplete({
+                source: function (request, response) {
+                    op = 3;
+                    $.ajax({
+                        url: "BillOfLanding.aspx/SearchFor",
+                        data: "{ 'pre':'" + request.term + "', 'option': " + op + "}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return { value: item }
+                            }))
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                }
+            });
+            $('#<%=txtNotify.ClientID%>').autocomplete({
+                source: function (request, response) {
+                    op = 3;
+                    $.ajax({
+                        url: "BillOfLanding.aspx/SearchFor",
+                        data: "{ 'pre':'" + request.term + "', 'option': " + op + "}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return { value: item }
+                            }))
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                }
+            });
+            $('#<%=txtSupplier.ClientID%>').autocomplete({
+                source: function (request, response) {
+                    op = 4;
+                    $.ajax({
+                        url: "BillOfLanding.aspx/SearchFor",
+                        data: "{ 'pre':'" + request.term + "', 'option': " + op + "}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return { value: item }
+                            }))
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                }
+            });
+            $('#<%=txtWarehouse.ClientID%>').autocomplete({
+                source: function (request, response) {
+                    op = 5;
+                    $.ajax({
+                        url: "BillOfLanding.aspx/SearchFor",
+                        data: "{ 'pre':'" + request.term + "', 'option': " + op + "}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return { value: item }
+                            }))
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                }
+            });
+        });
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Invoice Preview</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="Content/bootstrap.min.css" />
-    <link rel="stylesheet" href="CSS/main.css" />
-    <link rel="stylesheet" href="CSS/style.css" media="print" />
-    <script src="Scripts/jquery-3.1.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div class="container">
-            <div class="col-lg-12" style="font-size: large; vertical-align: super; border-width: 0px">
-                <div class="row">
-                    <div class="panel panel-heading col-sm-6">
-                        <label class="small" style="vertical-align: super;">Shipper:</label>
-                        <asp:Label ID="lblBillTo" runat="server">
-                                    <section>
-                                        Bloom Global Corporation<br />
-                                        1234 1st Ave<br />
-                                        Seattle, WA 98012<br />
-                                    </section>
-                        </asp:Label>
-                    </div>
-                    <div class="panel panel-heading col-sm-6">
-                        <h2 class="panel-title"><strong>Invoice</strong><br />
-                        </h2>
-                        <asp:Label ID="lblInvoiceNo" runat="server"></asp:Label>
-
-                    </div>
+    </script>
+    <style>
+.panel-body .label {
+  display:inline-block;
+  padding-top:0;
+  padding-bottom:0;
+  line-height:1.5em;
+} 
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="row">
+        <div class="col-lg-12" style="font-size: large; vertical-align: super; border-width: 0px">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Consignee ([.] - to show all): </label>
+                    <asp:TextBox ID="txtConsignee" Width="50%" CssClass="form-control" TabIndex="1" runat="server" />
+                    <asp:Label ID="lblConsignee" runat="server"></asp:Label>
+                    <asp:RequiredFieldValidator ID="rfvConsignee" ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtConsignee" runat="server" />
                 </div>
-                <div class="panel panel-default col-md-12">
-                    <div class="form-group col-md-6">
-                        <label>Shipper:</label>
-                        <section>
-                            Address1
-                        </section>
-                    </div>
-                    <div class="col-md-6">Cairrer's Ref</div>
+                <div class="col-sm-6 form-group">
+                    <label>Notify Of Address ([.] - to show all): </label>
+                    <asp:TextBox ID="txtNotify" Width="50%" CssClass="form-control" TabIndex="2" runat="server" />
+                    <asp:Label ID="lblNotify" runat="server"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtNotify" runat="server" />
                 </div>
-                <div class="col-md-12">
-                    <div class="col-md-6">
-                        <label>Consignee:</label>
-                        <section>
-                            Address1
-                        </section>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            Export Reference
-                        </div>
-                        <div class="form-group">
-                            Forwarding Agent:
-                        </div>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Supplier ([.] - to show all): </label>
+                    <asp:TextBox ID="txtSupplier" Width="50%" CssClass="form-control" TabIndex="3" runat="server" />
+                    <asp:Label ID="lblSupplier" runat="server"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtSupplier" runat="server" />
                 </div>
-                <div class="col-md-12">
-                    <div class="col-md-6">Notify Address</div>
-                    <div class="col-md-6">
-                        <div class="form-group">Consignee's Ref</div>
-                        <div class="form-group">Place of Receipt:</div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-6">
-                        <div>
-                            <label>Vessel(s):</label>
-                        </div>
-                        <div>Port Of Loading:</div>
-                        <div>Port Of Dischard:</div>
-                    </div>
-                    <div class="col-md-6">Place Of Delivery:</div>
-                </div>
-                <div class="col-md-12">
-                    <asp:TextBox Rows="5" runat="server"></asp:TextBox>
+                <div class="col-sm-6 form-group">
+                    <label>Warehouse ([.] - to show all): </label>
+                    <asp:TextBox ID="txtWarehouse" Width="50%" CssClass="form-control" TabIndex="4" runat="server" />
+                    <asp:Label ID="lblWarehouse" runat="server"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtWarehouse" runat="server" />
                 </div>
             </div>
         </div>
-    </form>
-</body>
-</html>
-
+    </div>
+</asp:Content>

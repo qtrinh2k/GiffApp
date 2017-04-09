@@ -33,10 +33,10 @@ namespace WebApp
         public virtual DbSet<Freight> Freights { get; set; }
         public virtual DbSet<BillingItem> BillingItems { get; set; }
         public virtual DbSet<Container> Containers { get; set; }
-        public virtual DbSet<Booking> Bookings { get; set; }
-        public virtual DbSet<BookingReference> BookingReferences { get; set; }
-        public virtual DbSet<BookingView> BookingViews { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<BookingReference> BookingReferences { get; set; }
+        public virtual DbSet<Booking> Bookings { get; set; }
+        public virtual DbSet<BookingView> BookingViews { get; set; }
     
         public virtual ObjectResult<GetFreightByBookingId_Result> GetFreightByBookingId(Nullable<int> bookingId)
         {

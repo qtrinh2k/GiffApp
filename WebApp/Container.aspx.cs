@@ -23,13 +23,17 @@ namespace WebApp
             {
                 if (Request.Params.HasKeys())
                 {
-                    if (!string.IsNullOrEmpty(Request.QueryString["ref"]) &&
-                        int.TryParse(Request.QueryString["bid"].ToString(), out bookingId))
+                    if (!string.IsNullOrEmpty(Request.QueryString["ref"]))
                     {
                         txtGiffRef.Text = Request.QueryString["ref"];
                         txtGiffRef.DataBind();
 
-                        hfBookingId.Value = Request.QueryString["bid"].ToString();
+                        if (int.TryParse(Request.QueryString["bid"].ToString(), out bookingId) && bookingId > 10000)
+                            bookingId = int.Parse(Request.QueryString["bid"]);
+                        else
+                            bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(txtGiffRef.Text));
+
+                        hfBookingId.Value = bookingId.ToString();
 
                         tbNewContainer.Visible = true;
                         tbNewContainer.DataBind();

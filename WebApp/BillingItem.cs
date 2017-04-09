@@ -26,7 +26,7 @@ namespace WebApp
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         public virtual AccountingCode AccountingCode { get; set; }
-        public virtual Booking Booking { get; set; }
         public virtual Company Company { get; set; }
+        public virtual Booking Booking { get; set; }
     }
 }

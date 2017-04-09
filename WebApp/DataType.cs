@@ -14,4 +14,14 @@ namespace WebApp
     public class DataType
     {
     }
+
+    public enum ComanyType
+    {
+        Customer = 0,
+        Vendor = 1,
+        Both = 2, //customer and vendor
+        Consignee = 3,
+        Supplier = 4,
+        Warehouse = 5        
+    }
 }

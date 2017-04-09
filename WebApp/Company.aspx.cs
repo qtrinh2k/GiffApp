@@ -148,15 +148,12 @@ namespace WebApp
 
         protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(ddlType.SelectedValue.ToString().Equals("Cosignee"))
+            if(ddlType.SelectedValue.ToString().Equals("Consignee") ||
+               ddlType.SelectedValue.ToString().Equals("Supplier") ||
+               ddlType.SelectedValue.ToString().Equals("Warehouse"))
             {
-                txtCode.Visible = false;
                 txtCode.Text = "NA";
-
-                txtFederalNum.Visible = false;
                 txtFederalNum.Text = "NA";
-
-                PlaceHolder1.Visible = false;
             }
         }
     }
