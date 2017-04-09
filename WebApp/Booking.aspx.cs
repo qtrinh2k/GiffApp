@@ -179,6 +179,58 @@ namespace WebApp
             }
         }
 
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Index.aspx");
+        }
+
+        protected void btnClone_Click(object sender, EventArgs e)
+        {
+            BookingRepository bRepo = new BookingRepository();
+            double giffiRef = -1;
+            //clone data
+
+            if (!double.TryParse(txtGiffRef.Text, out giffiRef))
+            {
+                this.Page.AlertMessage(GetType(), string.Format("INVALID GiffiRefId={0}", giffiRef));
+                return;
+            }
+
+            try
+            {
+                int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
+                //popular with new giffiId
+                int newBookingId = -1;
+                string newGiffiId = string.Empty;
+                if (bRepo.CloneBooking(bookingId, out newBookingId, out newGiffiId))
+                {
+                    txtGiffRef.Text = newGiffiId;
+                    txtGiffRef.DataBind();
+
+                    PopulateData(newBookingId);
+
+                    this.Page.AlertMessage(GetType(), string.Format("Successfully clone booking data to new GiffiRef={0}.", giffiRef.ToString("R")));
+
+                    btnClone.Visible = false;
+                    btnSubmitBooking.Visible = true;
+                    btnNext.Visible = true;
+                    btnClose.Visible = true;
+                }
+                else
+                {
+                    this.Page.AlertMessage(GetType(), "Failed to Clone existing record!!!");
+                }
+            }
+            catch (SqlException se)
+            {
+                this.Page.AlertMessage(GetType(), string.Format("Failed to Clone existing record!!! With SQLError={0}", se.Message));
+            }
+            catch (Exception ex)
+            {
+                this.Page.AlertMessage(GetType(), string.Format("Failed to Clone existing record!!! Error={0}", ex.Message));
+            }
+
+        }
 
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -191,6 +243,7 @@ namespace WebApp
                 if (pre.Equals("*") || pre.Equals("."))
                 {
                     allCompanyName = (from c in dc.Companies
+                                      where (c.CompanyType.Equals("Customer") || c.CompanyType.Equals("Both"))
                                       select c.CompanyName).Distinct().ToList();
                 }
                 else
@@ -227,58 +280,6 @@ namespace WebApp
             }
 
             return carrierNames;
-        }
-
-        protected void btnClose_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Index.aspx");
-        }
-
-        protected void btnClone_Click(object sender, EventArgs e)
-        {
-            BookingRepository bRepo = new BookingRepository();
-            double giffiRef = -1;
-            //clone data
-            
-            if(!double.TryParse(txtGiffRef.Text, out giffiRef))
-            {
-                this.Page.AlertMessage(GetType(), string.Format("INVALID GiffiRefId={0}", giffiRef));
-                return;
-            }
-
-            try
-            {
-                int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
-                //popular with new giffiId
-                int newBookingId = -1;
-                string newGiffiId = string.Empty;
-                if (bRepo.CloneBooking(bookingId, out newBookingId, out newGiffiId))
-                {
-                    txtGiffRef.Text = newGiffiId;
-                    txtGiffRef.DataBind();
-
-                    PopulateData(newBookingId);
-
-                    this.Page.AlertMessage(GetType(), string.Format("Successfully clone booking data to new GiffiRef={0}.", giffiRef.ToString("R")));
-
-                    btnClone.Visible = false;
-                    btnNext.Visible = true;
-                    btnClose.Visible = true;
-                }
-                else
-                {
-                    this.Page.AlertMessage(GetType(), "Failed to Clone existing record!!!");
-                }
-            }
-            catch (SqlException se)
-            {
-                this.Page.AlertMessage(GetType(), string.Format("Failed to Clone existing record!!! With SQLError={0}", se.Message));
-            }
-            catch(Exception ex)
-            {
-                this.Page.AlertMessage(GetType(), string.Format("Failed to Clone existing record!!! Error={0}", ex.Message));
-            }
-
         }
     }
 }

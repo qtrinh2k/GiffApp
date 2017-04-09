@@ -92,6 +92,7 @@
                                     <h3 class="panel-title"><strong>Invoice</strong><br />
                                     </h3>
                                     <asp:Label ID="lblGiffiRef" runat="server"></asp:Label>
+                                    <asp:HiddenField ID="hfBookingId" runat="server" />
                                 </div>
                             </div>
                         </div>
@@ -221,8 +222,9 @@
                                         </Columns>
                                     </asp:GridView>
 
+                                    <h4>Add New Billing:</h4>
                                     <asp:Table ID="tbAddBilling" Visible="false" CssClass="table table-striped" runat="server">
-                                        <asp:TableRow CssClass="panel-heading" Font-Bold="true">
+                                        <asp:TableRow CssClass="panel-heading" Font-Bold="true" BackColor="#cccccc">
                                             <asp:TableCell CssClass="group-control col-xs-2">
                                                 Code:<br />
                                                 <asp:DropDownList CssClass="form-control" width="120px" ID="ddlAddCode" AutoPostBack="true" OnSelectedIndexChanged="ddlAddCode_SelectedIndexChanged" runat="server">

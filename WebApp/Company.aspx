@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Company.aspx.cs" Inherits="WebApp.Company" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="Company.aspx.cs" Inherits="WebApp.Company" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 <script lang="javascript" type="text/javascript">
         $(function () {
@@ -56,15 +56,17 @@
                             </div>
                             <div class="col-sm-2 form-group">
                                 <label>Type:</label>
-                                <asp:DropDownList ID="ddlType" CssClass="form-control" runat="server">
-                                    <asp:ListItem Text="Customer" Value="Customer" />
+                                <asp:DropDownList ID="ddlType" AutoPostBack="true" CssClass="form-control" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" runat="server">
+                                    <asp:ListItem Text="Customer" Selected="True" Value="Customer" />
                                     <asp:ListItem Text="Vendor" Value="Vendor" />
-                                    <asp:ListItem Text="Both" Value="Both" />
+                                    <asp:ListItem Text="Customer+Vendor" Value="Both" />
+                                    <asp:ListItem Text="Cosignee" Value="Cosignee" />
                                 </asp:DropDownList>
                                 <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="ddlType" ValidationGroup="SubmitCompany" runat="server" />
                             </div>
                         </div>
                         <div class="row">
+                            <asp:PlaceHolder ID="PlaceHolder1" runat="server">
                             <div class="col-sm-3 form-group">
                                 <label>Company Code:</label>
                                 <asp:TextBox CssClass="form-control" ID="txtCode" runat="server" />
@@ -75,6 +77,7 @@
                                 <asp:TextBox CssClass="form-control" ID="txtFederalNum" runat="server" />
                                 <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtFederalNum" ValidationGroup="SubmitCompany" runat="server" />
                             </div>
+                            </asp:PlaceHolder>
                         </div>
                         <div class="row">
                             <div class="col-sm-6 form-group">

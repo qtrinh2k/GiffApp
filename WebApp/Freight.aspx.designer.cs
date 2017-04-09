@@ -58,24 +58,6 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtGiffRef;
         
         /// <summary>
-        /// lblAlertSucess control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAlertSucess;
-        
-        /// <summary>
-        /// lblAlertFailure control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAlertFailure;
-        
-        /// <summary>
         /// gvFreight control.
         /// </summary>
         /// <remarks>

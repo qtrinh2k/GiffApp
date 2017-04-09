@@ -111,7 +111,7 @@
                                 <ItemTemplate>
                                     <tr>
                                         <td>
-                                            <strong><asp:Label ID="lblCode" Width="100px" runat="server" Text='<%# Eval("MapId") %>'></asp:Label></strong>
+                                            <strong><asp:Label ID="lblCode" runat="server" Text='<%# Eval("MapId") %>'></asp:Label></strong>
                                         </td>
                                         <td colspan="2">
                                             <strong><asp:Label ID="lblDescription" runat="server" Text='<%# Eval("Code") %>'></asp:Label></strong>

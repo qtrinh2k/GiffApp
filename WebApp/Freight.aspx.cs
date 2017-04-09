@@ -170,7 +170,7 @@ namespace WebApp
             int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(txtGiffRef.Text));
             if (bookingId < Constants.InitBookingId)
             {
-                lblAlertFailure.Text = string.Format("Invalid bookingId={0}", bookingId);
+                this.Page.AlertMessage(GetType(), string.Format("Invalid bookingId={0}", bookingId));
                 return;
             }
 
@@ -193,7 +193,7 @@ namespace WebApp
                 
                 if(!ValidateCalculation(fr, out outMsg))
                 {
-                    AlertMessage(outMsg);
+                    this.Page.AlertMessage(GetType(), outMsg);
 
                     return;
                 }
@@ -201,8 +201,6 @@ namespace WebApp
                 FreightRepository repo = new FreightRepository();
                 if (repo.InsertFreight(fr))
                 {
-                    lblAlertSucess.DataBind();
-
                     ClearFreightTextFields();
 
                     List<Freight> results = GetFreightByBookingId(bookingId);
@@ -214,20 +212,13 @@ namespace WebApp
             catch (SqlException se)
             {
                 outMsg = string.Format("Unable to insert freight to database. BookingId={0}, SQLException={1}'", bookingId, se.Message);
-                AlertMessage(outMsg);
+                this.Page.AlertMessage(GetType(), outMsg);
             }
             catch (Exception ex)
             {
                 outMsg = string.Format("Unable to insert freight due to an invalid entry. Bookinging={0}, Exception={1}", bookingId, ex.Message);
-                AlertMessage(outMsg);
+                this.Page.AlertMessage(GetType(), outMsg);
             }
-        }
-
-        private void AlertMessage(string msg)
-        {
-            string script = string.Format("alert(\"{0}!\");", msg);
-            ScriptManager.RegisterStartupScript(this, GetType(),
-                                  "ServerControlScript", script, true);
         }
 
         private bool ValidateCalculation(Freight f, out string outMsg)
@@ -339,11 +330,11 @@ namespace WebApp
             }
             catch (SqlException se)
             {
-                lblAlertFailure.Text = string.Format("Unable to insert freight to database. SQLException={0}", bookingId, se.Message);
+                this.Page.AlertMessage(GetType(), string.Format("Unable to insert freight to database. SQLException={0}", bookingId, se.Message));
             }
             catch (Exception ex)
             {
-                lblAlertFailure.Text = string.Format("Unable to insert freight due to an invalid entry. Exception={0}", bookingId, ex.Message);
+                this.Page.AlertMessage(GetType(), string.Format("Unable to insert freight due to an invalid entry. Exception={0}", bookingId, ex.Message));
             }
         }
 

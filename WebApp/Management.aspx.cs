@@ -30,7 +30,7 @@ namespace WebApp
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
                 var results = (from c in dc.Companies
-                           orderby c.CompanyName
+                           orderby c.CompanyType descending, c.CompanyName
                            select new { c.Id, c.CompanyName, c.Code, c.FederalNumber, c.CompanyType, c.Address, c.City, c.State, c.ZipCode, c.Phone }).ToList();
 
                 gvMgmt.DataSource = results;

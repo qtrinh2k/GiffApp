@@ -63,8 +63,11 @@ namespace WebApp
                 lblGiffiRef.Text = txtSearchBox.Text;
                 lblGiffiRef.DataBind();
 
-                Company c = GetCompanyInfo(giffiRef);
-                Booking b = GetBookingInfo(giffiRef);
+                int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
+                hfBookingId.Value = bookingId.ToString();
+
+                Company c = GetCompanyInfo(bookingId);
+                Booking b = GetBookingInfo(bookingId);
 
                 string cityZip = string.Join(", ", c.City.Trim(), c.State.Trim(), c.ZipCode.Trim());
                 string cpInfo = string.Join("</br>", c.CompanyName, c.Address, cityZip, c.Country);
@@ -245,10 +248,8 @@ namespace WebApp
             }
         }
 
-        private Booking GetBookingInfo(double giffiRef)
+        private Booking GetBookingInfo(int bookingId)
         {
-            int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
-
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
                 var results = (from b in dc.Bookings
@@ -290,10 +291,8 @@ namespace WebApp
                 return results.FirstOrDefault();
             }
         }
-        private Company GetCompanyInfo(double giffiRef)
+        private Company GetCompanyInfo(int bookingId)
         {
-            int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
-
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
                 var results = (from b in dc.Bookings

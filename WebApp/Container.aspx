@@ -131,7 +131,7 @@
                                 </asp:GridView>
                                 
                                 <asp:Table id="tbNewContainer" CSSClass="table table-striped" runat="server">
-                                    <asp:TableRow Font-Bold="true">
+                                    <asp:TableRow Font-Bold="true" BackColor="#cccccc">
 
                                     <asp:TableCell style="width: 130px">
                                         Container No:<br />

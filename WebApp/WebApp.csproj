@@ -51,6 +51,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.11.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.11\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -150,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Accounting.aspx" />
+    <Content Include="BillOfLanding.aspx" />
     <Content Include="Booking.aspx" />
     <Content Include="CSS\calendar-blue.css" />
     <Content Include="CSS\Style.css" />
@@ -236,7 +241,6 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="UpdateBooking.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +256,13 @@
     </Compile>
     <Compile Include="BillingItem.cs">
       <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillOfLanding.aspx.cs">
+      <DependentUpon>BillOfLanding.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BillOfLanding.aspx.designer.cs">
+      <DependentUpon>BillOfLanding.aspx</DependentUpon>
     </Compile>
     <Compile Include="Booking.aspx.cs">
       <DependentUpon>Booking.aspx</DependentUpon>

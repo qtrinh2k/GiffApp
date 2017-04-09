@@ -314,10 +314,10 @@
                     <asp:TextBox ID="txtNotes" placeholder="Write note here.." Rows="3" TabIndex="21" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-3 form-group">
                         <asp:Button ID="btnSubmitBooking" Text="Submit" CssClass="btn btn-lg btn-info" TabIndex="22" runat="server" OnClick="AddNewBooking_Click" />
                     </div>
-                     <div class="col-sm-6 form-group">
+                     <div class="col-sm-3 form-group">
                         <asp:Button ID="btnClone" Text="DoClone" CssClass="btn btn-lg btn-info" TabIndex="22" runat="server" OnClick="btnClone_Click" Visible="false" />
                     </div>
                     <div class="col-sm-3 form-group">

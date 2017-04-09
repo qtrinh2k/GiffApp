@@ -58,6 +58,15 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.Label lblGiffiRef;
         
         /// <summary>
+        /// hfBookingId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfBookingId;
+        
+        /// <summary>
         /// lblDescription control.
         /// </summary>
         /// <remarks>

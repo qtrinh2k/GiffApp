@@ -31,8 +31,7 @@
                 <div class="col-sm-9">
                     <div class="row">
                         <div class="col-sm-6 form-group">
-                            <asp:TextBox ID="txtSearchBox" CssClass="form-control" TabIndex="1" runat="server" />
-                            <%--<asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtSearchBox" runat="server" />--%>
+                            <asp:TextBox ID="txtSearchBox" CssClass="form-control" TabIndex="1" runat="server" />                            
                         </div>
                         <div class="col-sm-3 form-group">
                             <asp:DropDownList CssClass="form-control" ID="ddlOption" ClientIDMode="Static" TabIndex="2" runat="server">
@@ -64,11 +63,6 @@
                 <div class="row">
                     <div class="container">
                         <h2>Freight Calculation:</h2>
-                        <asp:Label ID="lblAlertSucess" Visible="false" CssClass="alert alert-success alert-dismissable fade in" runat="server">
-                        </asp:Label>
-                        <asp:Label ID="lblAlertFailure" Visible ="false" CssClass="alert alert-danger alert-dismissable fade in" runat="server">
-                        </asp:Label>
-
                         <asp:GridView CssClass="table table-striped" ID="gvFreight" DataKeyNames="Id" ShowFooter="true" runat="server" AutoGenerateColumns="false" 
                             OnRowEditing="gvFreight_RowEditing" OnRowUpdating="gvFreight_RowUpdating" OnRowCancelingEdit="gvFreight_RowCancelingEdit" OnRowDeleting="gvFreight_RowDeleting"
                             EmptyDataText="No records has been added." Font-Bold="true">
@@ -149,11 +143,11 @@
                             </Columns>
                         </asp:GridView>
 
+                        <h4>Add New Freight:</h4>
                         <asp:Table ID="tbAddFreight" CSSClass="table table-striped" runat="server">
                             <asp:TableRow Font-Bold="true">
                                     <asp:TableCell style="width: 100px">
                                         Freight&amp;Charges:<br />
-                                        <%--<asp:TextBox ID="txtNewCode" runat="server" Width="90" />--%>
                                         <asp:DropDownList ID="ddlNewCode" runat="server" Width ="98">
                                         </asp:DropDownList>
                                         <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="ddlNewCode" ValidationGroup="AddFreight" runat="server" />
