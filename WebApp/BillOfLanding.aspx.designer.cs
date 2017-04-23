@@ -13,6 +13,96 @@ namespace WebApp {
     public partial class BillOfLanding {
         
         /// <summary>
+        /// txtSearchBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSearchBox;
+        
+        /// <summary>
+        /// hfSearchBookingId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfSearchBookingId;
+        
+        /// <summary>
+        /// ddlSearchOption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSearchOption;
+        
+        /// <summary>
+        /// btnSelectedSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSelectedSearch;
+        
+        /// <summary>
+        /// lblShipper control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblShipper;
+        
+        /// <summary>
+        /// lblCarrierRef control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCarrierRef;
+        
+        /// <summary>
+        /// lblBLNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBLNo;
+        
+        /// <summary>
+        /// lblGiffiRef control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGiffiRef;
+        
+        /// <summary>
+        /// ddlConsigneeSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlConsigneeSearch;
+        
+        /// <summary>
+        /// tbxConsigneeAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbxConsigneeAddress;
+        
+        /// <summary>
         /// txtConsignee control.
         /// </summary>
         /// <remarks>
@@ -22,22 +112,22 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtConsignee;
         
         /// <summary>
-        /// lblConsignee control.
+        /// txtPlaceOfReceipt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblConsignee;
+        protected global::System.Web.UI.WebControls.TextBox txtPlaceOfReceipt;
         
         /// <summary>
-        /// rfvConsignee control.
+        /// ddlNotify control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvConsignee;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNotify;
         
         /// <summary>
         /// txtNotify control.
@@ -49,22 +139,22 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtNotify;
         
         /// <summary>
-        /// lblNotify control.
+        /// txtPlaceOfDelivery control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNotify;
+        protected global::System.Web.UI.WebControls.TextBox txtPlaceOfDelivery;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// ddlSupplier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSupplier;
         
         /// <summary>
         /// txtSupplier control.
@@ -76,22 +166,13 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtSupplier;
         
         /// <summary>
-        /// lblSupplier control.
+        /// ddlWarehouse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSupplier;
-        
-        /// <summary>
-        /// RequiredFieldValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        protected global::System.Web.UI.WebControls.DropDownList ddlWarehouse;
         
         /// <summary>
         /// txtWarehouse control.
@@ -103,21 +184,39 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtWarehouse;
         
         /// <summary>
-        /// lblWarehouse control.
+        /// txtNotes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWarehouse;
+        protected global::System.Web.UI.WebControls.TextBox txtNotes;
         
         /// <summary>
-        /// RequiredFieldValidator3 control.
+        /// txtPlace control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        protected global::System.Web.UI.WebControls.TextBox txtPlace;
+        
+        /// <summary>
+        /// txtDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDate;
+        
+        /// <summary>
+        /// btnSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
     }
 }

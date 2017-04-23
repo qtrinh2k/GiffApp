@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered col-lg-112">
                             <tr>
                                 <td colspan="3">
                                     <h3 class="panel-title"><strong>Description Of Shipment</strong><br />

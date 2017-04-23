@@ -114,7 +114,7 @@ namespace WebApp
             }
         }
 
-        public static Company GetCompanyInfo(double giffiRef)
+        public static Company GetBillToCompany(double giffiRef)
         {
             int bookingId = DataUtil.GetBookingIdFromGiffiId(giffiRef);
 
@@ -182,7 +182,7 @@ namespace WebApp
 
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
-                List<double> giffiIds = (from c in dc.BookingReferences select c.GiffiId).ToList();//.Select(d => string.Format("{0:0.00}",d));
+                List<double> giffiIds = (from c in dc.BookingReferences select c.GiffiId).ToList();
                 List<string> listGiffiIds = giffiIds.Select(d => string.Format("{0:0.##}", d)).ToList();
 
                 if (pre.Equals("*") || pre.Equals("."))

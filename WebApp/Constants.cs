@@ -11,6 +11,15 @@ namespace WebApp
         Payable
     }
 
+    public enum CompanyType
+    {
+        Vendor,
+        Customer,
+        Consignee,
+        Warehouse,
+        Supplier
+    }
+
     public class Constants
     {
         public const int InitBookingId = 86000;

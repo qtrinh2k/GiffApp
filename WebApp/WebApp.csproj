@@ -135,6 +135,7 @@
     <Content Include="Accounting.aspx" />
     <Content Include="BillOfLanding.aspx" />
     <Content Include="Booking.aspx" />
+    <Content Include="CertOfOrigin.aspx" />
     <Content Include="CSS\calendar-blue.css" />
     <Content Include="CSS\Style.css" />
     <Content Include="Global.asax" />
@@ -259,6 +260,13 @@
     </Compile>
     <Compile Include="BookingView.cs">
       <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CertOfOrigin.aspx.cs">
+      <DependentUpon>CertOfOrigin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CertOfOrigin.aspx.designer.cs">
+      <DependentUpon>CertOfOrigin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Company.aspx.cs">
       <DependentUpon>Company.aspx</DependentUpon>

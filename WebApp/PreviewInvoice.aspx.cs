@@ -22,7 +22,7 @@ namespace WebApp
                         lblInvoiceNo.Text = giffiRef.ToString();
                         lblInvoiceNo.DataBind();
 
-                        Company c = DataUtil.GetCompanyInfo(giffiRef);
+                        Company c = DataUtil.GetBillToCompany(giffiRef);
                         Booking b = DataUtil.GetBookingFromGiffiId(giffiRef);
 
                         if(b == null)
