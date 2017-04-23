@@ -15,6 +15,52 @@ namespace WebApp
 
     public class DataUtil
     {
+        public static string GetCompanyAsHtml(int compId)
+        {
+            if (compId <= 0)
+                return string.Empty;
+
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                Company cp = (from c in dc.Companies
+                      where c.Id == compId
+                      select c).FirstOrDefault();
+
+                string cityZip = string.Join(", ", cp.City.Trim(), cp.State.Trim(), cp.ZipCode.Trim());
+                string cpInfo = string.Join("</br>", cp.CompanyName, cp.Address, cityZip, cp.Country);
+                return cpInfo;
+            }
+
+        }
+        public static string GetCompanyAsText(int compId)
+        {
+            if (compId <= 0)
+                return string.Empty;
+
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                Company cp = (from c in dc.Companies
+                              where c.Id == compId
+                              select c).FirstOrDefault();
+
+                string cityZip = string.Join(", ", cp.City.Trim(), cp.State.Trim(), cp.ZipCode.Trim());
+                string cpInfo = string.Join("\n", cp.CompanyName, cp.Address, cityZip, cp.Country);
+                return cpInfo;
+            }
+
+        }
+
+        public static List<Company> GetCompanyByType(CompanyType type)
+        {
+            List<Company> cp = new List<Company>();
+            using (GiffiDBEntities dc = new GiffiDBEntities())
+            {
+                cp = (from c in dc.Companies
+                      where c.CompanyType.Equals(type.ToString(), StringComparison.InvariantCultureIgnoreCase)
+                      select c).ToList();
+            }
+            return cp;
+        }
         public static int GetCompanyIdFromName(string companyName)
         {
             using (GiffiDBEntities dc = new GiffiDBEntities())

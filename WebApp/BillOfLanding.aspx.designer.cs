@@ -67,13 +67,13 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.Label lblCarrierRef;
         
         /// <summary>
-        /// lblBLNo control.
+        /// txtBLNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBLNo;
+        protected global::System.Web.UI.WebControls.TextBox txtBLNo;
         
         /// <summary>
         /// lblGiffiRef control.
@@ -85,22 +85,13 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.Label lblGiffiRef;
         
         /// <summary>
-        /// ddlConsigneeSearch control.
+        /// ddlConsignee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlConsigneeSearch;
-        
-        /// <summary>
-        /// tbxConsigneeAddress control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxConsigneeAddress;
+        protected global::System.Web.UI.WebControls.DropDownList ddlConsignee;
         
         /// <summary>
         /// txtConsignee control.
@@ -110,6 +101,15 @@ namespace WebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtConsignee;
+        
+        /// <summary>
+        /// txtConsigneeRef control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtConsigneeRef;
         
         /// <summary>
         /// txtPlaceOfReceipt control.

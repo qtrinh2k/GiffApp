@@ -14,9 +14,40 @@ namespace WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                List<Company> cp = DataUtil.GetCompanyByType(CompanyType.Consignee);
+                cp.Insert(0, new Company { Id = 0, CompanyName = "--Select--" });
+
+                ddlConsignee.DataSource = cp;
+                ddlConsignee.DataTextField = "CompanyName";
+                ddlConsignee.DataValueField = "Id";
+                ddlConsignee.DataBind();
+
+                ddlNotify.DataSource = cp;
+                ddlNotify.DataTextField = "CompanyName";
+                ddlNotify.DataValueField = "Id";
+                ddlNotify.DataBind();
+
+                List<Company> cpSuppliers = DataUtil.GetCompanyByType(CompanyType.Supplier);
+                cpSuppliers.Insert(0, new Company { Id = 0, CompanyName = "--Select--" });
+
+                ddlSupplier.DataSource = cpSuppliers;
+                ddlSupplier.DataTextField = "CompanyName";
+                ddlSupplier.DataValueField = "Id";
+                ddlSupplier.DataBind();
+
+                List<Company> cpWarehouses = DataUtil.GetCompanyByType(CompanyType.Warehouse);
+                cpWarehouses.Insert(0, new Company { Id = 0, CompanyName = "--Select--" });
+
+                ddlWarehouse.DataSource = cpWarehouses;
+                ddlWarehouse.DataTextField = "CompanyName";
+                ddlWarehouse.DataValueField = "Id";
+                ddlWarehouse.DataBind();
+            }
+
 
         }
-
 
         #region WebMethod
         [WebMethod]
@@ -103,7 +134,8 @@ namespace WebApp
         {
             int option = int.Parse(ddlSearchOption.SelectedValue.ToString());
             string searchPhase = txtSearchBox.Text.Trim();
-            var regex = new Regex(searchPhase, RegexOptions.IgnoreCase);
+            string giffiRefNo = searchPhase;
+
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
                 switch (option)
@@ -115,15 +147,33 @@ namespace WebApp
                             return;
                         }
 
-                        lblGiffiRef.Text = searchPhase;
-                        PopulateBookingData(searchPhase);
+                        PopulateBookingData(giffiRefNo);
                             
                         break;
-                    case 2:
+                    case 2: //ShipperRef
+                        double? dGiffiRef = dc.BookingViews.Where(x => x.ShipperRefNo.Equals(searchPhase, StringComparison.InvariantCultureIgnoreCase)).Select(x => x.GiffiId).FirstOrDefault();
+
+                        if (!dGiffiRef.HasValue)
+                        {
+                            this.AlertMessage(GetType(), string.Format("SYSTEM ERROR!!! INVALID GiffRef#{0}", searchPhase));
+                            return;
+                        }
+
+                        PopulateBookingData(dGiffiRef.Value.ToString());
                         break;
-                    case 3:
+                    case 3: //CarrierRef
+                        double? dGiffiRef2 = dc.BookingViews.Where(x => x.CarrierRefNo.Equals(searchPhase, StringComparison.InvariantCultureIgnoreCase)).Select(x => x.GiffiId).FirstOrDefault();
+
+                        if (!dGiffiRef2.HasValue)
+                        {
+                            this.AlertMessage(GetType(), string.Format("SYSTEM ERROR!!! INVALID GiffRef#{0}", searchPhase));
+                            return;
+                        }
+
+                        PopulateBookingData(dGiffiRef2.Value.ToString());
+
                         break;
-                    default:
+                    default: 
                         break;
                 }
             }
@@ -132,13 +182,14 @@ namespace WebApp
         private void PopulateBookingData(string giffiReNo)
         {
             int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(giffiReNo));
+
+            lblGiffiRef.Text = giffiReNo;
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
                 BookingView view = dc.BookingViews.ToList<BookingView>().Where(x => x.BookingId == bookingId).FirstOrDefault();
 
                 if (view != null)
                 {
-
                     Company c = DataUtil.GetBillToCompany(double.Parse(giffiReNo)); //using
 
                     string cityZip = string.Join(", ", c.City.Trim(), c.State.Trim(), c.ZipCode.Trim());
@@ -147,9 +198,36 @@ namespace WebApp
                     lblShipper.Text = cpInfo;
                     lblCarrierRef.Text = view.CarrierRefNo;
                 }
+            }                
+        }
+        
+        protected void ddlNotify_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int id = int.Parse(ddlNotify.SelectedValue);
+            txtNotify.Text = DataUtil.GetCompanyAsText(id);
+        }
 
-            }
-                
+        protected void ddlSupplier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int id = int.Parse(ddlSupplier.SelectedValue);
+            txtSupplier.Text = DataUtil.GetCompanyAsText(id);
+
+        }
+
+        protected void ddlConsignee_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int id = int.Parse(ddlConsignee.SelectedValue);
+            txtConsignee.Text = DataUtil.GetCompanyAsText(id);
+        }
+
+        protected void ddlWarehouse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int id = int.Parse(ddlWarehouse.SelectedValue);
+            txtWarehouse.Text = DataUtil.GetCompanyAsText(id);
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
 
         }
     }

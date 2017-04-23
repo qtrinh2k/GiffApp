@@ -1,0 +1,23 @@
+﻿CREATE TABLE [dbo].[BillOfLanding]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[BookingId] INT NOT NULL,
+	[BOLRef] NVARCHAR(25) NULL,
+	[ConsigneeId] int NULL,
+	[ConsigneeAddress] NVARCHAR(200) NULL,
+	[ConsigneeRef] nvarchar(25),
+	[PlaceOfReceipt] nvarchar(25),
+	[NotifyId] int NULL,
+	[NotifyAddress] NVARCHAR(200) NULL,
+	[PlaceOfOrder] nvarchar(25),
+	[PlaceOfDelivery] nvarchar(25),
+	[SupplierId] int NULL,
+	[SupplierAddress] NVARCHAR(200) NULL,
+	[WarehouseId] int NULL,
+	[WarehouseAddress] NVARCHAR(200) NULL,
+	[Notes] NVARCHAR(200) NULL,
+	[PlaceOfIssue] NVARCHAR(25) NULL,
+	[DateOfIssue] DateTime NULL,
+	[CreatedDate] DateTime DEFAULT GETDATE(),
+	[ModifiedDate] DateTime DEFAULT GETDATE(),
+)
