@@ -35,9 +35,7 @@ namespace WebApp
                         gvIndex.DataBind();
                     }
                 }
-
             }
-
         }
         protected void SelectedSearch_Click(object sender, EventArgs e)
         {

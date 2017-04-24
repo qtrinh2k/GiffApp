@@ -39,6 +39,7 @@
         <div class="col-sm-3 form-group">
             <asp:TextBox ID="txtSearchBox" CssClass="form-control" TabIndex="1" runat="server" />
             <asp:HiddenField ID="hfSearchBookingId" runat="server" />
+            <asp:HiddenField ID="hfBOLId" runat="server" />
         </div>
         <div class="col-sm-3 form-group">
             <asp:DropDownList CssClass="form-control" ID="ddlSearchOption" ClientIDMode="Static" TabIndex="2" runat="server">
@@ -154,11 +155,11 @@
                     <td>
                         <div class="form-group col-md-4">
                             <label class="small">Place of Issue:</label><br />
-                            <asp:TextBox ID="txtPlace" CssClass="form-control" runat="server" />
+                            <asp:TextBox ID="txtPlaceOfIssue" CssClass="form-control" runat="server" />
                         </div>
                         <div class="form-group col-md-4">
                             <label class="small">Date of Issue:</label><br />
-                            <asp:TextBox ID="txtDate" CssClass="form-control" runat="server" />
+                            <asp:TextBox ID="txtDateOfIssue" CssClass="form-control" runat="server" />
                         </div>
                     </td>
                 </tr>

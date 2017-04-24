@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace WebApp
 {
+    using DataAccess;
     public partial class BillOfLanding : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -148,7 +149,7 @@ namespace WebApp
                         }
 
                         PopulateBookingData(giffiRefNo);
-                            
+
                         break;
                     case 2: //ShipperRef
                         double? dGiffiRef = dc.BookingViews.Where(x => x.ShipperRefNo.Equals(searchPhase, StringComparison.InvariantCultureIgnoreCase)).Select(x => x.GiffiId).FirstOrDefault();
@@ -173,7 +174,7 @@ namespace WebApp
                         PopulateBookingData(dGiffiRef2.Value.ToString());
 
                         break;
-                    default: 
+                    default:
                         break;
                 }
             }
@@ -184,6 +185,8 @@ namespace WebApp
             int bookingId = DataUtil.GetBookingIdFromGiffiId(double.Parse(giffiReNo));
 
             lblGiffiRef.Text = giffiReNo;
+            hfSearchBookingId.Value = bookingId.ToString();
+            hfBOLId.Value = "-1";
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
                 BookingView view = dc.BookingViews.ToList<BookingView>().Where(x => x.BookingId == bookingId).FirstOrDefault();
@@ -198,9 +201,9 @@ namespace WebApp
                     lblShipper.Text = cpInfo;
                     lblCarrierRef.Text = view.CarrierRefNo;
                 }
-            }                
+            }
         }
-        
+
         protected void ddlNotify_SelectedIndexChanged(object sender, EventArgs e)
         {
             int id = int.Parse(ddlNotify.SelectedValue);
@@ -228,7 +231,39 @@ namespace WebApp
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            int bookingId = -1;
+            if (!int.TryParse(hfSearchBookingId.Value, out bookingId))
+            {
+                this.AlertMessage(GetType(), "Required a valid GiffiId before insert BOL info");
+                return;
+            }
 
+            BillOfLanding bol = new BillOfLanding
+            {
+                Id = int.Parse(hfBOLId.Value),
+                BookingId = bookingId,
+                BOLRef = txtBLNo.Text.Trim(),
+                ConsigneeId = int.Parse(ddlConsignee.SelectedValue),
+                ConsigneeAddress = txtConsignee.Text,
+                ConsigneeRef = txtConsigneeRef.Text,
+                NotifyId = int.Parse(ddlNotify.SelectedValue),
+                NotifyAddress = txtNotify.Text,
+                PlaceOfDelivery = txtPlaceOfDelivery.Text,
+                PlaceOfReceipt = txtPlaceOfReceipt.Text,
+                PlaceOfIssue = txtPlaceOfIssue.Text,
+                DateOfIssue = (!string.IsNullOrWhiteSpace(txtDateOfIssue.Text)) ? DateTime.Parse(txtDateOfIssue.Text.Trim()) : new Nullable<DateTime>(),
+                SupplierId = int.Parse(ddlSupplier.SelectedValue),
+                SupplierAddress = txtSupplier.Text,
+                WarehouseId = int.Parse(ddlWarehouse.SelectedValue),
+                WarehouseAddress = txtWarehouse.Text,
+                Notes = txtNotes.Text.Trim()
+            };
+
+            BOLRepository repo = new BOLRepository();
+            if (repo.InsertUpdate(bol))
+            {                
+                this.AlertMessage(GetType(), "Successfully Update BOL!!!");
+            }
         }
     }
 }

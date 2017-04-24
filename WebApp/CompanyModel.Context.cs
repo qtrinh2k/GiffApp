@@ -37,6 +37,7 @@ namespace WebApp
         public virtual DbSet<BookingReference> BookingReferences { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<BookingView> BookingViews { get; set; }
+        public virtual DbSet<BillOfLanding> BillOfLandings { get; set; }
     
         public virtual ObjectResult<GetFreightByBookingId_Result> GetFreightByBookingId(Nullable<int> bookingId)
         {

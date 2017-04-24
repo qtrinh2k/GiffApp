@@ -21,6 +21,10 @@ namespace WebApp
             this.Bookings = new HashSet<Booking>();
             this.Bookings1 = new HashSet<Booking>();
             this.Bookings2 = new HashSet<Booking>();
+            this.BillOfLandings = new HashSet<BillOfLanding>();
+            this.BillOfLandings1 = new HashSet<BillOfLanding>();
+            this.BillOfLandings2 = new HashSet<BillOfLanding>();
+            this.BillOfLandings3 = new HashSet<BillOfLanding>();
         }
     
         public int Id { get; set; }
@@ -45,5 +49,13 @@ namespace WebApp
         public virtual ICollection<Booking> Bookings1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BillOfLanding> BillOfLandings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BillOfLanding> BillOfLandings1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BillOfLanding> BillOfLandings2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BillOfLanding> BillOfLandings3 { get; set; }
     }
 }

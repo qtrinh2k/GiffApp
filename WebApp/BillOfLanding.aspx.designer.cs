@@ -31,6 +31,15 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.HiddenField hfSearchBookingId;
         
         /// <summary>
+        /// hfBOLId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfBOLId;
+        
+        /// <summary>
         /// ddlSearchOption control.
         /// </summary>
         /// <remarks>
@@ -193,22 +202,22 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtNotes;
         
         /// <summary>
-        /// txtPlace control.
+        /// txtPlaceOfIssue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPlace;
+        protected global::System.Web.UI.WebControls.TextBox txtPlaceOfIssue;
         
         /// <summary>
-        /// txtDate control.
+        /// txtDateOfIssue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDate;
+        protected global::System.Web.UI.WebControls.TextBox txtDateOfIssue;
         
         /// <summary>
         /// btnSubmit control.

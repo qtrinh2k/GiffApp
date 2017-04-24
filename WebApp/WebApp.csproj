@@ -244,6 +244,9 @@
     <Compile Include="BillOfLanding.aspx.designer.cs">
       <DependentUpon>BillOfLanding.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BillOfLanding.cs">
+      <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Booking.aspx.cs">
       <DependentUpon>Booking.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -308,6 +311,7 @@
     </Compile>
     <Compile Include="ControlExtension.cs" />
     <Compile Include="DataAccess\BillingRepository.cs" />
+    <Compile Include="DataAccess\BOLRepository.cs" />
     <Compile Include="DataAccess\BookingRepository.cs" />
     <Compile Include="DataAccess\CompanyRepository.cs" />
     <Compile Include="DataAccess\ContainerRepository.cs" />
