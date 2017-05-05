@@ -89,10 +89,10 @@
                             <div class="form-group col-sm-12">
                                 <label class="small">Consignee: </label>
                                 <br />
-                                <asp:DropDownList ID="ddlConsignee" CssClass="form-control" Width="35%" TabIndex="5" OnSelectedIndexChanged="ddlConsignee_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlConsignee" CssClass="form-control" Width="35%" TabIndex="4" OnSelectedIndexChanged="ddlConsignee_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
                             </div>
                             <div class="form-group col-sm-12">
-                                <asp:TextBox ID="txtConsignee" CssClass="form-control" Width="75%" Rows="4" TextMode="MultiLine" runat="server" />
+                                <asp:TextBox ID="txtConsignee" CssClass="form-control" Width="75%" Rows="5" TextMode="MultiLine" runat="server" />
                             </div>
                         </div>
                     </td>
@@ -112,7 +112,7 @@
                             <asp:DropDownList ID="ddlNotify" CssClass="form-control" TabIndex="8" Width="35%" OnSelectedIndexChanged="ddlNotify_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
                         </div>
                         <div class="form-group">
-                            <asp:TextBox ID="txtNotify" CssClass="form-control" Width="75%" TabIndex="9" TextMode="MultiLine"  Rows="4" runat="server" />
+                            <asp:TextBox ID="txtNotify" CssClass="form-control" Width="75%" TabIndex="9" TextMode="MultiLine" Rows="4" runat="server" />
                         </div>
                     </td>
                     <td>
@@ -142,24 +142,38 @@
                         </div>
                     </td>
                 </tr>
+
                 <tr>
-                    <td colspan="2">
-                        <div class="form-group">
-                            <label class="small">Notes:</label><br />
-                            <asp:TextBox ID="txtNotes" CssClass="form-control" TextMode="MultiLine" runat="server" />
+                    <td>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="small">Container No:</label><br />
+                                <asp:TextBox ID="txtContainerNo" CssClass="form-control" Enabled="false" runat="server" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="small">SEAL No:</label><br />
+                                <asp:TextBox ID="txtSEALNo" CssClass="form-control" Enabled="false" runat="server" />
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="small">Place of Issue:</label><br />
+                                <asp:TextBox ID="txtPlaceOfIssue" CssClass="form-control" runat="server" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="small">Date of Issue:</label><br />
+                                <asp:TextBox ID="txtDateOfIssue" CssClass="form-control" runat="server" />
+                            </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>
-                        <div class="form-group col-md-4">
-                            <label class="small">Place of Issue:</label><br />
-                            <asp:TextBox ID="txtPlaceOfIssue" CssClass="form-control" runat="server" />
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="small">Date of Issue:</label><br />
-                            <asp:TextBox ID="txtDateOfIssue" CssClass="form-control" runat="server" />
+                    <td colspan="2">
+                        <div class="form-group">
+                            <label class="small">Notes:</label><br />
+                            <asp:TextBox ID="txtNotes" CssClass="form-control" TextMode="MultiLine" Rows="4" runat="server" />
                         </div>
                     </td>
                 </tr>

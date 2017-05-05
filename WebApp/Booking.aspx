@@ -311,7 +311,7 @@
                 </div>
                 <div class="form-group">
                     <label>Notes:</label>
-                    <asp:TextBox ID="txtNotes" placeholder="Write note here.." Rows="3" TabIndex="21" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtNotes" placeholder="Write note here.." Rows="3" TabIndex="21" CssClass="form-control" TextMode="MultiLine" runat="server"></asp:TextBox>
                 </div>
                 <div class="row">
                     <div class="col-sm-3 form-group">

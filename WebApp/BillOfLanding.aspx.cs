@@ -46,8 +46,6 @@ namespace WebApp
                 ddlWarehouse.DataValueField = "Id";
                 ddlWarehouse.DataBind();
             }
-
-
         }
 
         #region WebMethod
@@ -189,8 +187,7 @@ namespace WebApp
             hfBOLId.Value = "-1";
             using (GiffiDBEntities dc = new GiffiDBEntities())
             {
-                BookingView view = dc.BookingViews.ToList<BookingView>().Where(x => x.BookingId == bookingId).FirstOrDefault();
-
+                BookingView view = dc.BookingViews.ToList<BookingView>().Where(x => x.BookingId == bookingId).FirstOrDefault();                
                 if (view != null)
                 {
                     Company c = DataUtil.GetBillToCompany(double.Parse(giffiReNo)); //using
@@ -200,6 +197,31 @@ namespace WebApp
 
                     lblShipper.Text = cpInfo;
                     lblCarrierRef.Text = view.CarrierRefNo;
+                }
+
+                Container cont = dc.Containers.Where(x => x.BookingId == bookingId).FirstOrDefault();
+                if(cont != null)
+                {
+                    txtContainerNo.Text = cont.ContainerNo;
+                    txtSEALNo.Text = cont.SealNo;
+                }
+
+                if(dc.BillOfLandings.Any(x => x.BookingId == bookingId))
+                {
+                    var bol = dc.BillOfLandings.Where(x => x.BookingId == bookingId).FirstOrDefault();
+                    hfBOLId.Value = bol.Id.ToString();
+
+                    txtConsignee.Text = bol.ConsigneeAddress;
+                    txtConsigneeRef.Text = bol.ConsigneeRef;
+                    txtBLNo.Text = bol.BOLRef.ToString();
+                    txtNotify.Text = bol.NotifyAddress;
+                    txtDateOfIssue.Text = (bol.DateOfIssue.HasValue) ? bol.DateOfIssue.Value.ToString("d") : "";
+                    txtPlaceOfIssue.Text = bol.PlaceOfIssue;
+                    txtPlaceOfDelivery.Text = bol.PlaceOfDelivery;
+                    txtPlaceOfReceipt.Text = bol.PlaceOfReceipt;
+                    txtSupplier.Text = bol.SupplierAddress;
+                    txtWarehouse.Text = bol.WarehouseAddress;
+                    txtNotes.Text = bol.Notes;
                 }
             }
         }
@@ -240,30 +262,46 @@ namespace WebApp
 
             BillOfLanding bol = new BillOfLanding
             {
-                Id = int.Parse(hfBOLId.Value),
+                Id = string.IsNullOrWhiteSpace(hfBOLId.Value) ? -1 : int.Parse(hfBOLId.Value),
                 BookingId = bookingId,
                 BOLRef = txtBLNo.Text.Trim(),
-                ConsigneeId = int.Parse(ddlConsignee.SelectedValue),
                 ConsigneeAddress = txtConsignee.Text,
                 ConsigneeRef = txtConsigneeRef.Text,
-                NotifyId = int.Parse(ddlNotify.SelectedValue),
                 NotifyAddress = txtNotify.Text,
                 PlaceOfDelivery = txtPlaceOfDelivery.Text,
                 PlaceOfReceipt = txtPlaceOfReceipt.Text,
                 PlaceOfIssue = txtPlaceOfIssue.Text,
-                DateOfIssue = (!string.IsNullOrWhiteSpace(txtDateOfIssue.Text)) ? DateTime.Parse(txtDateOfIssue.Text.Trim()) : new Nullable<DateTime>(),
-                SupplierId = int.Parse(ddlSupplier.SelectedValue),
+                DateOfIssue = (!string.IsNullOrWhiteSpace(txtDateOfIssue.Text)) ? DateTime.Parse(txtDateOfIssue.Text.Trim()) : DateTime.Now,
                 SupplierAddress = txtSupplier.Text,
-                WarehouseId = int.Parse(ddlWarehouse.SelectedValue),
                 WarehouseAddress = txtWarehouse.Text,
                 Notes = txtNotes.Text.Trim()
             };
 
             BOLRepository repo = new BOLRepository();
             if (repo.InsertUpdate(bol))
-            {                
-                this.AlertMessage(GetType(), "Successfully Update BOL!!!");
+            {
+                ClearAllText();
+                this.AlertMessage(GetType(), string.Format("Successfully Update BOL for bookingId={0}!!!", bookingId));
             }
         }
+
+        private void ClearAllText()
+        {
+            var txtBoxes = this.Controls.FindAll().OfType<TextBox>();
+            foreach (var item in txtBoxes)
+            {
+                item.Text = "";
+            }
+
+            hfBOLId.Value = "-1";
+            lblCarrierRef.Text = "";
+            lblGiffiRef.Text = "";
+            lblShipper.Text = "";
+            ddlConsignee.TabIndex = -1;
+            ddlNotify.TabIndex = -1;
+            ddlSupplier.TabIndex = -1;
+            ddlWarehouse.TabIndex = -1;
+        }
+
     }
 }

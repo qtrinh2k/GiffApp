@@ -43,6 +43,7 @@
                                 <li><a id="indexPage" href="Index.aspx">Home</a></li>
                                 <li><a id="bookingPage" href="Booking.aspx">Booking</a></li>
                                 <li><a id="containerPage" href="Container.aspx">Container</a></li>
+                                <li><a id="BOLPage" href="BillOfLanding.aspx">BillOfLanding</a></li>
                                 <li><a id="freightPage" href="Freight.aspx">Freight</a></li>
                                 <li><a id="invoicePage" href="Invoice.aspx">Invoice</a></li>
                                 <li><a id="mgmtPage" href="Management.aspx">Management</a></li>

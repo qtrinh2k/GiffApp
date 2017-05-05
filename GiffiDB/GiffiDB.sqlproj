@@ -79,7 +79,6 @@
     <Build Include="dbo\Tables\Container.sql" />
     <Build Include="dbo\Tables\Freight.sql" />
     <Build Include="dbo\Tables\Company.sql" />
-    <Build Include="dbo\Tables\Carrier.sql" />
     <Build Include="dbo\Tables\Location.sql" />
     <Build Include="dbo\Tables\Booking.sql" />
     <Build Include="dbo\Tables\AccountingCode.sql" />
@@ -87,9 +86,7 @@
     <Build Include="dbo\GetCarrierById.sql" />
     <Build Include="dbo\InsertBooking.sql" />
     <Build Include="dbo\GetBookingByGiffiId.sql" />
-    <Build Include="dbo\InsertCarrier.sql" />
     <Build Include="dbo\InsertAccountingCode.sql" />
-    <Build Include="dbo\InsertLocation.sql" />
     <Build Include="dbo\InsertCompany.sql" />
     <Build Include="dbo\GetCompanyById.sql" />
     <Build Include="dbo\GetFreightById.sql" />
@@ -125,6 +122,8 @@
     <Build Include="dbo\BookingView.sql" />
     <Build Include="dbo\Tables\BillOfLanding.sql" />
     <Build Include="dbo\InsertUpdateBOL.sql" />
+    <Build Include="dbo\Tables\CertOfOrigin.sql" />
+    <Build Include="dbo\InsertUpdateCOO.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Snapshots\GiffiDB_20170219_15-15-06.dacpac" />

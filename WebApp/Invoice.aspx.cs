@@ -87,11 +87,13 @@ namespace WebApp
                 gvInvoice.DataSource = DataUtil.GetBillingItems(giffiRef);
                 gvInvoice.DataBind();
 
-                ddlAddCode.DataSource = GetAcctCodeMapIdWithName();
+                Dictionary<string, string> codes = GetAcctCodeMapIdWithName();
+                codes.Add("--Select--", "0");
+
+                ddlAddCode.DataSource = codes.OrderByDescending(x => x.Key);
                 ddlAddCode.DataTextField = "Key";
                 ddlAddCode.DataValueField = "Key";                                
                 ddlAddCode.DataBind();
-                ddlAddCode.Items.Insert(0, new ListItem("--Select--", "0"));
 
                 ddlAddVendor.DataSource = GetVendorInfo();
                 ddlAddVendor.DataTextField = "Value";

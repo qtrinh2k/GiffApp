@@ -12,11 +12,12 @@ namespace WebApp
     using System;
     using System.Collections.Generic;
     
-    public partial class BillOfLanding
+    public partial class CertOfOrigin
     {
         public int Id { get; set; }
         public int BookingId { get; set; }
         public string BOLRef { get; set; }
+        public string CertificateRef { get; set; }
         public string ConsigneeAddress { get; set; }
         public string ConsigneeRef { get; set; }
         public string PlaceOfReceipt { get; set; }

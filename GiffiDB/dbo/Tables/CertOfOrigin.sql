@@ -1,8 +1,9 @@
-﻿CREATE TABLE [dbo].[BillOfLanding]
+﻿CREATE TABLE [dbo].[CertOfOrigin]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[BookingId] INT NOT NULL,
 	[BOLRef] NVARCHAR(25) NOT NULL,
+	[CertificateRef] NVARCHAR(25) NOT NULL,
 	[ConsigneeAddress] NVARCHAR(200) NULL,
 	[ConsigneeRef] nvarchar(25) NULL,
 	[PlaceOfReceipt] nvarchar(25) NULL,
@@ -15,5 +16,5 @@
 	[DateOfIssue] DateTime NULL,
 	[CreatedDate] DateTime DEFAULT GETDATE(),
 	[ModifiedDate] DateTime DEFAULT GETDATE(), 
-    CONSTRAINT [FK_BillOfLanding_ToBooking] FOREIGN KEY ([BookingId]) REFERENCES [Booking]([Id])
+    CONSTRAINT [FK_CertOfOrigin_ToBooking] FOREIGN KEY ([BookingId]) REFERENCES [Booking]([Id])
 )

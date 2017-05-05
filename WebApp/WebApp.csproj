@@ -271,6 +271,9 @@
     <Compile Include="CertOfOrigin.aspx.designer.cs">
       <DependentUpon>CertOfOrigin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CertOfOrigin.cs">
+      <DependentUpon>CompanyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Company.aspx.cs">
       <DependentUpon>Company.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -311,6 +314,7 @@
     </Compile>
     <Compile Include="ControlExtension.cs" />
     <Compile Include="DataAccess\BillingRepository.cs" />
+    <Compile Include="DataAccess\COORepository.cs" />
     <Compile Include="DataAccess\BOLRepository.cs" />
     <Compile Include="DataAccess\BookingRepository.cs" />
     <Compile Include="DataAccess\CompanyRepository.cs" />

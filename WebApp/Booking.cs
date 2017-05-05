@@ -22,6 +22,7 @@ namespace WebApp
             this.Containers = new HashSet<Container>();
             this.Freights = new HashSet<Freight>();
             this.BillOfLandings = new HashSet<BillOfLanding>();
+            this.CertOfOrigins = new HashSet<CertOfOrigin>();
         }
     
         public int Id { get; set; }
@@ -65,5 +66,7 @@ namespace WebApp
         public virtual ICollection<Freight> Freights { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BillOfLanding> BillOfLandings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CertOfOrigin> CertOfOrigins { get; set; }
     }
 }

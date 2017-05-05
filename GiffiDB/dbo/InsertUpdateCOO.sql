@@ -1,7 +1,8 @@
-﻿CREATE PROCEDURE [dbo].[InsertUpdateBOL]
+﻿CREATE PROCEDURE [dbo].[InsertUpdateCOO]
 	@Id int,
 	@BookingId int,
 	@BOLRef nvarchar(25),
+	@CertificateRef nvarchar(25),
 	@ConsigneeAddress nvarchar(200),
 	@ConsigneeRef nvarchar(25),
 	@PlaceOfReceipt nvarchar(25),
@@ -16,11 +17,12 @@
 	@ModifiedDate datetime
 AS
 	SET XACT_ABORT ON
-		IF EXISTS (SELECT [Id] FROM [dbo].[BillOfLanding] WHERE Id = @Id)
+		IF EXISTS (SELECT [Id] FROM [dbo].[CertOfOrigin] WHERE Id = @Id)
 	BEGIN
-		UPDATE [dbo].[BillOfLanding]
+		UPDATE [dbo].[CertOfOrigin]
 		   SET [BookingId] = @BookingId
 			  ,[BOLRef] = @BOLRef
+			  ,[CertificateRef] = @CertificateRef
 			  ,[ConsigneeAddress] = @ConsigneeAddress
 			  ,[ConsigneeRef] = @ConsigneeRef
 			  ,[PlaceOfReceipt] = @PlaceOfReceipt
@@ -39,9 +41,10 @@ AS
 	ELSE
 	BEGIN
 		BEGIN TRAN
-		INSERT INTO [dbo].[BillOfLanding]
+		INSERT INTO [dbo].[CertOfOrigin]
            ([BookingId]
-           ,[BOLRef]           
+           ,[BOLRef]
+		   ,[CertificateRef]
            ,[ConsigneeAddress]
            ,[ConsigneeRef]
            ,[PlaceOfReceipt]
@@ -57,6 +60,7 @@ AS
 		VALUES		
 			(@BookingId
 			,@BOLRef
+			,@CertificateRef
 			,@ConsigneeAddress
 			,@ConsigneeRef
 			,@PlaceOfReceipt

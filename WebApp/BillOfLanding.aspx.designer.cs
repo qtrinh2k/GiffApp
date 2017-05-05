@@ -193,13 +193,22 @@ namespace WebApp {
         protected global::System.Web.UI.WebControls.TextBox txtWarehouse;
         
         /// <summary>
-        /// txtNotes control.
+        /// txtContainerNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNotes;
+        protected global::System.Web.UI.WebControls.TextBox txtContainerNo;
+        
+        /// <summary>
+        /// txtSEALNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSEALNo;
         
         /// <summary>
         /// txtPlaceOfIssue control.
@@ -218,6 +227,15 @@ namespace WebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDateOfIssue;
+        
+        /// <summary>
+        /// txtNotes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNotes;
         
         /// <summary>
         /// btnSubmit control.

@@ -24,12 +24,10 @@
         <AssociationConnector Association="GiffiDBModel.FK_Container_ToBooking" />
         <AssociationConnector Association="GiffiDBModel.FK_Freight_ToBooking" />
         <EntityTypeShape EntityType="GiffiDBModel.BookingView" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="GiffiDBModel.BillOfLanding" Width="1.5" PointX="8.375" PointY="7.75" />
+        <EntityTypeShape EntityType="GiffiDBModel.BillOfLanding" Width="1.5" PointX="5.625" PointY="23.5" />
         <AssociationConnector Association="GiffiDBModel.FK_BillOfLanding_ToBooking" />
-        <AssociationConnector Association="GiffiDBModel.FK_BillOfLanding_ToCompany" />
-        <AssociationConnector Association="GiffiDBModel.FK_BillOfLanding_ToNotify" />
-        <AssociationConnector Association="GiffiDBModel.FK_BillOfLanding_ToSupplier" />
-        <AssociationConnector Association="GiffiDBModel.FK_BillOfLanding_ToWarehouse" />
+        <EntityTypeShape EntityType="GiffiDBModel.CertOfOrigin" Width="1.5" PointX="5.625" PointY="0.75" />
+        <AssociationConnector Association="GiffiDBModel.FK_CertOfOrigin_ToBooking" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
